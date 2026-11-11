@@ -69,6 +69,9 @@ body{background:radial-gradient(60% 40% at 15% 0%,rgba(255,31,122,.28),transpare
 .beone.lg{display:flex;flex-direction:column;align-items:center;margin:6px 0 16px}.beone.lg b{font-size:46px}
 .brandbar{position:relative;display:flex;align-items:center;justify-content:center;min-height:60px}
 .brandbar .beone.lg{margin:0 0 10px}
+.share{position:absolute;right:0;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:7px;min-height:40px;padding:0 13px;border:1px solid rgba(212,255,0,.4);border-radius:999px;background:rgba(8,9,16,.72);color:var(--txt);font:700 13px Outfit,system-ui,sans-serif;cursor:pointer;box-shadow:0 0 18px rgba(212,255,0,.1)}
+.share:active{transform:translateY(-50%) scale(.97)}
+.share span:first-child{color:var(--lime);font-size:17px}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 #mute{position:absolute;z-index:7;right:12px;bottom:10px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(5,6,15,.6);font-size:17px;cursor:pointer;color:#fff}
 .splb{text-align:center;font-size:10px;letter-spacing:.22em;color:var(--mut);margin-top:14px;font-weight:700}
@@ -134,7 +137,7 @@ body::after{background-image:radial-gradient(rgba(212,255,0,.18) .7px,transparen
 }
 </style></head>
 <body><div class="wrap">
-<div class="brandbar"><div class="beone lg"><b>BE<span class="o"></span>NE</b><small>BE-ONE GAME</small></div></div>
+<div class="brandbar"><div class="beone lg"><b>BE<span class="o"></span>NE</b><small>BE-ONE GAME</small></div><button class="share" id="share" type="button" aria-label="Compartir solo el enlace público"><span aria-hidden="true">↗</span><span id="share-label">Compartir</span></button><span class="sr-only" id="share-status" role="status" aria-live="polite"></span></div>
 <div class="card" id="card">
  <div class="top"><div class="logo"><i></i>ENERGY ZONE</div><div class="tag">5K · 28 NOV<small>TERRAZAS LINDORA</small></div></div>
  <div class="hud">
@@ -164,11 +167,23 @@ body::after{background-image:radial-gradient(rgba(212,255,0,.18) .7px,transparen
 </div>
 <script>
 const $=s=>document.querySelector(s),layer=$('#layer'),card=$('#card');
+const GAME_URL='https://aumana-dev.github.io/neon-run/';
 const RUN=['👟','🎧','🏅'],FORMAL=['🛋️','📺','🍔'],T=25;
 let S,raf,last,spawnT,best=0;
 try{best=+localStorage.getItem('nr_best')||0}catch(e){}
 function setBest(){$('#best').textContent=best;$('#best2').textContent=best}
 setBest();
+async function shareGame(){
+ if(navigator.share){
+  try{await navigator.share({title:'BE-ONE GAME',url:GAME_URL});return}catch(e){if(e.name==='AbortError')return}
+ }
+ try{
+  if(navigator.clipboard&&navigator.clipboard.writeText)await navigator.clipboard.writeText(GAME_URL);
+  else{const field=document.createElement('textarea');field.value=GAME_URL;field.setAttribute('readonly','');field.style.position='fixed';field.style.opacity='0';document.body.appendChild(field);field.select();const copied=document.execCommand('copy');field.remove();if(!copied)throw new Error('Clipboard unavailable')}
+  $('#share-label').textContent='Copiado';$('#share-status').textContent='Enlace público copiado';setTimeout(()=>$('#share-label').textContent='Compartir',1800)
+ }catch(e){$('#share-status').textContent='No se pudo copiar el enlace'}
+}
+$('#share').addEventListener('click',shareGame);
 function show(id){['start','count','over'].forEach(k=>$('#'+k).classList.toggle('on',k===id))}
 const mult=()=>S.streak>=6?3:S.streak>=3?2:1;
 function hud(){
