@@ -1,5 +1,5 @@
-# Neon Run · Atrapa tu energía
+# BE-ONE × kölbi · Immersive Run
 
-Demo de juego de reflejos para BE ONE Immersive Run (28 nov, Terrazas Lindora).
+Sitio informativo para el concepto BE-ONE Immersive Run junto a kölbi. Presenta la visión de una futura experiencia inmersiva de movimiento en vivo, además de la fecha y el lugar del evento.
 
-Un solo archivo: `index.html`. Sin dependencias ni build.
+La web actualmente no inicia partidas ni activa interacción en vivo. Es una página estática sin dependencias ni proceso de build; la ilustración del escenario está en `assets/activation-scene.svg`.
