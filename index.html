@@ -216,7 +216,7 @@ h1 em{background:linear-gradient(90deg,#d9ff79,var(--cyan));-webkit-background-c
  <div class="scr on" id="start">
   <h1>Atrapa tu<br><em>energía.</em></h1>
   <p class="sub">Toca lo que te hace correr. Esquiva lo que te frena.</p>
-  <div class="leg"><div>👟🎧🏅<p style="color:var(--cyan)">SUMA +100</p></div><div>🛋️📺🍔<p style="color:var(--red)">EVITA −150</p></div></div>
+    <div class="leg"><div>📱📶📺<p style="color:var(--cyan)">SUMA +100</p></div><div>📴🪫🚫<p style="color:var(--red)">EVITA −150</p></div></div>
   <button class="btn" id="go">Jugar · 25 segundos</button>
   <div class="rec">25 SEGUNDOS · 3 NIVELES · 3 VIDAS</div><div class="rec" style="margin-top:6px">RÉCORD <b id="best">0</b></div>
  </div>
@@ -231,7 +231,7 @@ h1 em{background:linear-gradient(90deg,#d9ff79,var(--cyan));-webkit-background-c
 </div>
 <script>
 const $=s=>document.querySelector(s),layer=$('#layer'),card=$('#card');
-const RUN=['👟','🎧','🏅'],FORMAL=['🛋️','📺','🍔'],T=25;
+const RUN=['📱','📶','📺'],FORMAL=['📴','🪫','🚫'],T=25;
 let S,raf,last,spawnT,best=0;
 try{best=+localStorage.getItem('nr_best')||0}catch(e){}
 function setBest(){$('#best').textContent=best;$('#best2').textContent=best}
