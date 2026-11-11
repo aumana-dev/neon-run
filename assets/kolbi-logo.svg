@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 220" role="img" aria-labelledby="title">
+  <title id="title">kölbi</title>
+  <g fill="#2fbe36">
+    <path d="M39 54C39 24 61 2 91 2c28 0 50 21 52 49h30c2-28 24-49 52-49 30 0 53 23 53 53v63c0 34-20 61-52 77l-56 25-12-9-14 9-56-25c-31-15-49-43-49-77V54Z"/>
+    <path d="M137 211H42c-21 0-39-15-39-34 0-18 17-36 37-39 18-3 32 8 45 21l56 54c5 5 2 12-4 12Zm33 0h95c21 0 39-15 39-34 0-18-17-36-37-39-18-3-32 8-45 21l-56 54c-5 5-2 12 4 12Z"/>
+    <path d="M307 7h58v87l78-87h76L419 111l109 102h-77l-86-77v77h-58V7Z"/>
+    <path fill-rule="evenodd" d="M505 64a75 75 0 1 1 0 150 75 75 0 0 1 0-150Zm0 39a36 36 0 1 0 0 72 36 36 0 0 0 0-72Z"/>
+    <path d="M586 7h58v206h-58z"/>
+    <path fill-rule="evenodd" d="M663 7h58v76c18-21 42-32 72-32 58 0 100 42 100 101s-42 102-100 102c-30 0-54-12-72-34v-17h-58V7Zm119 196a52 52 0 1 0 0-104 52 52 0 0 0 0 104Z"/>
+    <path d="M828 77h58v136h-58z"/>
+    <circle cx="857" cy="28" r="20"/>
+    <circle cx="478" cy="28" r="20"/><circle cx="532" cy="28" r="20"/>
+  </g>
+  <g>
+    <circle cx="91" cy="54" r="34" fill="#fff"/><circle cx="225" cy="54" r="34" fill="#fff"/>
+    <circle cx="96" cy="57" r="22" fill="#f36b21"/><circle cx="220" cy="57" r="22" fill="#f36b21"/>
+    <circle cx="104" cy="47" r="9" fill="#fff"/><circle cx="228" cy="47" r="9" fill="#fff"/>
+  </g>
+</svg>
