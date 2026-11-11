@@ -126,11 +126,101 @@ body::after{background-image:radial-gradient(rgba(212,255,0,.18) .7px,transparen
  .btn{padding:12px;font-size:15px}
  .rec{margin-top:8px;font-size:10px}
 }
+:root{--cyan:#36e0a4;--mag:#b7f436;--lime:#d4ff58;--red:#ff765f;--bg:#06110b;--txt:#f5f8ee;--mut:#a8b8a5}
+body{position:relative;isolation:isolate;min-height:100svh;align-items:flex-start;padding:clamp(12px,3vw,28px);background:#030806}
+body::before,body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none}
+body::before{background:linear-gradient(180deg,rgba(3,9,6,.22),rgba(3,9,6,.7)),url("assets/activation-stage.svg") center 48%/cover no-repeat;opacity:.82}
+body::after{background:radial-gradient(ellipse at 50% 12%,rgba(183,244,54,.15),transparent 40%),linear-gradient(90deg,rgba(2,8,5,.3),transparent 32%,transparent 68%,rgba(2,8,5,.3))}
+.wrap{width:min(100%,520px);max-width:520px;margin:0 auto}
+.brandbar{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;margin:0 7px 12px}
+.brand-lockup{display:flex;align-items:center;gap:10px;min-width:0}
+.beone.lg{margin:0;align-items:flex-start}
+.beone.lg b{font-size:34px;color:var(--txt)}
+.beone .o{border-color:var(--lime);box-shadow:0 0 12px rgba(183,244,54,.75)}
+.beone small{margin-top:5px;color:var(--lime);font-size:8px;letter-spacing:.24em}
+.brand-x{color:rgba(255,255,255,.55);font-weight:700}
+.kolbi-logo{width:112px;height:40px;flex:none;background:var(--kb) center/contain no-repeat;filter:drop-shadow(0 0 12px rgba(183,244,54,.4))}
+.event-label{text-align:right;color:var(--lime);font-size:12px;font-weight:800;letter-spacing:.12em}
+.event-label small{display:block;margin-top:3px;color:rgba(245,248,238,.74);font-size:8px;font-weight:600;letter-spacing:.16em}
+.card{width:100%;height:min(73svh,680px);min-height:560px;border:1px solid rgba(183,244,54,.76);border-radius:20px;background:linear-gradient(180deg,rgba(5,21,13,.83),rgba(3,12,8,.91));backdrop-filter:blur(8px);box-shadow:0 0 0 1px rgba(53,224,164,.3),0 0 34px rgba(183,244,54,.23),0 0 100px rgba(24,178,111,.17),inset 0 0 46px rgba(53,224,164,.1)}
+.card::before{background:linear-gradient(rgba(183,244,54,.36) 1px,transparent 1px) 0 0/100% 38px,linear-gradient(90deg,rgba(53,224,164,.28) 1px,transparent 1px) 0 0/48px 100%;opacity:.42}
+.card.hurt{box-shadow:0 0 0 1px var(--red),0 0 55px rgba(255,118,95,.65),inset 0 0 50px rgba(255,118,95,.2)}
+.top{padding:18px 20px 11px}
+.logo{gap:9px;color:var(--lime);font-size:13px;letter-spacing:.17em}
+.logo i{width:17px;height:17px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#f4ffe4 0 12%,var(--lime) 14% 48%,#36a94b 52%);box-shadow:0 0 16px rgba(183,244,54,.7);transform:none}
+.tag{color:var(--txt);font-size:12px}
+.tag small{color:#b6c8b3}
+.hud{padding:0 20px}
+.lb{color:#b4c6b3}
+.big{color:var(--lime);text-shadow:0 0 18px rgba(183,244,54,.48)}
+.mid{color:var(--cyan);text-shadow:0 0 12px rgba(54,224,164,.6)}
+.lives span{color:var(--red);text-shadow:0 0 10px rgba(255,118,95,.6)}
+.bar{background:rgba(211,255,201,.13)}
+.bar b{background:linear-gradient(90deg,var(--green,#36e0a4),var(--lime));box-shadow:0 0 14px rgba(183,244,54,.7)}
+#layer{inset:118px 0 0}
+.it{filter:drop-shadow(0 0 10px rgba(255,255,255,.5)) drop-shadow(0 0 18px rgba(183,244,54,.7))}
+.pop.ok{color:var(--lime);text-shadow:0 0 14px rgba(183,244,54,.8)}
+.pop.bad{color:var(--red);text-shadow:0 0 14px rgba(255,118,95,.8)}
+#banner{text-shadow:0 0 18px rgba(183,244,54,.85),0 0 32px rgba(54,224,164,.7)}
+.scr{background:rgba(3,13,8,.58);backdrop-filter:blur(7px)}
+h1 em{background:linear-gradient(90deg,#d9ff79,var(--cyan));-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 0 15px rgba(183,244,54,.38))}
+.sub{color:#c1cebd}
+.leg div{background:rgba(9,43,27,.56);border-color:rgba(183,244,54,.22)}
+.btn{color:#071109;background:linear-gradient(105deg,#d4ff58,#8bea6e 56%,#36e0a4);box-shadow:0 0 22px rgba(183,244,54,.36),0 0 52px rgba(54,224,164,.22)}
+.rec b{color:var(--lime)}
+#cnum{text-shadow:0 0 30px rgba(54,224,164,.8),0 0 58px rgba(183,244,54,.55)}
+#ov-t{color:var(--lime);text-shadow:0 0 12px rgba(183,244,54,.6)}
+#ov-s{text-shadow:0 0 30px rgba(54,224,164,.75)}
+#mute{border-color:rgba(183,244,54,.45);background:rgba(3,13,8,.78);color:var(--lime)}
+.splb{color:#ddedcf}
+.sp{border-color:rgba(183,244,54,.32);background:rgba(4,16,10,.76);backdrop-filter:blur(8px)}
+.ep i{color:var(--cyan)}
+.foot{color:#c2d1bd}
+@media(max-width:600px){
+ body{padding:max(10px,env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
+ .wrap{width:100%}
+ .brandbar{min-height:44px;margin:0 3px 9px}
+ .brand-lockup{gap:7px}
+ .beone.lg b{font-size:29px}
+ .beone small{font-size:7px}
+ .kolbi-logo{width:92px;height:34px}
+ .event-label{font-size:10px}
+ .event-label small{font-size:7px}
+ .card{height:min(70svh,620px);min-height:450px;border-radius:18px}
+ .top{padding:14px 14px 8px}
+ .hud{padding:0 14px}
+ #layer{inset:110px 0 0}
+ .scr{padding:56px 18px 16px}
+ h1{font-size:clamp(36px,10vw,48px)}
+ .leg{gap:8px;margin-bottom:14px}
+ .leg div{padding:10px 5px;font-size:23px}
+ .btn{padding:14px;font-size:16px}
+ .splb{margin-top:10px}
+}
+@media(max-width:360px){
+ .event-label{font-size:9px;letter-spacing:.08em}
+ .kolbi-logo{width:78px}
+ .brand-lockup{gap:5px}
+ .beone.lg b{font-size:27px}
+ .sp{gap:4px;padding-inline:5px}
+ .sp .kb{width:66px}
+ .rnc b{font-size:21px}
+}
+@media(max-height:700px) and (max-width:600px){
+ .brandbar{min-height:40px}
+ .card{height:min(63svh,470px);min-height:380px}
+ .scr{padding:46px 16px 12px}
+ h1{font-size:clamp(34px,9vw,42px)}
+ .leg{margin-bottom:11px}
+ .leg div{padding:8px 4px;font-size:21px}
+ .btn{padding:12px;font-size:15px}
+ .rec{margin-top:8px;font-size:10px}
+}
 </style></head>
 <body><div class="wrap">
-<div class="beone lg"><b>BE<span class="o"></span>NE</b><small>IMMERSIVE RUN</small></div>
+<div class="brandbar"><div class="brand-lockup"><div class="beone lg"><b>BE<span class="o"></span>NE</b><small>IMMERSIVE RUN</small></div><span class="brand-x" aria-hidden="true">×</span><div class="kolbi-logo" role="img" aria-label="Logo kölbi"></div></div><div class="event-label">28 NOV<small>TERRAZAS LINDORA</small></div></div>
 <div class="card" id="card">
- <div class="top"><div class="logo"><i></i>ENERGY ZONE</div><div class="tag">5K · 28 NOV<small>TERRAZAS LINDORA</small></div></div>
+ <div class="top"><div class="logo"><i></i>KÖLBI LIVE ARENA</div><div class="tag">IMMERSIVE RUN<small>BE ONE · 5K</small></div></div>
  <div class="hud">
   <div class="row"><div><div class="lb">PUNTOS</div><div class="big" id="sc">0</div></div>
    <div class="mid"><div class="lb">NIVEL <span id="lv">1</span></div>RACHA ×<span id="mu">1</span><div class="lives" id="lives"></div></div>
