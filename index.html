@@ -1,309 +1,243 @@
-<!doctype html>
-<html lang="es">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#07100b">
-  <meta name="description" content="BE-ONE Immersive Run con kölbi: una experiencia que imagina el movimiento convertido en juego en vivo.">
-  <title>BE-ONE × kölbi | Immersive Run</title>
-  <style>
-    :root {
-      color-scheme: dark;
-      --ink: #07100b;
-      --paper: #f3f5eb;
-      --white: #f8faef;
-      --muted: #aab4a5;
-      --green: #b7f436;
-      --line: rgba(235, 246, 224, .2);
-      --content: 1240px;
-      font-family: "Avenir Next", Avenir, "Trebuchet MS", sans-serif;
-      font-synthesis: none;
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      scroll-behavior: smooth;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; }
-    body { margin: 0; min-width: 320px; background: var(--ink); color: var(--white); }
-    a { color: inherit; }
-    .shell { width: min(var(--content), calc(100% - 64px)); margin-inline: auto; }
-
-    .header { position: relative; z-index: 3; background: #070d09; border-bottom: 1px solid rgba(255,255,255,.09); }
-    .header-inner { min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
-    .brand-pair { display: flex; align-items: center; gap: 22px; text-decoration: none; }
-    .beone { display: inline-flex; flex-direction: column; line-height: .9; }
-    .beone strong { font-size: 24px; font-weight: 900; letter-spacing: .02em; }
-    .beone small { margin-top: 7px; color: var(--green); font-size: 8px; font-weight: 800; letter-spacing: .24em; }
-    .brand-x { color: #788273; font-size: 16px; }
-    .kolbi { display: inline-flex; align-items: center; gap: 8px; color: var(--green); }
-    .kolbi svg { width: 36px; height: 34px; flex: none; }
-    .kolbi strong { font-size: 27px; font-weight: 800; letter-spacing: -.055em; }
-    .nav { display: flex; align-items: center; gap: clamp(20px, 3.2vw, 46px); }
-    .nav a { color: #d7ddcf; font-size: 13px; font-weight: 700; text-decoration: none; transition: color .2s ease; }
-    .nav a:hover, .nav a:focus-visible { color: var(--green); }
-    .nav .nav-status { display: flex; align-items: center; gap: 9px; color: var(--green); }
-    .nav-status::before { width: 7px; height: 7px; border-radius: 50%; background: currentColor; content: ""; box-shadow: 0 0 12px currentColor; }
-
-    .hero { position: relative; min-height: clamp(570px, calc(100svh - 194px), 790px); isolation: isolate; overflow: hidden; display: flex; align-items: center; }
-    .hero-art, .hero-art::after { position: absolute; z-index: -2; inset: 0; }
-    .hero-art img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 52%; }
-    .hero-art::after { z-index: 1; background: linear-gradient(90deg, rgba(4,11,7,.96) 0%, rgba(4,11,7,.85) 28%, rgba(4,11,7,.45) 55%, rgba(4,11,7,.12) 100%), linear-gradient(0deg, rgba(4,11,7,.65), transparent 38%); content: ""; }
-    .hero::after { position: absolute; z-index: -1; right: 7%; bottom: 10%; width: 310px; aspect-ratio: 1; border: 1px solid rgba(183,244,54,.22); border-radius: 50%; content: ""; box-shadow: 0 0 0 22px rgba(183,244,54,.035), 0 0 0 54px rgba(183,244,54,.025); pointer-events: none; }
-    .hero-inner { position: relative; z-index: 1; padding-block: 74px 96px; }
-    .eyebrow { display: flex; align-items: center; gap: 12px; color: var(--green); font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
-    .eyebrow::before { width: 30px; height: 1px; background: currentColor; content: ""; }
-    h1 { max-width: 720px; margin: 24px 0 22px; font-size: clamp(52px, 7.3vw, 98px); line-height: .96; font-weight: 800; letter-spacing: -.045em; }
-    h1 span { color: var(--green); }
-    .hero-copy { max-width: 510px; margin: 0; color: #e2e8da; font-size: clamp(16px, 1.65vw, 20px); line-height: 1.65; }
-    .hero-link { width: fit-content; margin-top: 34px; display: inline-flex; align-items: center; gap: 12px; color: var(--white); font-size: 14px; font-weight: 800; text-decoration: none; }
-    .hero-link span { display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid rgba(183,244,54,.65); border-radius: 50%; color: var(--green); font-size: 19px; transition: background .2s, color .2s; }
-    .hero-link:hover span, .hero-link:focus-visible span { background: var(--green); color: var(--ink); }
-    .hero-meta { position: absolute; right: max(32px, calc((100vw - var(--content)) / 2)); bottom: 32px; z-index: 2; display: flex; align-items: center; gap: 13px; color: #e9f2dd; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-    .hero-meta i { width: 4px; height: 4px; border-radius: 50%; background: var(--green); }
-
-    .intro { padding: clamp(76px, 10vw, 138px) 0 clamp(74px, 9vw, 120px); background: var(--paper); color: var(--ink); }
-    .intro-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(300px, .75fr); gap: 10vw; align-items: end; }
-    .section-label { margin: 0 0 22px; color: #427d29; font-size: 11px; font-weight: 900; letter-spacing: .2em; text-transform: uppercase; }
-    h2 { margin: 0; font-size: clamp(40px, 5.3vw, 68px); line-height: 1.02; font-weight: 800; letter-spacing: -.04em; }
-    .intro-copy { margin: 0; color: #445044; font-size: 17px; line-height: 1.8; }
-    .principles { margin-top: clamp(60px, 8vw, 100px); display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(7,16,11,.2); }
-    .principle { padding: 26px 26px 0 0; }
-    .principle + .principle { padding-left: 26px; border-left: 1px solid rgba(7,16,11,.2); }
-    .principle b { display: block; margin-bottom: 28px; color: #52932d; font-size: 13px; letter-spacing: .12em; }
-    .principle h3 { margin: 0 0 11px; font-size: 22px; }
-    .principle p { max-width: 320px; margin: 0; color: #536052; font-size: 14px; line-height: 1.7; }
-
-    .future { position: relative; overflow: hidden; padding: clamp(78px, 10vw, 132px) 0; background: #0c1710; }
-    .future::before { position: absolute; top: -190px; right: -120px; width: 580px; aspect-ratio: 1; border: 1px solid rgba(183,244,54,.18); border-radius: 50%; content: ""; box-shadow: 0 0 0 38px rgba(183,244,54,.025), 0 0 0 96px rgba(183,244,54,.02); }
-    .future-grid { position: relative; display: grid; grid-template-columns: .72fr 1fr; gap: 9vw; align-items: start; }
-    .future-mark { color: var(--green); font-size: clamp(90px, 18vw, 230px); font-weight: 800; line-height: .8; }
-    .future h2 { max-width: 670px; color: var(--white); }
-    .future-copy { max-width: 640px; margin: 26px 0 0; color: #bdc9b9; font-size: 16px; line-height: 1.85; }
-    .notice { margin-top: 36px; padding: 18px 0 0; display: flex; align-items: flex-start; gap: 13px; border-top: 1px solid var(--line); color: #d6dfd0; font-size: 13px; line-height: 1.65; }
-    .notice svg { width: 19px; height: 19px; flex: none; margin-top: 1px; color: var(--green); }
-
-    .event { padding: clamp(58px, 8vw, 94px) 0; background: var(--green); color: var(--ink); }
-    .event-inner { display: flex; align-items: center; justify-content: space-between; gap: 36px; }
-    .event .section-label { margin-bottom: 12px; color: #315d1d; }
-    .event h2 { font-size: clamp(34px, 4vw, 52px); }
-    .event-details { display: flex; gap: clamp(30px, 6vw, 82px); }
-    .event-details div { min-width: 120px; }
-    .event-details small { display: block; margin-bottom: 9px; color: #315d1d; font-size: 10px; font-weight: 900; letter-spacing: .15em; text-transform: uppercase; }
-    .event-details strong { font-size: 17px; }
-
-    .footer { padding: 32px 0; background: #070d09; }
-    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-    .footer-brands { display: flex; align-items: center; gap: 18px; }
-    .footer .beone strong { font-size: 19px; }
-    .footer .beone small { font-size: 7px; }
-    .footer .brand-x { font-size: 13px; }
-    .footer .kolbi svg { width: 30px; }
-    .footer .kolbi strong { font-size: 23px; }
-    .footer-note { margin: 0; color: #929e90; font-size: 11px; text-align: right; }
-
-    @media (max-width: 760px) {
-      .shell { width: min(100% - 40px, var(--content)); }
-      .header-inner { min-height: 72px; }
-      .brand-pair { gap: 13px; }
-      .beone strong { font-size: 20px; }
-      .beone small { font-size: 7px; }
-      .kolbi svg { width: 31px; height: 30px; }
-      .kolbi strong { font-size: 23px; }
-      .nav { gap: 18px; }
-      .nav a { font-size: 12px; }
-      .nav .nav-status { display: none; }
-      .hero { min-height: clamp(500px, calc(100svh - 170px), 680px); align-items: end; }
-      .hero-art img { object-position: 58% center; }
-      .hero-art::after { background: linear-gradient(0deg, rgba(4,11,7,.98) 0%, rgba(4,11,7,.78) 44%, rgba(4,11,7,.18) 100%); }
-      .hero-inner { padding-block: 190px 84px; }
-      h1 { max-width: 610px; margin-block: 18px; font-size: clamp(48px, 11vw, 76px); }
-      .hero-copy { max-width: 480px; font-size: 16px; }
-      .hero-link { margin-top: 24px; }
-      .hero-meta { right: 20px; bottom: 21px; font-size: 9px; }
-      .intro-grid { grid-template-columns: 1fr; gap: 26px; }
-      .intro-copy { max-width: 590px; }
-      .principle + .principle { padding-left: 18px; }
-      .principle { padding-right: 18px; }
-      .principle h3 { font-size: 19px; }
-      .future-grid { grid-template-columns: 1fr; gap: 42px; }
-      .future-mark { font-size: 110px; }
-      .event-inner { align-items: flex-start; flex-direction: column; }
-      .event-details { width: 100%; justify-content: space-between; gap: 20px; }
-    }
-
-    @media (max-width: 480px) {
-      .shell { width: calc(100% - 24px); }
-      .header-inner { min-height: 68px; gap: 12px; }
-      .brand-pair { gap: 9px; }
-      .beone strong { font-size: 17px; }
-      .beone small { margin-top: 5px; font-size: 6px; letter-spacing: .18em; }
-      .brand-x { font-size: 12px; }
-      .kolbi { gap: 5px; }
-      .kolbi svg { width: 26px; height: 26px; }
-      .kolbi strong { font-size: 21px; }
-      .nav { gap: 10px; }
-      .nav a { font-size: 10px; white-space: nowrap; }
-      .hero { min-height: clamp(470px, calc(100svh - 152px), 620px); }
-      .hero-art img { object-position: 57% center; }
-      .hero::after { right: -85px; bottom: 16%; width: 210px; }
-      .hero-inner { padding-block: 174px 84px; }
-      .eyebrow { gap: 8px; font-size: 9px; letter-spacing: .15em; }
-      .eyebrow::before { width: 20px; }
-      h1 { margin-block: 17px; font-size: clamp(43px, 12vw, 58px); }
-      .hero-copy { max-width: 360px; font-size: 14px; line-height: 1.65; }
-      .hero-link { margin-top: 20px; font-size: 12px; }
-      .hero-meta { left: 18px; right: auto; bottom: 17px; gap: 8px; font-size: 8px; }
-      .intro { padding-block: 70px; }
-      .section-label { margin-bottom: 16px; font-size: 9px; }
-      h2 { font-size: clamp(37px, 10vw, 48px); }
-      .intro-copy { font-size: 15px; line-height: 1.75; }
-      .principles { margin-top: 42px; grid-template-columns: 1fr; }
-      .principle, .principle + .principle { padding: 21px 0; border-left: 0; border-bottom: 1px solid rgba(7,16,11,.2); }
-      .principle b { margin-bottom: 13px; }
-      .principle h3 { margin-bottom: 7px; }
-      .principle p { max-width: none; }
-      .future { padding-block: 68px; }
-      .future-grid { gap: 30px; }
-      .future-mark { font-size: 86px; }
-      .future-copy { margin-top: 19px; font-size: 14px; }
-      .notice { margin-top: 26px; font-size: 12px; }
-      .event { padding-block: 54px; }
-      .event h2 { font-size: 34px; }
-      .event-details { gap: 12px; }
-      .event-details div { min-width: 0; }
-      .event-details strong { font-size: 13px; }
-      .event-details small { font-size: 8px; }
-      .footer-inner { align-items: flex-start; flex-direction: column; }
-      .footer-note { text-align: left; }
-    }
-
-    @media (max-height: 700px) and (max-width: 480px) {
-      .hero { min-height: clamp(420px, calc(100svh - 170px), 500px); }
-      .hero-inner { padding-block: 110px 66px; }
-      h1 { margin-block: 12px; font-size: clamp(42px, 11vw, 48px); }
-      .hero-copy { font-size: 13px; }
-      .hero-link { margin-top: 16px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
-    }
-  </style>
-</head>
-<body>
-  <header class="header">
-    <div class="shell header-inner">
-      <a class="brand-pair" href="#inicio" aria-label="BE-ONE y kölbi, inicio">
-        <span class="beone"><strong>BE ONE</strong><small>IMMERSIVE RUN</small></span>
-        <span class="brand-x" aria-hidden="true">×</span>
-        <span class="kolbi">
-          <svg viewBox="0 0 72 64" role="img" aria-label="Logo de kölbi">
-            <path fill="currentColor" d="M13 21c0-9 7-16 16-16 4 0 7 2 9 5 3-3 7-5 11-5 9 0 16 7 16 16v14c0 12-10 21-23 21h-6C23 56 13 47 13 35V21Z"/>
-            <ellipse cx="25" cy="21" fill="#f5f7e9" rx="8" ry="10"/><ellipse cx="52" cy="21" fill="#f5f7e9" rx="8" ry="10"/>
-            <circle cx="27" cy="23" r="4" fill="#ef6c43"/><circle cx="50" cy="23" r="4" fill="#ef6c43"/>
-            <path d="M27 39c7 7 17 7 24 0" stroke="#07100b" stroke-linecap="round" stroke-width="4"/>
-            <path d="m21 53-8 7h15l8-5m18-2 8 7H47l-7-5" fill="currentColor"/>
-          </svg>
-          <strong>kölbi</strong>
-        </span>
-      </a>
-      <nav class="nav" aria-label="Navegación principal">
-        <a href="#experiencia">La experiencia</a>
-        <a href="#vision">Visión futura</a>
-        <a class="nav-status" href="#evento">Concepto</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero" id="inicio" aria-labelledby="hero-title">
-      <div class="hero-art" aria-hidden="true"><img src="assets/activation-scene.svg" alt=""></div>
-      <div class="shell hero-inner">
-        <div class="eyebrow">BE-ONE × kölbi · Immersive Run</div>
-        <h1 id="hero-title">Movimiento<br><span>en vivo.</span></h1>
-        <p class="hero-copy">Imaginamos un escenario inmersivo donde la energía de las personas se convierte en el corazón del juego.</p>
-        <a class="hero-link" href="#experiencia">Descubre el concepto <span aria-hidden="true">↓</span></a>
-      </div>
-      <div class="hero-meta" aria-label="Fecha y lugar del evento"><span>28 nov</span><i></i><span>Terrazas Lindora</span></div>
-    </section>
-
-    <section class="intro" id="experiencia" aria-labelledby="experience-title">
-      <div class="shell">
-        <div class="intro-grid">
-          <div>
-            <p class="section-label">Una idea en movimiento</p>
-            <h2 id="experience-title">La energía<br>también se juega.</h2>
-          </div>
-          <p class="intro-copy">BE-ONE y kölbi unen sus mundos para imaginar un espacio donde el movimiento, la tecnología y el juego se encuentran. Una experiencia pensada para sentirse en vivo, compartir la energía y llevar la emoción mucho más allá de la pantalla.</p>
-        </div>
-        <div class="principles" aria-label="Pilares del concepto">
-          <article class="principle">
-            <b>01 / MOVIMIENTO</b>
-            <h3>El cuerpo entra en juego</h3>
-            <p>La participación física será el corazón de la experiencia que estamos imaginando.</p>
-          </article>
-          <article class="principle">
-            <b>02 / INMERSIÓN</b>
-            <h3>Una pantalla a escala</h3>
-            <p>Luz, imagen y espacio se combinan para rodear a cada participante.</p>
-          </article>
-          <article class="principle">
-            <b>03 / ENERGÍA</b>
-            <h3>Se vive en comunidad</h3>
-            <p>La emoción de jugar se comparte con quienes están alrededor.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="future" id="vision" aria-labelledby="future-title">
-      <div class="shell future-grid">
-        <div class="future-mark" aria-hidden="true">→</div>
-        <div>
-          <p class="section-label">Hacia dónde vamos</p>
-          <h2 id="future-title">De mirar el juego a vivirlo en primera persona.</h2>
-          <p class="future-copy">La visión futura es que una persona pueda jugar en vivo frente a una gran pantalla y que la experiencia responda a su movimiento. Este sitio presenta la idea y su propósito; todavía no activa partidas ni interacción en vivo.</p>
-          <div class="notice">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 21 20H3L12 3Z" stroke="currentColor" stroke-width="1.7"/><path d="M12 9v5m0 3h.01" stroke="currentColor" stroke-linecap="round" stroke-width="1.7"/></svg>
-            <span>Concepto informativo. La experiencia participativa en vivo corresponde a una etapa futura del proyecto.</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="event" id="evento" aria-labelledby="event-title">
-      <div class="shell event-inner">
-        <div>
-          <p class="section-label">BE-ONE × kölbi</p>
-          <h2 id="event-title">Immersive Run</h2>
-        </div>
-        <div class="event-details">
-          <div><small>Fecha</small><strong>28 de noviembre</strong></div>
-          <div><small>Lugar</small><strong>Terrazas Lindora</strong></div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="shell footer-inner">
-      <div class="footer-brands" aria-label="BE-ONE y kölbi">
-        <span class="beone"><strong>BE ONE</strong><small>IMMERSIVE RUN</small></span>
-        <span class="brand-x" aria-hidden="true">×</span>
-        <span class="kolbi" aria-label="kölbi">
-          <svg viewBox="0 0 72 64" aria-hidden="true">
-            <path fill="currentColor" d="M13 21c0-9 7-16 16-16 4 0 7 2 9 5 3-3 7-5 11-5 9 0 16 7 16 16v14c0 12-10 21-23 21h-6C23 56 13 47 13 35V21Z"/>
-            <ellipse cx="25" cy="21" fill="#f5f7e9" rx="8" ry="10"/><ellipse cx="52" cy="21" fill="#f5f7e9" rx="8" ry="10"/>
-            <circle cx="27" cy="23" r="4" fill="#ef6c43"/><circle cx="50" cy="23" r="4" fill="#ef6c43"/>
-            <path d="M27 39c7 7 17 7 24 0" stroke="#07100b" stroke-linecap="round" stroke-width="4"/>
-            <path d="m21 53-8 7h15l8-5m18-2 8 7H47l-7-5" fill="currentColor"/>
-          </svg>
-          <strong>kölbi</strong>
-        </span>
-      </div>
-      <p class="footer-note">Una idea para activar el movimiento.<br>Concepto en desarrollo.</p>
-    </div>
-  </footer>
-</body>
-</html>
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Neon Run · Atrapa tu energía</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--kb:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 40'%3E%3Cg fill='%23c6ff3d'%3E%3Cellipse cx='14' cy='25' rx='12' ry='9'/%3E%3Ccircle cx='7' cy='13' r='5'/%3E%3Ccircle cx='21' cy='13' r='5'/%3E%3C/g%3E%3Ccircle cx='7' cy='13' r='2' fill='%23ff2bd6'/%3E%3Ccircle cx='21' cy='13' r='2' fill='%23ff2bd6'/%3E%3Ctext x='32' y='31' font-family='system-ui,sans-serif' font-weight='800' font-size='27' fill='%23c6ff3d'%3Ek%C3%B6lbi%3C/text%3E%3C/svg%3E");--bg:#05060f;--cyan:#9b7bff;--mag:#ff1f7a;--lime:#d4ff00;--red:#ff4d4d;--txt:#eef4ff;--mut:#8b95b8;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;min-height:100vh;background:radial-gradient(60% 40% at 15% 0%,rgba(255,43,214,.22),transparent 70%),radial-gradient(60% 40% at 95% 100%,rgba(0,240,255,.2),transparent 70%),var(--bg);color:var(--txt);font-family:Outfit,system-ui,sans-serif;display:flex;justify-content:center;padding:14px}
+.wrap{width:100%;max-width:440px}
+.pill{display:flex;justify-content:center;gap:10px;padding:10px;border:1px solid rgba(0,240,255,.35);border-radius:999px;background:rgba(0,240,255,.06);color:var(--cyan);font-weight:800;font-size:12px;letter-spacing:.12em;text-shadow:0 0 10px var(--cyan);margin-bottom:12px}
+.card{position:relative;height:min(76vh,640px);min-height:520px;border-radius:24px;overflow:hidden;background:linear-gradient(180deg,#0a0c1f,#060714);border:1px solid rgba(0,240,255,.5);box-shadow:0 0 0 1px rgba(255,43,214,.25),0 0 40px rgba(0,240,255,.25),0 0 90px rgba(255,43,214,.15),inset 0 0 40px rgba(0,240,255,.07);transition:box-shadow .2s}
+.card.hurt{animation:shake .3s;box-shadow:0 0 0 1px var(--red),0 0 60px rgba(255,77,122,.7),inset 0 0 60px rgba(255,77,122,.25)}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.card::before{content:"";position:absolute;left:-50%;right:-50%;bottom:0;height:55%;background:linear-gradient(rgba(255,43,214,.45) 1px,transparent 1px) 0 0/100% 38px,linear-gradient(90deg,rgba(0,240,255,.4) 1px,transparent 1px) 0 0/48px 100%;transform:perspective(300px) rotateX(62deg);transform-origin:bottom;animation:flow 1.4s linear infinite;-webkit-mask:linear-gradient(transparent,#000);mask:linear-gradient(transparent,#000);opacity:.55}
+@keyframes flow{to{background-position:0 38px,0 0}}
+.top{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:16px 18px 10px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:22px}
+.logo i{width:20px;height:20px;border-radius:6px;background:linear-gradient(135deg,var(--cyan),var(--mag));box-shadow:0 0 14px var(--cyan);transform:rotate(45deg)}
+.tag{text-align:right;font-weight:800;font-size:13px;letter-spacing:.06em}
+.tag small{display:block;color:var(--mut);font-size:9px;font-weight:500;letter-spacing:.14em}
+.hud{position:relative;z-index:2;padding:0 18px}
+.row{display:flex;justify-content:space-between;align-items:flex-end}
+.lb{font-size:10px;letter-spacing:.14em;color:var(--mut);font-weight:700}
+.big{font-size:34px;font-weight:800;color:var(--lime);text-shadow:0 0 16px rgba(198,255,61,.6);line-height:1}
+.mid{text-align:center;font-weight:800;color:var(--cyan);text-shadow:0 0 10px var(--cyan)}
+.lives span{color:var(--mag);text-shadow:0 0 10px var(--mag);margin:0 2px}
+.lives span.off{color:#2a2d49;text-shadow:none}
+.bar{height:4px;margin-top:10px;border-radius:4px;background:#1a1d36;overflow:hidden}
+.bar b{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--mag),var(--cyan));box-shadow:0 0 12px var(--cyan)}
+#layer{position:absolute;inset:118px 0 0 0;z-index:3;overflow:hidden;touch-action:manipulation}
+.it{position:absolute;left:0;top:0;width:64px;height:64px;border:0;background:none;font-size:46px;line-height:64px;padding:0;cursor:pointer;user-select:none;will-change:transform;filter:drop-shadow(0 0 10px rgba(255,255,255,.35)) drop-shadow(0 0 18px rgba(0,240,255,.35))}
+.pop{position:absolute;z-index:4;font-weight:800;font-size:24px;pointer-events:none;animation:up .7s ease-out forwards}
+.pop.ok{color:var(--lime);text-shadow:0 0 14px var(--lime)}.pop.bad{color:var(--red);text-shadow:0 0 14px var(--red)}
+@keyframes up{to{transform:translateY(-54px);opacity:0}}
+#banner{position:absolute;z-index:5;left:0;right:0;top:44%;text-align:center;font-weight:800;font-size:22px;letter-spacing:.14em;color:#fff;text-shadow:0 0 18px var(--mag),0 0 30px var(--cyan);opacity:0;pointer-events:none}
+#banner.go{animation:bn 1.4s ease-out}
+@keyframes bn{15%,70%{opacity:1;transform:scale(1)}0%{transform:scale(.8)}100%{opacity:0}}
+.scr{position:absolute;inset:0;z-index:6;display:none;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:70px 22px 22px;background:rgba(5,6,15,.55);backdrop-filter:blur(3px)}
+.scr.on{display:flex}
+h1{margin:0;font-size:clamp(40px,12vw,54px);line-height:1.02;font-weight:800;letter-spacing:-.02em}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--cyan),var(--mag));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 14px rgba(255,43,214,.55))}
+.sub{color:var(--mut);margin:12px 0 18px}
+.leg{display:flex;gap:10px;width:100%;margin-bottom:20px}
+.leg div{flex:1;padding:12px 6px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);font-size:26px;letter-spacing:4px}
+.leg p{margin:6px 0 0;font-size:12px;font-weight:800;letter-spacing:.08em}
+.btn{width:100%;padding:16px;border:0;border-radius:14px;font:800 17px Outfit,system-ui,sans-serif;color:#05060f;cursor:pointer;background:linear-gradient(90deg,var(--lime),var(--cyan));box-shadow:0 0 24px rgba(0,240,255,.55),0 0 50px rgba(198,255,61,.25)}
+.btn:active{transform:scale(.98)}
+.rec{margin-top:14px;font-size:12px;color:var(--mut);letter-spacing:.1em}.rec b{color:var(--lime)}
+#cnum{font-size:120px;font-weight:800;color:#fff;text-shadow:0 0 30px var(--cyan),0 0 60px var(--mag);animation:beat .8s infinite}
+@keyframes beat{from{transform:scale(1.25);opacity:.4}to{transform:scale(1);opacity:1}}
+#ov-t{font-size:12px;font-weight:800;letter-spacing:.14em;color:var(--mag);text-shadow:0 0 10px var(--mag)}
+#ov-s{font-size:84px;font-weight:800;line-height:1.1;text-shadow:0 0 30px rgba(0,240,255,.6)}
+.stats{display:flex;justify-content:space-around;width:100%;margin:18px 0}
+.stats b{display:block;font-size:28px}.stats span{font-size:12px;color:var(--mut)}
+.foot{display:flex;justify-content:space-between;margin-top:12px;font-size:10px;letter-spacing:.14em;color:var(--mut)}
+.kb{height:34px;background:var(--kb) center/contain no-repeat}
+.kbtop{height:40px;margin:2px 0 14px;filter:drop-shadow(0 0 12px rgba(198,255,61,.55))}
+.wrap{position:relative;z-index:1}
+body{background:radial-gradient(60% 40% at 15% 0%,rgba(255,31,122,.28),transparent 70%),radial-gradient(60% 40% at 95% 100%,rgba(122,92,255,.28),transparent 70%),var(--bg)}
+.card{border-color:rgba(255,31,122,.6);box-shadow:0 0 0 1px rgba(212,255,0,.25),0 0 40px rgba(255,31,122,.3),0 0 90px rgba(122,92,255,.25),inset 0 0 40px rgba(122,92,255,.1)}
+.card::before{background:linear-gradient(rgba(255,31,122,.5) 1px,transparent 1px) 0 0/100% 38px,linear-gradient(90deg,rgba(122,92,255,.45) 1px,transparent 1px) 0 0/48px 100%}
+.it{filter:drop-shadow(0 0 10px rgba(255,255,255,.35)) drop-shadow(0 0 18px rgba(255,31,122,.45))}
+.btn{box-shadow:0 0 24px rgba(255,31,122,.55),0 0 50px rgba(212,255,0,.3)}
+#ov-s{text-shadow:0 0 30px rgba(255,31,122,.6)}
+.beone b{display:flex;align-items:center;font-size:26px;font-weight:800;line-height:1}
+.beone .o{width:.78em;height:.78em;border:.17em solid var(--lime);border-radius:50%;margin:0 .05em;box-shadow:0 0 12px rgba(212,255,0,.7)}
+.beone small{display:block;font-size:9px;letter-spacing:.32em;color:var(--mag);font-weight:800;margin-top:4px}
+.beone.lg{display:flex;flex-direction:column;align-items:center;margin:6px 0 16px}.beone.lg b{font-size:46px}
+#mute{position:absolute;z-index:7;right:12px;bottom:10px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(5,6,15,.6);font-size:17px;cursor:pointer;color:#fff}
+.splb{text-align:center;font-size:10px;letter-spacing:.22em;color:var(--mut);margin-top:14px;font-weight:700}
+.sp{display:flex;align-items:center;justify-content:space-around;gap:8px;margin-top:8px;padding:12px 8px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(255,255,255,.04)}
+.sp .kb{height:28px;width:84px}
+.ep b{display:block;font:italic 800 17px Outfit,system-ui,sans-serif;letter-spacing:-.02em;line-height:1}
+.ep i{display:block;font:italic 800 10px Outfit,system-ui,sans-serif;color:#3da2ff;text-align:right;line-height:1.1}
+.rnc b{display:block;font:800 25px Outfit,system-ui,sans-serif;letter-spacing:-.04em;line-height:1}
+.rnc small{display:block;font-size:6px;letter-spacing:.14em;font-weight:800;margin-top:2px}
+.foot{align-items:center;justify-content:space-around}.foot .kb{height:26px;width:90px;opacity:.85}
+body{position:relative;isolation:isolate;width:100%;min-height:100svh;overflow-x:hidden;padding:clamp(12px,3vw,30px) clamp(12px,4vw,48px);background:radial-gradient(ellipse at 8% 12%,rgba(212,255,0,.22),transparent 28%),radial-gradient(ellipse at 94% 24%,rgba(255,31,122,.24),transparent 32%),radial-gradient(ellipse at 82% 94%,rgba(53,214,199,.16),transparent 34%),linear-gradient(135deg,#080910 0%,#17101c 48%,#080b13 100%)}
+body::before,body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none}
+body::before{background:radial-gradient(circle at 83% 17%,transparent 0 25px,rgba(212,255,0,.28) 26px 30px,transparent 31px),radial-gradient(circle at 92% 17%,transparent 0 25px,rgba(212,255,0,.28) 26px 30px,transparent 31px),radial-gradient(ellipse at 87.5% 29%,rgba(212,255,0,.1),transparent 13%);opacity:.8}
+body::after{background-image:radial-gradient(rgba(212,255,0,.18) .7px,transparent .9px);background-size:22px 22px;mask-image:linear-gradient(135deg,#000,transparent 78%);opacity:.34}
+.wrap{width:min(100%,460px)}
+.card{background:linear-gradient(160deg,rgba(17,20,30,.97),rgba(7,8,18,.97));border-color:rgba(212,255,0,.42);box-shadow:0 0 0 1px rgba(255,31,122,.2),0 0 42px rgba(255,31,122,.2),0 0 88px rgba(212,255,0,.12),inset 0 0 44px rgba(212,255,0,.035)}
+.card::before{background:linear-gradient(rgba(255,31,122,.42) 1px,transparent 1px) 0 0/100% 38px,linear-gradient(90deg,rgba(212,255,0,.32) 1px,transparent 1px) 0 0/48px 100%}
+@media(max-width:600px){
+ body{padding:12px max(12px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
+ .wrap{width:100%}
+ .beone.lg{margin:0 0 10px}
+ .card{height:min(70svh,600px);min-height:420px;border-radius:20px}
+ .top{padding:14px 14px 8px}
+ .hud{padding:0 14px}
+ #layer{inset:110px 0 0}
+ .scr{padding:56px 18px 16px}
+ h1{font-size:clamp(36px,10vw,48px)}
+ .sub{margin:9px 0 13px}
+ .leg{gap:8px;margin-bottom:14px}
+ .leg div{padding:10px 5px;font-size:23px}
+ .btn{padding:14px;font-size:16px}
+ .rec{margin-top:10px}
+ .splb{margin-top:10px}
+}
+@media(max-width:420px){
+ .logo{gap:6px;font-size:clamp(16px,4.7vw,20px)}
+ .logo i{width:16px;height:16px}
+ .tag{font-size:11px}
+ .tag small{font-size:8px}
+ .big{font-size:30px}
+ .row{gap:6px}
+ .mid{font-size:13px}
+ .sp{padding:10px 6px;gap:6px}
+ .sp .kb{width:72px}
+}
+@media(max-height:700px) and (max-width:600px){
+ body{padding-top:max(8px,env(safe-area-inset-top,0px))}
+ .beone.lg{margin-bottom:6px}
+ .beone.lg b{font-size:38px}
+ .beone small{font-size:8px}
+ .card{height:min(66svh,480px);min-height:370px}
+ .scr{padding:48px 16px 12px}
+ h1{font-size:clamp(34px,9vw,42px)}
+ .sub{margin:7px 0 10px}
+ .leg{margin-bottom:11px}
+ .leg div{padding:8px 4px;font-size:21px}
+ .btn{padding:12px;font-size:15px}
+ .rec{margin-top:8px;font-size:10px}
+}
+</style></head>
+<body><div class="wrap">
+<div class="beone lg"><b>BE<span class="o"></span>NE</b><small>IMMERSIVE RUN</small></div>
+<div class="card" id="card">
+ <div class="top"><div class="logo"><i></i>ENERGY ZONE</div><div class="tag">5K · 28 NOV<small>TERRAZAS LINDORA</small></div></div>
+ <div class="hud">
+  <div class="row"><div><div class="lb">PUNTOS</div><div class="big" id="sc">0</div></div>
+   <div class="mid"><div class="lb">NIVEL <span id="lv">1</span></div>RACHA ×<span id="mu">1</span><div class="lives" id="lives"></div></div>
+   <div style="text-align:right"><div class="lb">TIEMPO</div><div class="big" id="tm">25 s</div></div></div>
+  <div class="bar"><b id="bar"></b></div>
+ </div>
+ <div id="layer"></div><div id="banner"></div>
+ <button id="mute" aria-label="Sonido">🔊</button>
+ <div class="scr on" id="start">
+  <h1>Atrapa tu<br><em>energía.</em></h1>
+  <p class="sub">Toca lo que te hace correr. Esquiva lo que te frena.</p>
+  <div class="leg"><div>👟🎧🏅<p style="color:var(--cyan)">SUMA +100</p></div><div>🛋️📺🍔<p style="color:var(--red)">EVITA −150</p></div></div>
+  <button class="btn" id="go">Jugar · 25 segundos</button>
+  <div class="rec">25 SEGUNDOS · 3 NIVELES · 3 VIDAS</div><div class="rec" style="margin-top:6px">RÉCORD <b id="best">0</b></div>
+ </div>
+ <div class="scr" id="count"><div id="cnum">3</div><p class="sub">Prepara tus reflejos</p></div>
+ <div class="scr" id="over">
+  <div id="ov-t"></div><div id="ov-s">0</div><div class="sub" style="margin:0">puntos de energía</div>
+  <div class="stats"><div><b id="o1">0</b><span>Atrapados</span></div><div><b id="o2" style="color:var(--red)">0</b><span>Errores</span></div><div><b id="o3">0</b><span>Mejor racha</span></div></div>
+  <button class="btn" id="again">Volver a intentar</button>
+  <div class="rec">RÉCORD <b id="best2">0</b></div>
+ </div>
+</div>
+<div class="splb">PATROCINADORES</div><div class="sp"><div class="kb"></div><div class="ep"><b>ENERPAX</b><i>ACTIVE</i></div><div class="rnc"><b>rnc</b><small>RAVEN NUTRITION CARE</small></div></div>
+</div>
+<script>
+const $=s=>document.querySelector(s),layer=$('#layer'),card=$('#card');
+const RUN=['👟','🎧','🏅'],FORMAL=['🛋️','📺','🍔'],T=25;
+let S,raf,last,spawnT,best=0;
+try{best=+localStorage.getItem('nr_best')||0}catch(e){}
+function setBest(){$('#best').textContent=best;$('#best2').textContent=best}
+setBest();
+function show(id){['start','count','over'].forEach(k=>$('#'+k).classList.toggle('on',k===id))}
+const mult=()=>S.streak>=6?3:S.streak>=3?2:1;
+function hud(){
+ $('#sc').textContent=S.score;$('#lv').textContent=S.level;$('#mu').textContent=mult();
+ $('#tm').textContent=Math.max(0,Math.ceil(S.t))+' s';$('#bar').style.width=Math.max(0,S.t/T*100)+'%';
+ $('#lives').innerHTML=[0,1,2].map(i=>'<span class="'+(i<S.lives?'':'off')+'">♥</span>').join('');
+}
+function start(){
+ S={score:0,lives:3,streak:0,maxS:0,hits:0,errs:0,t:T,level:1,items:[],running:false};
+ layer.innerHTML='';hud();show('count');ac();sfx.tick();
+ let n=3;$('#cnum').textContent=n;
+ const iv=setInterval(()=>{n--;if(n<=0){clearInterval(iv);show(null);sfx.go();run()}else{$('#cnum').textContent=n;sfx.tick()}},800);
+}
+function run(){S.running=true;last=performance.now();spawnT=0;beat=0;bgLoop();raf=requestAnimationFrame(loop)}
+function banner(t){const b=$('#banner');b.textContent=t;b.classList.remove('go');void b.offsetWidth;b.classList.add('go')}
+function spawn(W){
+ const run=Math.random()<.6,pool=run?RUN:FORMAL,el=document.createElement('button');
+ el.className='it';el.textContent=pool[Math.floor(Math.random()*3)];
+ const it={el,x:8+Math.random()*(W-80),y:-70,k:.85+Math.random()*.3,run,ph:Math.random()*6,dead:false};
+ el.addEventListener('pointerdown',e=>{e.preventDefault();hit(it)});
+ layer.appendChild(el);S.items.push(it);
+}
+function pop(txt,x,y,c){const p=document.createElement('div');p.className='pop '+c;p.textContent=txt;p.style.left=x+'px';p.style.top=(y+118)+'px';card.appendChild(p);setTimeout(()=>p.remove(),700)}
+function hit(it){
+ if(!S.running||it.dead)return;it.dead=true;it.el.remove();S.items=S.items.filter(i=>i!==it);
+ const cx=it.x+16,cy=it.y;
+ if(it.run){const m=mult();S.streak++;S.maxS=Math.max(S.maxS,S.streak);S.hits++;S.score+=100*m;sfx.ok(S.streak);pop('+'+100*m,cx,cy,'ok')}
+ else{S.score=Math.max(0,S.score-150);S.lives--;S.errs++;S.streak=0;sfx.bad();pop('−150',cx,cy,'bad');
+  card.classList.add('hurt');setTimeout(()=>card.classList.remove('hurt'),300);if(navigator.vibrate)navigator.vibrate(60);
+  if(S.lives<=0){hud();end();return}}
+ hud();
+}
+function loop(now){
+ if(!S.running)return;
+ const dt=Math.min(.05,(now-last)/1000);last=now;S.t-=dt;
+ const el=T-S.t,lvl=el<8?1:el<17?2:3;
+ if(lvl!==S.level){S.level=lvl;sfx.lvl();banner(lvl===2?'NIVEL 2 · ACELERACIÓN':'NIVEL 3 · MÁXIMA ENERGÍA')}
+ const W=layer.clientWidth,H=layer.clientHeight;
+ spawnT-=dt;if(spawnT<=0){spawn(W);spawnT=[0,.95,.72,.52][lvl]*(.8+Math.random()*.4)}
+ const sp=[0,.3,.43,.58][lvl]*H;
+ for(const it of S.items){it.y+=sp*it.k*dt;
+  it.el.style.transform='translate('+(it.x+Math.sin(it.ph+it.y/60)*12)+'px,'+it.y+'px) rotate('+Math.sin(it.ph+it.y/90)*14+'deg)';
+  if(it.y>H){it.dead=true;it.el.remove()}}
+ S.items=S.items.filter(i=>!i.dead);
+ hud();
+ if(S.t<=0){S.t=0;hud();end();return}
+ raf=requestAnimationFrame(loop);
+}
+function end(){
+ S.running=false;cancelAnimationFrame(raf);clearTimeout(bgTimer);sfx.end(S.lives>0);
+ if(S.score>best){best=S.score;try{localStorage.setItem('nr_best',best)}catch(e){}}
+ setBest();
+ $('#ov-t').textContent=S.lives<=0?'FIN DEL JUEGO · SIN VIDAS':'¡TIEMPO!';
+ $('#ov-s').textContent=S.score;$('#o1').textContent=S.hits;$('#o2').textContent=S.errs;$('#o3').textContent=S.maxS;
+ setTimeout(()=>show('over'),350);
+}
+let AC,master,muted=false,beat=0,bgTimer;
+function ac(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)();master=AC.createGain();master.gain.value=.5;master.connect(AC.destination)}catch(e){}}if(AC&&AC.state==='suspended')AC.resume()}
+function tone(f,d,type,v,t0,f2){if(!AC||muted)return;const t=AC.currentTime+(t0||0),o=AC.createOscillator(),g=AC.createGain();o.type=type||'sine';o.frequency.setValueAtTime(f,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+d);g.gain.setValueAtTime(v||.2,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(master);o.start(t);o.stop(t+d+.02)}
+const sfx={
+ ok:s=>{const f=520*Math.pow(1.0595,Math.min(s,12)*2);tone(f,.12,'triangle',.28);tone(f*1.5,.16,'sine',.15,.05)},
+ bad:()=>{tone(160,.3,'sawtooth',.25,0,60);tone(90,.3,'square',.15)},
+ tick:()=>tone(660,.12,'square',.12),
+ go:()=>{tone(880,.4,'square',.14);tone(1320,.4,'sine',.12)},
+ lvl:()=>[0,1,2].forEach(i=>tone(440*Math.pow(1.26,i*2),.14,'square',.12,i*.09)),
+ end:w=>(w?[523,659,784,1047]:[392,330,262,196]).forEach((f,i)=>tone(f,.25,w?'triangle':'sawtooth',.18,i*.14))
+};
+function bgLoop(){
+ if(!S||!S.running)return;
+ const bpm=[0,118,132,146][S.level],ms=30000/bpm,b=beat++;
+ if(b%2===0)tone(150,.2,'sine',.4,0,42);else tone(7000,.04,'square',.025);
+ tone([55,55,65.4,55,73.4,55,65.4,49][b%8],ms/1000*.9,'sawtooth',.07);
+ if(b%4===3||b%8===6)tone([440,523.3,659.3,784][b%4],.12,'triangle',.06);
+ bgTimer=setTimeout(bgLoop,ms);
+}
+$('#mute').onclick=()=>{ac();muted=!muted;$('#mute').textContent=muted?'🔇':'🔊'};
+$('#go').onclick=start;$('#again').onclick=start;
+</script></body></html>
