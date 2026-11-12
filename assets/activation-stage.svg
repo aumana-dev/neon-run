@@ -49,9 +49,17 @@
     <circle cx="99" cy="650" r="14"/><circle cx="234" cy="661" r="12"/><circle cx="1501" cy="650" r="14"/><circle cx="1366" cy="661" r="12"/>
   </g>
   <g fill="#d5ff78"><circle cx="176" cy="290" r="4"/><circle cx="210" cy="335" r="3"/><circle cx="1420" cy="282" r="4"/><circle cx="1398" cy="390" r="3"/><circle cx="1245" cy="168" r="3"/><circle cx="365" cy="174" r="3"/><circle cx="430" cy="610" r="3"/><circle cx="1180" cy="615" r="4"/></g>
-  <g transform="translate(0 86)" fill="#b9ff35">
-    <circle cx="833" cy="412" r="27"/><path d="M806 447c-26 13-38 45-45 84l-19 92h34l24-75 7 59 82 8 11-27-45-24 2-82c18 14 31 33 46 53l23-18c-23-51-45-84-83-96-13-5-25-3-37 3Z"/>
-    <path d="m804 443-37 21-40 45 18 18 43-34 34-7-18-43Zm83 7 37-24 42 13 27 46-22 12-29-31-39-5-16-11Z"/>
-    <path d="m780 679 31 2-13 48-38 6-7-15 20-12 7-29Zm82 2 30 3 28 39-9 14-22-9-33-29 6-18Z"/>
+  <g opacity=".92">
+    <ellipse cx="800" cy="465" rx="246" ry="174" stroke="#35e0a1" stroke-opacity=".35" stroke-width="2"/>
+    <ellipse cx="800" cy="465" rx="196" ry="137" stroke="#c6ff3d" stroke-opacity=".52" stroke-width="3" stroke-dasharray="2 13"/>
+    <ellipse cx="800" cy="465" rx="142" ry="99" stroke="#35e0a1" stroke-opacity=".7" stroke-width="4"/>
+    <ellipse cx="800" cy="465" rx="86" ry="60" stroke="#e1ff9d" stroke-opacity=".82" stroke-width="3" stroke-dasharray="10 8"/>
+    <path d="M510 491c106-110 187-106 290-26 103 80 184 84 290-26M510 439c106 110 187 106 290 26 103-80 184-84 290 26" stroke="#b9ff35" stroke-opacity=".78" stroke-width="3" filter="url(#glow)"/>
+    <path d="M540 465h520M800 285v360" stroke="#35e0a1" stroke-opacity=".28" stroke-width="2" stroke-dasharray="4 14"/>
+    <circle cx="800" cy="465" r="42" fill="#b9ff35" fill-opacity=".16" filter="url(#glow)"/>
+    <circle cx="800" cy="465" r="18" fill="#e6ffad" filter="url(#glow)"/>
+    <circle cx="606" cy="385" r="7" fill="#c6ff3d"/><circle cx="1000" cy="538" r="8" fill="#35e0a1"/>
+    <circle cx="693" cy="593" r="5" fill="#e1ff9d"/><circle cx="942" cy="354" r="6" fill="#ff795e"/>
+    <path d="M568 532 625 510m407-90 53-21M700 350l36 19m128 192 42 25" stroke="#e1ff9d" stroke-opacity=".8" stroke-width="4" stroke-linecap="round" filter="url(#glow)"/>
   </g>
 </svg>
