@@ -200,6 +200,26 @@ h1 em{background:linear-gradient(90deg,#d9ff79,var(--cyan));-webkit-background-c
  .btn{padding:12px;font-size:15px}
  .rec{margin-top:8px;font-size:10px}
 }
+.mode-screen{padding:24px 20px 18px;background:rgba(3,13,8,.76)}
+.mode-screen h1{font-size:clamp(32px,8vw,42px)}
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;margin:8px 0 12px}
+.mode-option{min-width:0;min-height:174px;padding:15px 12px;display:flex;flex-direction:column;align-items:flex-start;text-align:left;border:1px solid rgba(183,244,54,.38);border-radius:12px;background:linear-gradient(145deg,rgba(20,72,42,.78),rgba(5,23,15,.9));color:var(--txt);font:inherit;cursor:pointer;transition:border-color .2s,transform .2s,background .2s}
+.mode-option:hover,.mode-option:focus-visible{border-color:var(--lime);background:linear-gradient(145deg,rgba(34,105,54,.88),rgba(5,23,15,.94));transform:translateY(-2px);outline:none}
+.mode-icons{min-height:42px;color:var(--lime);font-size:26px;line-height:1.3}
+.mode-option strong{margin-top:5px;font-size:16px;line-height:1.2}
+.mode-option small{margin-top:7px;color:#c1cebd;font-size:11px;line-height:1.45}
+.mode-option em{margin-top:auto;padding-top:12px;color:var(--lime);font-size:10px;font-style:normal;font-weight:800;letter-spacing:.12em}
+.mode-switch{width:100%;margin-top:12px;padding:10px;border:1px solid rgba(183,244,54,.35);border-radius:9px;background:rgba(4,17,10,.72);color:#e0ead9;font:700 12px Outfit,system-ui,sans-serif;cursor:pointer}
+.signal-screen{inset:118px 12px 12px;z-index:5;padding:18px;justify-content:center;background:rgba(3,13,8,.8)}
+.signal-screen h2{margin:0 0 8px;color:var(--lime);font-size:24px}
+.signal-screen p{max-width:300px;margin:0 0 22px;color:#d3dfd0;font-size:13px;line-height:1.5}
+.signal-track{position:relative;width:100%;height:48px;margin:10px 0 24px;overflow:hidden;border:1px solid rgba(183,244,54,.5);border-radius:8px;background:repeating-linear-gradient(90deg,rgba(211,255,201,.08) 0 1px,transparent 1px 10%);box-shadow:inset 0 0 24px rgba(0,0,0,.45)}
+.signal-zone{position:absolute;inset:0 auto 0 43%;width:14%;border-inline:1px solid var(--lime);background:rgba(183,244,54,.22);box-shadow:0 0 20px rgba(183,244,54,.35)}
+.signal-cursor{position:absolute;top:4px;bottom:4px;left:0;width:4px;border-radius:4px;background:#fff;box-shadow:0 0 12px #fff,0 0 24px var(--cyan);transform:translateX(-50%)}
+.signal-button{width:min(100%,300px);min-height:54px;border:0;border-radius:10px;background:linear-gradient(105deg,#d4ff58,#8bea6e 56%,#36e0a4);color:#071109;font:800 16px Outfit,system-ui,sans-serif;box-shadow:0 0 24px rgba(183,244,54,.28);cursor:pointer}
+.signal-feedback{min-height:22px;margin-top:12px;color:var(--lime);font-size:12px;font-weight:800}
+@media(max-width:600px){.mode-screen{padding:22px 14px 14px}.mode-grid{gap:8px;margin:4px 0 8px}.mode-option{min-height:160px;padding:12px 9px}.mode-option strong{font-size:14px}.mode-option small{font-size:10px}.signal-screen{inset:110px 10px 10px;padding:14px}}
+@media(max-width:360px){.mode-screen{padding:14px 10px 10px}.mode-screen .pill{margin-bottom:5px;padding:6px;font-size:9px}.mode-screen h1{margin:6px 0;font-size:30px}.mode-screen .sub{margin:4px 0 8px;font-size:12px}.mode-grid{gap:6px;margin:2px 0 4px}.mode-option{min-height:130px;padding:8px 7px}.mode-icons{min-height:30px;font-size:21px}.mode-option strong{font-size:13px}.mode-option small{margin-top:5px;font-size:9px}.mode-option em{padding-top:7px;font-size:9px}.mode-screen .rec{margin-top:4px;font-size:9px}}
 </style></head>
 <body><div class="wrap">
 <div class="brandbar"><div class="brand-lockup"><div class="beone lg"><b>BE<span class="o"></span>NE</b><small>IMMERSIVE RUN</small></div><span class="brand-x" aria-hidden="true">×</span><img class="kolbi-logo" src="assets/kolbi-logo.svg" alt="kölbi"></div><div class="event-label">28 NOV<small>TERRAZAS LINDORA</small></div></div>
@@ -213,18 +233,46 @@ h1 em{background:linear-gradient(90deg,#d9ff79,var(--cyan));-webkit-background-c
  </div>
  <div id="layer"></div><div id="banner"></div>
  <button id="mute" aria-label="Sonido">🔊</button>
- <div class="scr on" id="start">
+ <div class="scr on mode-screen" id="mode-select">
+ <div class="pill">BE-ONE &times; KOLBI &middot; LIVE ARENA</div>
+ <h1>Elige tu<br><em>reto.</em></h1>
+ <p class="sub">Dos formas de poner a prueba tu energ&iacute;a.</p>
+ <div class="mode-grid">
+  <button class="mode-option" id="choose-neon" type="button"><span class="mode-icons" aria-hidden="true">&#x1F438; &#x1F45F; &#x1F3A7;</span><strong>Neon Run</strong><small>Atrapa energ&iacute;a y esquiva obst&aacute;culos en movimiento.</small><em>ATRAPAR OBJETOS &#8594;</em></button>
+  <button class="mode-option" id="choose-signal" type="button"><span class="mode-icons" aria-hidden="true">&#x1F4F6; &#x26A1; &#x1F3AF;</span><strong>Pulso de se&ntilde;al</strong><small>Sincroniza tu toque con la se&ntilde;al para conectar.</small><em>PROBAR REFLEJOS &#8594;</em></button>
+ </div>
+ <div class="rec">28 NOV &middot; TERRAZAS LINDORA</div>
+</div>
+<div class="scr" id="start">
   <h1>Atrapa tu<br><em>energía.</em></h1>
   <p class="sub">Toca lo que te hace correr. Esquiva lo que te frena.</p>
     <div class="leg"><div>🐸👟🎧<p style="color:var(--cyan)">SUMA +100</p></div><div>🪫📵🛋️<p style="color:var(--red)">EVITA −150</p></div></div>
   <button class="btn" id="go">Jugar · 25 segundos</button>
   <div class="rec">25 SEGUNDOS · 3 NIVELES · 3 VIDAS</div><div class="rec" style="margin-top:6px">RÉCORD <b id="best">0</b></div>
  </div>
- <div class="scr" id="count"><div id="cnum">3</div><p class="sub">Prepara tus reflejos</p></div>
+ <button class="mode-switch" type="button" data-mode-menu>&#8592; Elegir otro juego</button>
+</div>
+<div class="scr" id="signal-intro">
+ <h1>Pulso de<br><em>se&ntilde;al.</em></h1>
+ <p class="sub">Toca cuando el pulso cruce la zona verde. Cada conexi&oacute;n suma; cada fallo cuesta una vida.</p>
+ <div class="leg"><div>&#x1F4F6;&#x1F3AF;&#x26A1;<p style="color:var(--cyan)">CONECTA +100</p></div><div>&#x1FAAB;&#x1F4F5;<p style="color:var(--red)">FALLA -150</p></div></div>
+ <button class="btn" id="signal-go">Jugar &middot; 25 segundos</button>
+ <div class="rec">3 VIDAS &middot; EL PULSO ACELERA POR NIVEL</div>
+ <button class="mode-switch" type="button" data-mode-menu>&#8592; Elegir otro juego</button>
+</div>
+<div class="scr signal-screen" id="signal-game">
+ <h2>Conecta el pulso</h2>
+ <p>Toca justo cuando la luz atraviese la zona verde.</p>
+ <div class="signal-track" aria-label="Pulso de se&ntilde;al: toca cuando el indicador est&eacute; en la zona verde"><span class="signal-zone"></span><span class="signal-cursor" id="signal-cursor"></span></div>
+ <button class="signal-button" id="signal-tap" type="button">CONECTAR SE&Ntilde;AL</button>
+ <div class="signal-feedback" id="signal-feedback" aria-live="polite"></div>
+</div>
+<div class="scr" id="count"><div id="cnum">3</div><p class="sub">Prepara tus reflejos</p></div>
  <div class="scr" id="over">
   <div id="ov-t"></div><div id="ov-s">0</div><div class="sub" style="margin:0">puntos de energía</div>
   <div class="stats"><div><b id="o1">0</b><span>Atrapados</span></div><div><b id="o2" style="color:var(--red)">0</b><span>Errores</span></div><div><b id="o3">0</b><span>Mejor racha</span></div></div>
   <button class="btn" id="again">Volver a intentar</button>
+<button class="mode-switch" type="button" data-mode-menu>&#8592; Elegir otro juego</button>
   <div class="rec">RÉCORD <b id="best2">0</b></div>
  </div>
 </div>
@@ -232,11 +280,12 @@ h1 em{background:linear-gradient(90deg,#d9ff79,var(--cyan));-webkit-background-c
 <script>
 const $=s=>document.querySelector(s),layer=$('#layer'),card=$('#card');
 const RUN=['🐸','👟','🎧'],FORMAL=['🪫','📵','🛋️'],T=25;
-let S,raf,last,spawnT,best=0;
+let S,raf,last,spawnT,best=0,gameMode='neon',signalPosition=0,signalDirection=1;
 try{best=+localStorage.getItem('nr_best')||0}catch(e){}
 function setBest(){$('#best').textContent=best;$('#best2').textContent=best}
 setBest();
-function show(id){['start','count','over'].forEach(k=>$('#'+k).classList.toggle('on',k===id))}
+function show(id){['mode-select','start','signal-intro','signal-game','count','over'].forEach(k=>$('#'+k).classList.toggle('on',k===id))}
+function chooseMode(mode){gameMode=mode;show(mode==='signal'?'signal-intro':'start')}
 const mult=()=>S.streak>=6?3:S.streak>=3?2:1;
 function hud(){
  $('#sc').textContent=S.score;$('#lv').textContent=S.level;$('#mu').textContent=mult();
@@ -244,12 +293,12 @@ function hud(){
  $('#lives').innerHTML=[0,1,2].map(i=>'<span class="'+(i<S.lives?'':'off')+'">♥</span>').join('');
 }
 function start(){
- S={score:0,lives:3,streak:0,maxS:0,hits:0,errs:0,t:T,level:1,items:[],running:false};
+ S={score:0,lives:3,streak:0,maxS:0,hits:0,errs:0,t:T,level:1,items:[],running:false,mode:gameMode};signalPosition=0;signalDirection=1;$('#signal-cursor').style.left='0%';$('#signal-feedback').textContent='';
  layer.innerHTML='';hud();show('count');ac();sfx.tick();
  let n=3;$('#cnum').textContent=n;
  const iv=setInterval(()=>{n--;if(n<=0){clearInterval(iv);show(null);sfx.go();run()}else{$('#cnum').textContent=n;sfx.tick()}},800);
 }
-function run(){S.running=true;last=performance.now();spawnT=0;beat=0;bgLoop();raf=requestAnimationFrame(loop)}
+function run(){S.running=true;if(S.mode==='signal')show('signal-game');last=performance.now();spawnT=0;beat=0;bgLoop();raf=requestAnimationFrame(loop)}
 function banner(t){const b=$('#banner');b.textContent=t;b.classList.remove('go');void b.offsetWidth;b.classList.add('go')}
 function spawn(W){
  const run=Math.random()<.6,pool=run?RUN:FORMAL,el=document.createElement('button');
@@ -268,18 +317,21 @@ function hit(it){
   if(S.lives<=0){hud();end();return}}
  hud();
 }
+function hitSignal(){
+ if(!S||!S.running||S.mode!=='signal')return;
+ const zoneWidth=Math.max(8,14-(S.level-1)*2),connected=Math.abs(signalPosition-50)<=zoneWidth/2,feedback=$('#signal-feedback');
+ if(connected){const points=100*mult();S.streak++;S.maxS=Math.max(S.maxS,S.streak);S.hits++;S.score+=points;feedback.textContent='\u00A1SE\u00D1AL CONECTADA! +'+points;feedback.style.color='var(--lime)';sfx.ok(S.streak)}
+ else{S.score=Math.max(0,S.score-150);S.lives--;S.errs++;S.streak=0;feedback.textContent='FUERA DE ZONA -150';feedback.style.color='var(--red)';sfx.bad();card.classList.add('hurt');setTimeout(()=>card.classList.remove('hurt'),300);if(navigator.vibrate)navigator.vibrate(60);if(S.lives<=0){hud();end();return}}
+ hud();
+}
 function loop(now){
  if(!S.running)return;
  const dt=Math.min(.05,(now-last)/1000);last=now;S.t-=dt;
  const el=T-S.t,lvl=el<8?1:el<17?2:3;
  if(lvl!==S.level){S.level=lvl;sfx.lvl();banner(lvl===2?'NIVEL 2 · ACELERACIÓN':'NIVEL 3 · MÁXIMA ENERGÍA')}
  const W=layer.clientWidth,H=layer.clientHeight;
- spawnT-=dt;if(spawnT<=0){spawn(W);spawnT=[0,.95,.72,.52][lvl]*(.8+Math.random()*.4)}
- const sp=[0,.3,.43,.58][lvl]*H;
- for(const it of S.items){it.y+=sp*it.k*dt;
-  it.el.style.transform='translate('+(it.x+Math.sin(it.ph+it.y/60)*12)+'px,'+it.y+'px) rotate('+Math.sin(it.ph+it.y/90)*14+'deg)';
-  if(it.y>H){it.dead=true;it.el.remove()}}
- S.items=S.items.filter(i=>!i.dead);
+ if(S.mode==='signal'){const speed=[0,76,94,116][lvl];signalPosition+=signalDirection*speed*dt;if(signalPosition>=98){signalPosition=98;signalDirection=-1}if(signalPosition<=2){signalPosition=2;signalDirection=1}$('#signal-cursor').style.left=signalPosition+'%';const zoneWidth=Math.max(8,14-(lvl-1)*2);$('.signal-zone').style.width=zoneWidth+'%';$('.signal-zone').style.left=(50-zoneWidth/2)+'%'}
+ else{spawnT-=dt;if(spawnT<=0){spawn(W);spawnT=[0,.95,.72,.52][lvl]*(.8+Math.random()*.4)}const sp=[0,.3,.43,.58][lvl]*H;for(const it of S.items){it.y+=sp*it.k*dt;it.el.style.transform='translate('+(it.x+Math.sin(it.ph+it.y/60)*12)+'px,'+it.y+'px) rotate('+Math.sin(it.ph+it.y/90)*14+'deg)';if(it.y>H){it.dead=true;it.el.remove()}}S.items=S.items.filter(i=>!i.dead)}
  hud();
  if(S.t<=0){S.t=0;hud();end();return}
  raf=requestAnimationFrame(loop);
@@ -312,5 +364,6 @@ function bgLoop(){
  bgTimer=setTimeout(bgLoop,ms);
 }
 $('#mute').onclick=()=>{ac();muted=!muted;$('#mute').textContent=muted?'🔇':'🔊'};
-$('#go').onclick=start;$('#again').onclick=start;
+$('#choose-neon').onclick=()=>chooseMode('neon');$('#choose-signal').onclick=()=>chooseMode('signal');document.querySelectorAll('[data-mode-menu]').forEach(button=>button.addEventListener('click',()=>show('mode-select')));
+$('#go').onclick=start;$('#signal-go').onclick=start;$('#signal-tap').onclick=hitSignal;$('#again').onclick=start;
 </script></body></html>
