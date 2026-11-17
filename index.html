@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#06160e">
   <meta name="description"
-    content="BE-ONE × kölbi Immersive Run: cuatro retos de reflejos en una arena inspirada en la energía kölbi.">
-  <title>BE-ONE × kölbi · Immersive Run</title>
+    content="Kölbi Reflejos y Eco kölbi: juegos táctiles para activar la energía y poner a prueba los reflejos.">
+  <title>Kölbi Reflejos · BE-ONE</title>
   <link
-    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=Press+Start+2P&display=swap"
     rel="stylesheet">
   <style>
     :root {
@@ -2091,6 +2091,318 @@
         transition-duration: .01ms !important
       }
     }
+
+    body {
+      min-height: 100svh;
+      padding: 10px
+    }
+
+    .wrap {
+      width: min(100%, 100svh);
+      max-width: none;
+      min-height: calc(100svh - 20px);
+      display: flex;
+      flex-direction: column
+    }
+
+    .brandbar {
+      flex: 0 0 auto
+    }
+
+    .card {
+      width: 100%;
+      height: auto;
+      min-height: 0;
+      flex: 1
+    }
+
+    .card.is-reflex > .top,
+    .card.is-reflex > .hud,
+    .card.is-reflex > #layer,
+    .card.is-reflex > #banner {
+      display: none
+    }
+
+    .card.is-menu > .hud {
+      display: none
+    }
+
+    .play-choices {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      width: min(100%, 430px);
+      margin: 20px 0 14px
+    }
+
+    .play-choice {
+      min-height: 104px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      border: 1px solid rgba(50, 195, 50, .55);
+      border-radius: 12px;
+      background: linear-gradient(145deg, rgba(50, 195, 50, .16), rgba(4, 25, 14, .92));
+      color: var(--txt);
+      font: 800 13px Manrope, "Segoe UI", sans-serif;
+      cursor: pointer;
+      touch-action: manipulation
+    }
+
+    .duel-choice {
+      border-color: rgba(243, 112, 33, .6);
+      background: linear-gradient(145deg, rgba(243, 112, 33, .16), rgba(25, 16, 8, .92))
+    }
+
+    .play-choice strong {
+      color: var(--kolbi-green);
+      font: 800 30px "Barlow Condensed", sans-serif
+    }
+
+    .duel-choice strong {
+      color: var(--kolbi-orange)
+    }
+
+    #reflex-game {
+      z-index: 6;
+      inset: 0;
+      gap: clamp(8px, 1.4vmin, 18px);
+      padding: clamp(12px, 2vmin, 28px);
+      background-color: #04170c;
+      background-image: linear-gradient(rgba(50, 195, 50, .075) 1px, transparent 1px), linear-gradient(90deg, rgba(40, 184, 168, .06) 1px, transparent 1px), linear-gradient(160deg, #062512, #03140b 65%, #071d12);
+      background-size: 38px 38px, 38px 38px, auto;
+      backdrop-filter: none
+    }
+
+    .reflex-game-header {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 12px;
+      flex: 0 0 auto
+    }
+
+    .reflex-game-title,
+    .reflex-timer {
+      display: flex;
+      flex-direction: column;
+      gap: 7px
+    }
+
+    .reflex-game-title strong {
+      color: var(--kolbi-green);
+      font: 800 clamp(16px, 2.4vmin, 28px) "Barlow Condensed", sans-serif;
+      letter-spacing: .06em
+    }
+
+    .reflex-game-title span,
+    .reflex-timer span,
+    .reflex-instruction,
+    .reflex-game-foot,
+    .reflex-player-label,
+    .reflex-score > span,
+    .reflex-score small {
+      color: rgba(245, 247, 239, .72);
+      font: 700 clamp(8px, 1vmin, 11px) Manrope, "Segoe UI", sans-serif;
+      letter-spacing: .12em
+    }
+
+    .reflex-timer {
+      align-items: center;
+      min-width: 90px
+    }
+
+    .reflex-timer strong {
+      color: #e8ffd7;
+      font: 400 clamp(22px, 4vmin, 42px) "Press Start 2P", "Courier New", monospace;
+      text-shadow: 0 0 16px rgba(50, 195, 50, .55)
+    }
+
+    .reflex-timer strong.urgent {
+      color: var(--kolbi-orange);
+      text-shadow: 0 0 16px rgba(243, 112, 33, .7)
+    }
+
+    .reflex-instruction {
+      justify-self: end;
+      color: var(--kolbi-orange);
+      text-align: right;
+      line-height: 1.6
+    }
+
+    .reflex-arenas {
+      width: 100%;
+      min-height: 0;
+      flex: 1 1 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      justify-items: center;
+      align-items: stretch;
+      gap: 12px
+    }
+
+    .reflex-arenas.duel {
+      grid-template-columns: repeat(2, minmax(0, 1fr))
+    }
+
+    .reflex-arena {
+      min-width: 0;
+      min-height: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(5px, .7vmin, 10px)
+    }
+
+    .reflex-arenas.duel .reflex-arena + .reflex-arena {
+      border-left: 1px solid rgba(245, 247, 239, .15)
+    }
+
+    .reflex-player-label {
+      color: var(--kolbi-green);
+      flex: 0 0 auto
+    }
+
+    .reflex-arena[data-player="2"] .reflex-player-label {
+      color: var(--kolbi-orange)
+    }
+
+    .reflex-grid {
+      width: auto;
+      height: min(68svh, 760px);
+      max-height: calc(100% - 100px);
+      aspect-ratio: 3 / 7;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-rows: repeat(7, minmax(0, 1fr));
+      gap: clamp(4px, .65vmin, 9px);
+      flex: 0 1 auto
+    }
+
+    .reflex-target {
+      width: 100%;
+      height: 100%;
+      min-width: 0;
+      min-height: 0;
+      padding: 0;
+      border: clamp(2px, .35vmin, 5px) solid rgba(174, 230, 68, .43);
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 40%, rgba(50, 195, 50, .12), rgba(3, 20, 10, .9) 72%);
+      box-shadow: inset 0 0 18px rgba(50, 195, 50, .08), 0 0 0 1px rgba(0, 0, 0, .35);
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      transition: background .1s, border-color .1s, box-shadow .1s, transform .1s
+    }
+
+    .reflex-target.lit {
+      transform: scale(.9);
+      border-color: #ecffd0;
+      background: radial-gradient(circle at 38% 30%, #f5ffe7, #aee644 45%, #32c332 78%);
+      box-shadow: 0 0 0 5px rgba(50, 195, 50, .2), 0 0 34px rgba(50, 195, 50, .85)
+    }
+
+    .reflex-arena[data-player="2"] .reflex-target.lit {
+      border-color: #fff0d9;
+      background: radial-gradient(circle at 38% 30%, #fff8e9, #ffc276 45%, #f37021 78%);
+      box-shadow: 0 0 0 5px rgba(243, 112, 33, .2), 0 0 34px rgba(243, 112, 33, .85)
+    }
+
+    .reflex-arena.miss .reflex-grid {
+      animation: reflex-miss .22s ease-in-out
+    }
+
+    @keyframes reflex-miss {
+      50% { transform: translateX(5px) }
+    }
+
+    .reflex-score {
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(7px, 1vmin, 14px);
+      flex: 0 0 auto
+    }
+
+    .reflex-score strong {
+      color: #d7f27f;
+      font: 400 clamp(14px, 2.3vmin, 26px) "Press Start 2P", "Courier New", monospace;
+      text-shadow: 0 0 14px rgba(50, 195, 50, .38)
+    }
+
+    .reflex-arena[data-player="2"] .reflex-score strong {
+      color: #ffd2a3;
+      text-shadow: 0 0 14px rgba(243, 112, 33, .38)
+    }
+
+    .reflex-score small {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 8px
+    }
+
+    .reflex-score small b {
+      color: var(--txt);
+      font: 700 12px "Press Start 2P", "Courier New", monospace
+    }
+
+    .reflex-game-foot {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding-right: 52px;
+      flex: 0 0 auto;
+      font-size: clamp(7px, .85vmin, 9px)
+    }
+
+    .duel-result {
+      font-size: clamp(12px, 2.2vmin, 24px) !important
+    }
+
+    @media(max-width:600px) {
+      .reflex-game-header {
+        grid-template-columns: 1fr auto;
+        gap: 6px
+      }
+
+      .reflex-instruction {
+        grid-column: 1 / -1;
+        justify-self: center;
+        text-align: center
+      }
+
+      .reflex-grid {
+        height: min(60svh, 560px)
+      }
+
+      .reflex-arenas.duel .reflex-grid {
+        height: min(52svh, 68vw, 460px)
+      }
+
+      .reflex-score {
+        min-height: 42px;
+        gap: 6px
+      }
+
+      .reflex-game-foot span:first-child {
+        display: none
+      }
+    }
+
+    @media(max-width:380px) {
+      .play-choices { gap: 6px }
+      .play-choice { gap: 7px; min-height: 84px; font-size: 10px }
+      .reflex-grid { gap: 3px }
+      .reflex-score > span,
+      .reflex-score small { display: none }
+    }
   </style>
 </head>
 
@@ -2098,15 +2410,15 @@
   <div class="wrap">
     <div class="brandbar">
       <div class="brand-lockup">
-        <div class="beone lg"><b>BE<span class="o"></span>NE</b><small>IMMERSIVE RUN</small></div><span class="brand-x"
+        <div class="beone lg"><b>BE<span class="o"></span>NE</b><small>KÖLBI REFLEJOS</small></div><span class="brand-x"
           aria-hidden="true">×</span><img class="kolbi-logo" src="assets/kolbi-logo-original.svg" alt="kölbi">
       </div>
       <div class="event-label">28 NOV<small>TERRAZAS LINDORA</small></div>
     </div>
-    <div class="card" id="card">
+    <div class="card is-menu" id="card">
       <div class="top">
         <div class="logo"><i></i>KÖLBI LIVE ARENA</div>
-        <div class="tag">IMMERSIVE RUN<small>BE ONE · 5K</small></div>
+        <div class="tag">KÖLBI REFLEJOS<small>BE ONE · RETO TÁCTIL</small></div>
       </div>
       <div class="hud">
         <div class="row">
@@ -2133,11 +2445,11 @@
         <h1>Elige tu<br><em>reto.</em></h1>
         <p class="sub">Dos retos. Una misma arena.</p>
         <div class="mode-grid">
-          <button class="mode-option" id="choose-run" type="button" aria-pressed="false">
-            <span class="mode-icons" aria-hidden="true">🐸 👟 🎧</span>
-            <strong>Kölbi Run</strong>
-            <small>Atrapa energía y esquiva obstáculos en movimiento.</small>
-            <em>ATRAPAR OBJETOS →</em>
+          <button class="mode-option" id="choose-reflex" type="button" aria-pressed="false">
+            <span class="mode-icons" aria-hidden="true">● ◉ ●</span>
+            <strong>Kölbi Reflejos</strong>
+            <small>Alcanza la señal encendida. Juega solo o en duelo.</small>
+            <em>REACCIÓN RÁPIDA →</em>
           </button>
           <button class="mode-option" id="choose-echo" type="button" aria-pressed="false">
             <span class="mode-icons" aria-hidden="true">🔊 🧠 🟢</span>
@@ -2149,17 +2461,15 @@
         <div class="rec">28 NOV · TERRAZAS LINDORA</div>
       </div>
       <div class="scr" id="start">
-        <h1>Atrapa tu<br><em>energía.</em></h1>
-        <p class="sub">Toca lo que te hace correr. Esquiva lo que te frena.</p>
-        <div class="leg">
-          <div>🐸👟🎧<p style="color:var(--cyan)">SUMA +100</p>
-          </div>
-          <div>🪫📵🛋️<p style="color:var(--red)">EVITA −150</p>
-          </div>
+        <p class="section-label">KÖLBI · RETO DE REFLEJOS</p>
+        <h1>Encuentra<br><em>la señal.</em></h1>
+        <p class="sub">Toca el círculo encendido antes de que cambie.</p>
+        <div class="play-choices">
+          <button class="play-choice" id="solo-go" type="button"><strong>1</strong><span>UN JUGADOR</span></button>
+          <button class="play-choice duel-choice" id="duel-go" type="button"><strong>2</strong><span>RETO DUELO</span></button>
         </div>
-        <button class="btn" id="go">Jugar · 25 segundos</button>
-        <div class="rec">25 SEGUNDOS · 3 NIVELES · 3 VIDAS</div>
-        <div class="rec" style="margin-top:6px">RÉCORD <b id="best">0</b></div>
+        <div class="rec">45 SEGUNDOS · 21 CÍRCULOS · OBJETIVO: +100 PUNTOS</div>
+        <div class="rec" style="margin-top:6px">RÉCORD PERSONAL <b id="best">0</b></div>
         <button class="mode-switch" type="button" data-mode-menu>← Elegir otro juego</button>
       </div>
       <div class="scr mini-screen" id="echo-intro">
@@ -2181,6 +2491,15 @@
         </div>
         <div class="signal-feedback" id="echo-feedback" aria-live="polite"></div>
       </div>
+      <div class="scr" id="reflex-game">
+        <div class="reflex-game-header">
+          <div class="reflex-game-title"><strong>KÖLBI REFLEJOS</strong><span>RETO DE REACCIÓN</span></div>
+          <div class="reflex-timer"><span>TIEMPO</span><strong id="reflex-time">45</strong></div>
+          <div class="reflex-instruction">TOCA EL CÍRCULO<br>ENCENDIDO</div>
+        </div>
+        <div class="reflex-arenas" id="reflex-arenas"></div>
+        <div class="reflex-game-foot"><span>UN TOQUE CORRECTO = 100 PUNTOS</span><span>NUEVA SEÑAL DESPUÉS DE CADA ACIERTO</span></div>
+      </div>
       <div class="scr" id="count">
         <div id="cnum">3</div>
         <p class="sub">Prepara tus reflejos</p>
@@ -2188,8 +2507,8 @@
       <div class="scr" id="over">
         <div id="ov-t"></div>
         <div id="ov-s">0</div>
-        <div class="sub" style="margin:0">puntos de energía</div>
-        <div class="stats">
+        <div class="sub over-caption" id="ov-caption" style="margin:0">puntos de energía</div>
+        <div class="stats" id="stats">
           <div><b id="o1">0</b><span>Atrapados</span></div>
           <div><b id="o2" style="color:var(--red)">0</b><span>Errores</span></div>
           <div><b id="o3">0</b><span>Mejor racha</span></div>
@@ -2203,13 +2522,17 @@
   <script>
     const $ = s => document.querySelector(s), layer = $('#layer'), card = $('#card');
     const RUN = ['🐸', '👟', '🎧'], FORMAL = ['🪫', '📵', '🛋️'], T = 25;
-    let S, raf, last, spawnT, best = 0, gameMode = 'run';
+    let S, raf, last, spawnT, best = 0, gameMode = 'reflex', selectedPlayers = 1;
     let echoSequence = [], echoInput = [], echoRound = 0, echoLocked = true;
     const echoTones = [392, 440, 494, 587, 659, 784];
     try { best = +localStorage.getItem('nr_best') || 0 } catch (e) { }
     function setBest() { $('#best').textContent = best; $('#best2').textContent = best }
     setBest();
-    function show(id) { ['mode-select', 'start', 'echo-intro', 'echo-game', 'count', 'over'].forEach(k => $('#' + k).classList.toggle('on', k === id)) }
+    function show(id) {
+      ['mode-select', 'start', 'echo-intro', 'echo-game', 'reflex-game', 'count', 'over'].forEach(k => $('#' + k).classList.toggle('on', k === id));
+      card.classList.toggle('is-reflex', gameMode === 'reflex' && !['mode-select', 'echo-intro', 'echo-game'].includes(id));
+      card.classList.toggle('is-menu', ['mode-select', 'echo-intro'].includes(id));
+    }
     function chooseMode(mode) {
       gameMode = mode;
       document.querySelectorAll('.mode-option').forEach(button => button.setAttribute('aria-pressed', String(button.id === 'choose-' + mode)));
@@ -2221,8 +2544,91 @@
       $('#tm').textContent = S.mode === 'echo' ? '∞' : Math.max(0, Math.ceil(S.t)) + ' s'; $('#bar').style.width = S.mode === 'echo' ? '100%' : Math.max(0, S.t / T * 100) + '%';
       $('#lives').innerHTML = [0, 1, 2].map(i => '<span class="' + (i < S.lives ? '' : 'off') + '">♥</span>').join('');
     }
-    function start() {
-      S = { score: 0, lives: 3, streak: 0, maxS: 0, hits: 0, errs: 0, t: gameMode === 'echo' ? Infinity : T, level: 1, items: [], running: false, mode: gameMode };
+    function renderReflexBoards(playerCount) {
+      const arenas = $('#reflex-arenas');
+      arenas.classList.toggle('duel', playerCount === 2);
+      arenas.replaceChildren();
+      for (let player = 0; player < playerCount; player++) {
+        const arena = document.createElement('section');
+        arena.className = 'reflex-arena';
+        arena.dataset.player = String(player + 1);
+        const label = document.createElement('div');
+        label.className = 'reflex-player-label';
+        label.textContent = playerCount === 2 ? 'JUGADOR ' + (player + 1) : 'LISTO PARA JUGAR';
+        const grid = document.createElement('div');
+        grid.className = 'reflex-grid';
+        grid.setAttribute('aria-label', 'Tablero de 21 objetivos');
+        for (let index = 0; index < 21; index++) {
+          const target = document.createElement('button');
+          target.className = 'reflex-target';
+          target.type = 'button';
+          target.setAttribute('aria-label', 'Círculo ' + (index + 1));
+          target.addEventListener('pointerdown', event => {
+            if (!event.isPrimary) return;
+            event.preventDefault();
+            hitReflexTarget(player, index);
+          });
+          target.addEventListener('click', event => {
+            if (event.detail === 0) hitReflexTarget(player, index);
+          });
+          grid.appendChild(target);
+        }
+        const score = document.createElement('div');
+        score.className = 'reflex-score';
+        score.innerHTML = '<span>PUNTOS</span><strong id="reflex-score-' + player + '">000000</strong><small>ACIERTOS<b id="reflex-hits-' + player + '">0</b></small>';
+        arena.append(label, grid, score);
+        arenas.appendChild(arena);
+      }
+    }
+    function updateReflexClock() {
+      const seconds = Math.max(0, Math.ceil(S.t));
+      $('#reflex-time').textContent = String(seconds).padStart(2, '0');
+      $('#reflex-time').classList.toggle('urgent', seconds <= 10);
+    }
+    function activateReflexTarget(player) {
+      if (!S?.running || S.mode !== 'reflex') return;
+      const arena = document.querySelector('.reflex-arena[data-player="' + (player + 1) + '"]');
+      const index = Math.floor(Math.random() * 21);
+      const target = arena.querySelectorAll('.reflex-target')[index];
+      S.targets[player] = index;
+      target.classList.add('lit');
+      tone(player === 0 ? 740 : 620, .09, 'sine', .12);
+    }
+    function hitReflexTarget(player, index) {
+      if (!S?.running || S.mode !== 'reflex') return;
+      const arena = document.querySelector('.reflex-arena[data-player="' + (player + 1) + '"]');
+      if (S.targets[player] !== index) {
+        S.misses[player]++;
+        S.streaks[player] = 0;
+        arena.classList.add('miss');
+        setTimeout(() => arena.classList.remove('miss'), 240);
+        sfx.bad();
+        return;
+      }
+      arena.querySelectorAll('.reflex-target')[index].classList.remove('lit');
+      S.targets[player] = -1;
+      S.scores[player] += 100;
+      S.hits[player]++;
+      S.streaks[player]++;
+      S.maxStreaks[player] = Math.max(S.maxStreaks[player], S.streaks[player]);
+      $('#reflex-score-' + player).textContent = String(S.scores[player]).padStart(6, '0');
+      $('#reflex-hits-' + player).textContent = S.hits[player];
+      sfx.ok(S.streaks[player]);
+      setTimeout(() => activateReflexTarget(player), 120);
+    }
+    function start(players = selectedPlayers) {
+      selectedPlayers = players;
+      if (gameMode === 'reflex') {
+        S = {
+          score: 0, lives: 3, streak: 0, maxS: 0, errs: 0,
+          t: 45, level: 1, items: [], running: false, mode: 'reflex', playerCount: players,
+          scores: Array(players).fill(0), targets: Array(players).fill(-1),
+          hits: Array(players).fill(0), misses: Array(players).fill(0), streaks: Array(players).fill(0), maxStreaks: Array(players).fill(0)
+        };
+        renderReflexBoards(players);
+      } else {
+        S = { score: 0, lives: 3, streak: 0, maxS: 0, hits: 0, errs: 0, t: gameMode === 'echo' ? Infinity : T, level: 1, items: [], running: false, mode: gameMode };
+      }
       echoSequence = []; echoInput = []; echoRound = 0; echoLocked = true;
       layer.innerHTML = ''; hud(); show('count'); ac(); sfx.tick();
       let n = 3; $('#cnum').textContent = n;
@@ -2230,6 +2636,14 @@
     }
     function run() {
       S.running = true;
+      if (S.mode === 'reflex') {
+        show('reflex-game');
+        updateReflexClock();
+        for (let player = 0; player < S.playerCount; player++) activateReflexTarget(player);
+        last = performance.now();
+        raf = requestAnimationFrame(loop);
+        return;
+      }
       if (S.mode === 'echo') { show('echo-game'); echoNextRound() }
       last = performance.now(); spawnT = 0; beat = 0; bgLoop(); raf = requestAnimationFrame(loop);
     }
@@ -2290,6 +2704,13 @@
     function loop(now) {
       if (!S.running) return;
       const dt = Math.min(.05, (now - last) / 1000); last = now;
+      if (S.mode === 'reflex') {
+        S.t = Math.max(0, S.t - dt);
+        updateReflexClock();
+        if (S.t <= 0) { end(); return }
+        raf = requestAnimationFrame(loop);
+        return;
+      }
       if (S.mode !== 'echo') S.t -= dt;
       const elapsed = S.mode === 'echo' ? Math.max(0, echoRound - 1) * 3 : T - S.t;
       const lvl = S.mode === 'echo' ? Math.min(3, 1 + Math.floor((echoRound - 1) / 3)) : elapsed < 8 ? 1 : elapsed < 17 ? 2 : 3;
@@ -2314,7 +2735,46 @@
       raf = requestAnimationFrame(loop);
     }
     function end() {
-      S.running = false; cancelAnimationFrame(raf); clearTimeout(bgTimer); sfx.end(S.lives > 0);
+      S.running = false; cancelAnimationFrame(raf); clearTimeout(bgTimer);
+      if (S.mode === 'reflex') {
+        const first = S.scores[0], second = S.scores[1] || 0;
+        const labels = $('#stats').querySelectorAll('span');
+        if (S.playerCount === 2) {
+          $('#ov-t').textContent = first === second ? 'EMPATE' : first > second ? 'GANA JUGADOR 1' : 'GANA JUGADOR 2';
+          $('#ov-s').textContent = String(first).padStart(6, '0') + ' / ' + String(second).padStart(6, '0');
+          $('#ov-caption').textContent = 'PUNTOS · JUGADOR 1 / JUGADOR 2';
+          $('#o1').textContent = first;
+          $('#o2').textContent = second;
+          $('#o3').textContent = S.hits[0] + S.hits[1];
+          labels[0].textContent = 'JUGADOR 1';
+          labels[1].textContent = 'JUGADOR 2';
+          labels[2].textContent = 'ACIERTOS';
+        } else {
+          $('#ov-t').textContent = '¡TIEMPO!';
+          $('#ov-s').textContent = String(first).padStart(6, '0');
+          $('#ov-caption').textContent = 'PUNTOS TOTALES';
+          $('#o1').textContent = S.hits[0];
+          $('#o2').textContent = S.misses[0];
+          $('#o3').textContent = S.maxStreaks[0];
+          labels[0].textContent = 'ACIERTOS';
+          labels[1].textContent = 'FALLOS';
+          labels[2].textContent = 'MEJOR RACHA';
+          if (first > best) {
+            best = first;
+            try { localStorage.setItem('nr_best', best) } catch (e) { }
+          }
+        }
+        $('#ov-s').classList.toggle('duel-result', S.playerCount === 2);
+        setBest();
+        sfx.end(S.playerCount === 1 || first >= second);
+        setTimeout(() => show('over'), 350);
+        return;
+      }
+      sfx.end(S.lives > 0);
+      const labels = $('#stats').querySelectorAll('span');
+      labels[0].textContent = 'Atrapados';
+      labels[1].textContent = 'Errores';
+      labels[2].textContent = 'Mejor racha';
       if (S.score > best) { best = S.score; try { localStorage.setItem('nr_best', best) } catch (e) { } }
       setBest();
       $('#ov-t').textContent = S.lives <= 0 ? (S.mode === 'echo' ? 'ECO TERMINADO · SIN VIDAS' : 'FIN DEL JUEGO · SIN VIDAS') : '¡TIEMPO!';
@@ -2341,8 +2801,10 @@
       bgTimer = setTimeout(bgLoop, ms);
     }
     $('#mute').onclick = () => { ac(); muted = !muted; $('#mute').textContent = muted ? '🔇' : '🔊' };
-    $('#choose-run').onclick = () => chooseMode('run');
+    $('#choose-reflex').onclick = () => chooseMode('reflex');
     $('#choose-echo').onclick = () => chooseMode('echo');
+    $('#solo-go').onclick = () => start(1);
+    $('#duel-go').onclick = () => start(2);
     document.querySelectorAll('[data-pad]').forEach(pad => {
       pad.addEventListener('pointerdown', e => {
         if (!e.isPrimary) return;
@@ -2353,7 +2815,7 @@
       });
     });
     document.querySelectorAll('[data-mode-menu]').forEach(button => button.addEventListener('click', () => show('mode-select')));
-    $('#go').onclick = start; $('#echo-go').onclick = start; $('#again').onclick = start;
+    $('#echo-go').onclick = start; $('#again').onclick = start;
   </script>
 </body>
 </html>
