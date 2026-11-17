@@ -505,6 +505,7 @@
       color: var(--txt);
       font: 800 24px Manrope, "Segoe UI", sans-serif;
       cursor: pointer;
+      touch-action: manipulation;
       transition: background .12s, transform .12s, box-shadow .12s
     }
 
@@ -2328,7 +2329,16 @@
     $('#mute').onclick = () => { ac(); muted = !muted; $('#mute').textContent = muted ? '🔇' : '🔊' };
     $('#choose-run').onclick = () => chooseMode('run');
     $('#choose-echo').onclick = () => chooseMode('echo');
-    document.querySelectorAll('[data-pad]').forEach(pad => pad.addEventListener('click', () => tapEcho(Number(pad.dataset.pad))));
+    document.querySelectorAll('[data-pad]').forEach(pad => {
+      pad.addEventListener('pointerdown', e => {
+        if (!e.isPrimary) return;
+        e.preventDefault();
+        tapEcho(Number(pad.dataset.pad));
+      });
+      pad.addEventListener('click', e => {
+        if (e.detail === 0) tapEcho(Number(pad.dataset.pad));
+      });
+    });
     document.querySelectorAll('[data-mode-menu]').forEach(button => button.addEventListener('click', () => show('mode-select')));
     $('#go').onclick = start; $('#echo-go').onclick = start; $('#again').onclick = start;
   </script>
