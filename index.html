@@ -5,15 +5,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#06160e">
-  <meta name="description" content="BE-ONE × kölbi Immersive Run: cuatro retos de reflejos en una arena inspirada en la energía kölbi.">
+  <meta name="description"
+    content="BE-ONE × kölbi Immersive Run: cuatro retos de reflejos en una arena inspirada en la energía kölbi.">
   <title>BE-ONE × kölbi · Immersive Run</title>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
   <style>
     :root {
       --bg: #06160e;
       --cyan: #28b8a8;
       --mag: #f37021;
-        --kb: url("assets/kolbi-logo-original.svg");
+      --kb: url("assets/kolbi-logo-original.svg");
       --red: #e85d4d;
       --txt: #f5f7ef;
       --mut: #b6c4b8;
@@ -531,17 +534,56 @@
       transition: background .16s, border-color .16s, transform .16s
     }
 
-    .route-node:disabled { cursor: default; opacity: .68 }
-    .route-node.connected { border-color: var(--lime); background: rgba(183, 244, 54, .35); color: var(--lime) }
-    .route-node.next { border-color: var(--lime); box-shadow: 0 0 18px rgba(183, 244, 54, .24) }
-    .route-node.wrong { border-color: var(--red); background: rgba(255, 118, 95, .25) }
+    .route-node:disabled {
+      cursor: default;
+      opacity: .68
+    }
 
-    .card::before { z-index: 0; pointer-events: none }
-    .top, .hud { z-index: 4 }
-    #layer { z-index: 3 }
-    #banner { z-index: 5 }
-    .mode-screen, .signal-screen, #start, #count, #over { z-index: 6 }
-    #mute { z-index: 8 }
+    .route-node.connected {
+      border-color: var(--lime);
+      background: rgba(183, 244, 54, .35);
+      color: var(--lime)
+    }
+
+    .route-node.next {
+      border-color: var(--lime);
+      box-shadow: 0 0 18px rgba(183, 244, 54, .24)
+    }
+
+    .route-node.wrong {
+      border-color: var(--red);
+      background: rgba(255, 118, 95, .25)
+    }
+
+    .card::before {
+      z-index: 0;
+      pointer-events: none
+    }
+
+    .top,
+    .hud {
+      z-index: 4
+    }
+
+    #layer {
+      z-index: 3
+    }
+
+    #banner {
+      z-index: 5
+    }
+
+    .mode-screen,
+    .signal-screen,
+    #start,
+    #count,
+    #over {
+      z-index: 6
+    }
+
+    #mute {
+      z-index: 8
+    }
 
     .mode-switch {
       margin-top: 8px;
@@ -904,19 +946,39 @@
         font-size: 10px
       }
 
-      .mode-icons { min-height: 34px; font-size: 23px }
-      .mode-screen .sub { margin: 5px 0 8px }
-      .mode-screen .section-label { margin-bottom: 8px }
-      .mode-screen h1 { margin-bottom: 8px }
+      .mode-icons {
+        min-height: 34px;
+        font-size: 23px
+      }
+
+      .mode-screen .sub {
+        margin: 5px 0 8px
+      }
+
+      .mode-screen .section-label {
+        margin-bottom: 8px
+      }
+
+      .mode-screen h1 {
+        margin-bottom: 8px
+      }
 
       .signal-screen {
         inset: 110px 10px 10px;
         padding: 14px
       }
 
-      .echo-pads { gap: 8px }
-      .route-map { gap: 8px }
-      .route-node { min-height: 52px }
+      .echo-pads {
+        gap: 8px
+      }
+
+      .route-map {
+        gap: 8px
+      }
+
+      .route-node {
+        min-height: 52px
+      }
 
       .splb {
         margin-top: 10px
@@ -1499,100 +1561,510 @@
       font-family: Manrope, "Segoe UI", sans-serif
     }
 
-    body { font-family: Manrope, "Segoe UI", sans-serif }
-    h1, h2, .logo, .big, #ov-s, .mode-option strong { font-family: "Barlow Condensed", "Arial Narrow", sans-serif }
-    h1 { font-size: clamp(42px, 9vw, 58px); line-height: .96; font-weight: 700; letter-spacing: 0 }
-    h1 em { background: none; color: var(--kolbi-orange); -webkit-text-fill-color: currentColor; filter: none }
-    .section-label { color: var(--kolbi-orange); font-size: 10px; font-weight: 800; letter-spacing: .12em }
-    body::before { background: linear-gradient(180deg, rgba(4, 18, 10, .02), rgba(4, 18, 10, .2)), url("assets/activation-stage.svg") center 48%/cover no-repeat; opacity: 1 }
-    body::after { background: radial-gradient(ellipse at 12% 85%, rgba(243, 112, 33, .13), transparent 34%), radial-gradient(ellipse at 90% 15%, rgba(40, 184, 168, .17), transparent 38%), linear-gradient(90deg, rgba(2, 12, 7, .05), transparent 30%, transparent 70%, rgba(2, 12, 7, .05)) }
-    .brandbar { min-height: 58px; margin-bottom: 14px }
-    .brand-lockup { gap: 12px }
-    .beone.lg b { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-size: 38px; font-weight: 800; letter-spacing: 0 }
-    .beone small { color: var(--kolbi-green); font-family: Manrope, "Segoe UI", sans-serif; font-size: 8px; letter-spacing: .16em }
-    .brand-x { color: rgba(245, 247, 239, .72); font-family: Manrope, "Segoe UI", sans-serif }
-    .kolbi-logo { width: 150px; height: 38px; filter: none }
-    .event-label { color: var(--kolbi-green); font-family: Manrope, "Segoe UI", sans-serif; font-size: 11px; letter-spacing: .08em }
-    .event-label small { color: rgba(245, 247, 239, .78); letter-spacing: .1em }
-    .card { border: 1px solid rgba(174, 230, 68, .68); border-radius: 16px; background: linear-gradient(155deg, rgba(4, 31, 17, .9), rgba(4, 20, 13, .94)); box-shadow: 0 16px 54px rgba(0, 0, 0, .38), 0 0 0 1px rgba(50, 195, 50, .14), inset 0 1px rgba(255, 255, 255, .08); backdrop-filter: blur(5px) }
-    .card::before { background: linear-gradient(rgba(174, 230, 68, .26) 1px, transparent 1px) 0 0/100% 42px, linear-gradient(90deg, rgba(40, 184, 168, .22) 1px, transparent 1px) 0 0/52px 100%; opacity: .38 }
-    .top, .hud { z-index: 4 }
-    .logo { color: var(--kolbi-green); font-size: 17px; font-weight: 700; letter-spacing: .015em }
-    .logo i { background: var(--kolbi-green); box-shadow: 0 0 0 4px rgba(50, 195, 50, .16); transform: none }
-    .tag { color: var(--txt); font-family: Manrope, "Segoe UI", sans-serif; font-size: 11px; letter-spacing: .08em }
-    .tag small { color: var(--mut); letter-spacing: .1em }
-    .lb { color: #bed0c2; font-family: Manrope, "Segoe UI", sans-serif; font-size: 9px; letter-spacing: .12em }
-    .big { color: #d7f27f; font-size: 36px; text-shadow: 0 2px 12px rgba(174, 230, 68, .2) }
-    .mid { color: #53d0bd; font-family: Manrope, "Segoe UI", sans-serif; font-size: 13px; text-shadow: none }
-    .lives span { color: var(--kolbi-orange); text-shadow: 0 1px 9px rgba(243, 112, 33, .38) }
-    .bar { background: rgba(245, 247, 239, .14) }
-    .bar b { background: linear-gradient(90deg, var(--kolbi-green), #c7ec5b 58%, var(--kolbi-orange)); box-shadow: none }
-    .it { filter: drop-shadow(0 3px 6px rgba(0, 0, 0, .48)) drop-shadow(0 0 10px rgba(174, 230, 68, .42)) }
-    .pop.ok { color: #d5f17c; text-shadow: 0 2px 12px rgba(0, 0, 0, .8) }
-    .pop.bad { color: #ff9475; text-shadow: 0 2px 12px rgba(0, 0, 0, .8) }
-    #banner { color: #fff7db; font-family: "Barlow Condensed", "Arial Narrow", sans-serif; letter-spacing: .08em; text-shadow: 0 2px 12px rgba(0, 0, 0, .8), 0 0 20px rgba(40, 184, 168, .42) }
-    .scr { background: rgba(3, 19, 11, .88); backdrop-filter: blur(4px) }
-    .mode-screen { padding: 23px 20px 18px; background: linear-gradient(155deg, rgba(5, 37, 19, .96), rgba(4, 23, 15, .97)) }
-    .mode-screen .section-label { margin-bottom: 12px; color: var(--kolbi-orange) }
-    .mode-screen h1 { margin: 0; font-size: 46px; line-height: .92 }
-    .mode-screen .sub { margin: 9px 0 12px; color: #c9d6cb; font-size: 13px }
-    .mode-grid { gap: 8px; margin: 4px 0 8px }
-    .mode-option { min-height: 132px; padding: 10px 11px; border: 1px solid rgba(174, 230, 68, .38); border-radius: 8px; background: linear-gradient(145deg, rgba(15, 69, 37, .88), rgba(5, 31, 18, .94)); box-shadow: inset 0 1px rgba(255, 255, 255, .06) }
-    .mode-option:nth-child(2n) { border-color: rgba(40, 184, 168, .42) }
-    .mode-option:nth-child(3n) { border-color: rgba(243, 112, 33, .46) }
-    .mode-option[aria-pressed="true"] { border-color: #e2f5a1; box-shadow: inset 0 0 0 1px rgba(226, 245, 161, .35) }
-    .mode-option:hover, .mode-option:focus-visible { background: linear-gradient(145deg, rgba(24, 94, 47, .96), rgba(5, 31, 18, .98)); transform: translateY(-1px) }
-    .mode-icons { color: #d7f27f; font-size: 23px }
-    .mode-option strong { margin-top: 3px; color: var(--txt); font-size: 19px; font-weight: 700; letter-spacing: 0 }
-    .mode-option small { margin-top: 4px; color: #cad7cc; font-size: 10px; line-height: 1.4 }
-    .mode-option em { padding-top: 7px; color: #d5ef88; font-family: Manrope, "Segoe UI", sans-serif; font-size: 9px; letter-spacing: .08em }
-    .mode-screen .rec { color: #bccabd; font-family: Manrope, "Segoe UI", sans-serif; font-size: 9px; letter-spacing: .09em }
-    .btn, .signal-button { min-height: 48px; border-radius: 8px; background: linear-gradient(100deg, var(--kolbi-green), #75d843 58%, #e8a34c); color: #07180d; font-family: Manrope, "Segoe UI", sans-serif; font-size: 14px; font-weight: 800; letter-spacing: .015em; box-shadow: 0 5px 16px rgba(15, 79, 35, .28) }
-    .signal-button { width: min(100%, 300px); padding: 0 14px; cursor: pointer }
-    .mode-switch { min-height: 36px; color: #cfdbd0; font-family: Manrope, "Segoe UI", sans-serif; font-size: 11px }
-    .signal-screen { background: linear-gradient(160deg, rgba(4, 32, 18, .97), rgba(3, 20, 14, .98)); backdrop-filter: blur(4px) }
-    .signal-screen h2 { color: #d5ef88; font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-size: 29px; font-weight: 700; letter-spacing: 0 }
-    .signal-screen p { color: #d0dbd1; font-family: Manrope, "Segoe UI", sans-serif; font-size: 12px; line-height: 1.55 }
-    .signal-track { border-color: rgba(174, 230, 68, .65); background: repeating-linear-gradient(90deg, rgba(245, 247, 239, .1) 0 1px, transparent 1px 10%); box-shadow: inset 0 0 16px rgba(0, 0, 0, .45) }
-    .signal-zone { background: rgba(50, 195, 50, .28); border-color: #d5ef88; box-shadow: 0 0 14px rgba(50, 195, 50, .3) }
-    .signal-cursor { box-shadow: 0 0 9px #fff, 0 0 14px var(--cyan) }
-    .signal-feedback { font-family: Manrope, "Segoe UI", sans-serif; font-size: 11px }
-    .echo-pads { gap: 9px }
-    .echo-pad { min-width: 0; border-radius: 8px; font-family: Manrope, "Segoe UI", sans-serif; color: rgba(255, 255, 255, .88) }
-    .echo-pad:nth-child(1) { border-color: #32c332; background: linear-gradient(145deg, #176b32, #0d3a21) }
-    .echo-pad:nth-child(2) { border-color: #28b8a8; background: linear-gradient(145deg, #12615d, #0c3434) }
-    .echo-pad:nth-child(3) { border-color: #aee644; background: linear-gradient(145deg, #557a1e, #273d17) }
-    .echo-pad:nth-child(4) { border-color: #f37021; background: linear-gradient(145deg, #91421c, #482614) }
-    .echo-pad.lit { background: #d7f27f; color: #09200f; box-shadow: 0 0 20px rgba(215, 242, 127, .5) }
-    .route-node { border-radius: 8px; font-family: Manrope, "Segoe UI", sans-serif; color: var(--txt) }
-    .route-node.connected { color: #e7f7b7 }
-    .route-node.next { box-shadow: 0 0 12px rgba(174, 230, 68, .2) }
-    #mute { width: 38px; height: 38px; border: 1px solid rgba(174, 230, 68, .52); border-radius: 9px; background: rgba(4, 26, 15, .92); color: #d7f27f; box-shadow: 0 3px 12px rgba(0, 0, 0, .22) }
-    .card.hurt { box-shadow: 0 0 0 1px var(--red), 0 8px 26px rgba(0, 0, 0, .32), inset 0 0 38px rgba(232, 93, 77, .16) }
+    body {
+      font-family: Manrope, "Segoe UI", sans-serif
+    }
+
+    h1,
+    h2,
+    .logo,
+    .big,
+    #ov-s,
+    .mode-option strong {
+      font-family: "Barlow Condensed", "Arial Narrow", sans-serif
+    }
+
+    h1 {
+      font-size: clamp(42px, 9vw, 58px);
+      line-height: .96;
+      font-weight: 700;
+      letter-spacing: 0
+    }
+
+    h1 em {
+      background: none;
+      color: var(--kolbi-orange);
+      -webkit-text-fill-color: currentColor;
+      filter: none
+    }
+
+    .section-label {
+      color: var(--kolbi-orange);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .12em
+    }
+
+    body::before {
+      background: linear-gradient(180deg, rgba(4, 18, 10, .02), rgba(4, 18, 10, .2)), url("assets/activation-stage.svg") center 48%/cover no-repeat;
+      opacity: 1
+    }
+
+    body::after {
+      background: radial-gradient(ellipse at 12% 85%, rgba(243, 112, 33, .13), transparent 34%), radial-gradient(ellipse at 90% 15%, rgba(40, 184, 168, .17), transparent 38%), linear-gradient(90deg, rgba(2, 12, 7, .05), transparent 30%, transparent 70%, rgba(2, 12, 7, .05))
+    }
+
+    .brandbar {
+      min-height: 58px;
+      margin-bottom: 14px
+    }
+
+    .brand-lockup {
+      gap: 12px
+    }
+
+    .beone.lg b {
+      font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: 0
+    }
+
+    .beone small {
+      color: var(--kolbi-green);
+      font-family: Manrope, "Segoe UI", sans-serif;
+      font-size: 8px;
+      letter-spacing: .16em
+    }
+
+    .brand-x {
+      color: rgba(245, 247, 239, .72);
+      font-family: Manrope, "Segoe UI", sans-serif
+    }
+
+    .kolbi-logo {
+      width: 150px;
+      height: 38px;
+      filter: none
+    }
+
+    .event-label {
+      color: var(--kolbi-green);
+      font-family: Manrope, "Segoe UI", sans-serif;
+      font-size: 11px;
+      letter-spacing: .08em
+    }
+
+    .event-label small {
+      color: rgba(245, 247, 239, .78);
+      letter-spacing: .1em
+    }
+
+    .card {
+      border: 1px solid rgba(174, 230, 68, .68);
+      border-radius: 16px;
+      background: linear-gradient(155deg, rgba(4, 31, 17, .9), rgba(4, 20, 13, .94));
+      box-shadow: 0 16px 54px rgba(0, 0, 0, .38), 0 0 0 1px rgba(50, 195, 50, .14), inset 0 1px rgba(255, 255, 255, .08);
+      backdrop-filter: blur(5px)
+    }
+
+    .card::before {
+      background: linear-gradient(rgba(174, 230, 68, .26) 1px, transparent 1px) 0 0/100% 42px, linear-gradient(90deg, rgba(40, 184, 168, .22) 1px, transparent 1px) 0 0/52px 100%;
+      opacity: .38
+    }
+
+    .top,
+    .hud {
+      z-index: 4
+    }
+
+    .logo {
+      color: var(--kolbi-green);
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: .015em
+    }
+
+    .logo i {
+      background: var(--kolbi-green);
+      box-shadow: 0 0 0 4px rgba(50, 195, 50, .16);
+      transform: none
+    }
+
+    .tag {
+      color: var(--txt);
+      font-family: Manrope, "Segoe UI", sans-serif;
+      font-size: 11px;
+      letter-spacing: .08em
+    }
+
+    .tag small {
+      color: var(--mut);
+      letter-spacing: .1em
+    }
+
+    .lb {
+      color: #bed0c2;
+      font-family: Manrope, "Segoe UI", sans-serif;
+      font-size: 9px;
+      letter-spacing: .12em
+    }
+
+    .big {
+      color: #d7f27f;
+      font-size: 36px;
+      text-shadow: 0 2px 12px rgba(174, 230, 68, .2)
+    }
+
+    .mid {
+      color: #53d0bd;
+      font-family: Manrope, "Segoe UI", sans-serif;
+      font-size: 13px;
+      text-shadow: none
+    }
+
+    .lives span {
+      color: var(--kolbi-orange);
+      text-shadow: 0 1px 9px rgba(243, 112, 33, .38)
+    }
+
+    .bar {
+      background: rgba(245, 247, 239, .14)
+    }
+
+    .bar b {
+      background: linear-gradient(90deg, var(--kolbi-green), #c7ec5b 58%, var(--kolbi-orange));
+      box-shadow: none
+    }
+
+    .it {
+      filter: drop-shadow(0 3px 6px rgba(0, 0, 0, .48)) drop-shadow(0 0 10px rgba(174, 230, 68, .42))
+    }
+
+    .pop.ok {
+      color: #d5f17c;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, .8)
+    }
+
+    .pop.bad {
+      color: #ff9475;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, .8)
+    }
+
+    #banner {
+      color: #fff7db;
+      font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+      letter-spacing: .08em;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, .8), 0 0 20px rgba(40, 184, 168, .42)
+    }
+
+    .scr {
+      background: rgba(3, 19, 11, .88);
+      backdrop-filter: blur(4px)
+    }
+
+    .mode-screen {
+      padding: 23px 20px 18px;
+      background: linear-gradient(155deg, rgba(5, 37, 19, .96), rgba(4, 23, 15, .97))
+    }
+
+    .mode-screen .section-label {
+      margin-bottom: 12px;
+      color: var(--kolbi-orange)
+    }
+
+    .mode-screen h1 {
+      margin: 0;
+      font-size: 46px;
+      line-height: .92
+    }
+
+    .mode-screen .sub {
+      margin: 9px 0 12px;
+      color: #c9d6cb;
+      font-size: 13px
+    }
+
+    .mode-grid {
+      gap: 8px;
+      margin: 4px 0 8px
+    }
+
+    .mode-option {
+      min-height: 132px;
+      padding: 10px 11px;
+      border: 1px solid rgba(174, 230, 68, .38);
+      border-radius: 8px;
+      background: linear-gradient(145deg, rgba(15, 69, 37, .88), rgba(5, 31, 18, .94));
+      box-shadow: inset 0 1px rgba(255, 255, 255, .06)
+    }
+
+    .mode-option:nth-child(2n) {
+      border-color: rgba(40, 184, 168, .42)
+    }
+
+    .mode-option:nth-child(3n) {
+      border-color: rgba(243, 112, 33, .46)
+    }
+
+    .mode-option[aria-pressed="true"] {
+      border-color: #e2f5a1;
+      box-shadow: inset 0 0 0 1px rgba(226, 245, 161, .35)
+    }
+
+    .mode-option:hover,
+    .mode-option:focus-visible {
+      background: linear-gradient(145deg, rgba(24, 94, 47, .96), rgba(5, 31, 18, .98));
+      transform: translateY(-1px)
+    }
+
+    .mode-icons {
+      color: #d7f27f;
+      font-size: 23px
+    }
+
+    .mode-option strong {
+      margin-top: 3px;
+      color: var(--txt);
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: 0
+    }
+
+    .mode-option small {
+      margin-top: 4px;
+      color: #cad7cc;
+      font-size: 10px;
+      line-height: 1.4
+    }
+
+    .mode-option em {
+      padding-top: 7px;
+      color: #d5ef88;
+      font-family: Manrope, "Segoe UI", sans-serif;
+      font-size: 9px;
+      letter-spacing: .08em
+    }
+
+    .mode-screen .rec {
+      color: #bccabd;
+      font-family: Manrope, "Segoe UI", sans-serif;
+      font-size: 9px;
+      letter-spacing: .09em
+    }
+
+    .btn,
+    .signal-button {
+      min-height: 48px;
+      border-radius: 8px;
+      background: linear-gradient(100deg, var(--kolbi-green), #75d843 58%, #e8a34c);
+      color: #07180d;
+      font-family: Manrope, "Segoe UI", sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .015em;
+      box-shadow: 0 5px 16px rgba(15, 79, 35, .28)
+    }
+
+    .signal-button {
+      width: min(100%, 300px);
+      padding: 0 14px;
+      cursor: pointer
+    }
+
+    .mode-switch {
+      min-height: 36px;
+      color: #cfdbd0;
+      font-family: Manrope, "Segoe UI", sans-serif;
+      font-size: 11px
+    }
+
+    .signal-screen {
+      background: linear-gradient(160deg, rgba(4, 32, 18, .97), rgba(3, 20, 14, .98));
+      backdrop-filter: blur(4px)
+    }
+
+    .signal-screen h2 {
+      color: #d5ef88;
+      font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+      font-size: 29px;
+      font-weight: 700;
+      letter-spacing: 0
+    }
+
+    .signal-screen p {
+      color: #d0dbd1;
+      font-family: Manrope, "Segoe UI", sans-serif;
+      font-size: 12px;
+      line-height: 1.55
+    }
+
+    .signal-track {
+      border-color: rgba(174, 230, 68, .65);
+      background: repeating-linear-gradient(90deg, rgba(245, 247, 239, .1) 0 1px, transparent 1px 10%);
+      box-shadow: inset 0 0 16px rgba(0, 0, 0, .45)
+    }
+
+    .signal-zone {
+      background: rgba(50, 195, 50, .28);
+      border-color: #d5ef88;
+      box-shadow: 0 0 14px rgba(50, 195, 50, .3)
+    }
+
+    .signal-cursor {
+      box-shadow: 0 0 9px #fff, 0 0 14px var(--cyan)
+    }
+
+    .signal-feedback {
+      font-family: Manrope, "Segoe UI", sans-serif;
+      font-size: 11px
+    }
+
+    .echo-pads {
+      gap: 9px
+    }
+
+    .echo-pad {
+      min-width: 0;
+      border-radius: 8px;
+      font-family: Manrope, "Segoe UI", sans-serif;
+      color: rgba(255, 255, 255, .88)
+    }
+
+    .echo-pad:nth-child(1) {
+      border-color: #32c332;
+      background: linear-gradient(145deg, #176b32, #0d3a21)
+    }
+
+    .echo-pad:nth-child(2) {
+      border-color: #28b8a8;
+      background: linear-gradient(145deg, #12615d, #0c3434)
+    }
+
+    .echo-pad:nth-child(3) {
+      border-color: #aee644;
+      background: linear-gradient(145deg, #557a1e, #273d17)
+    }
+
+    .echo-pad:nth-child(4) {
+      border-color: #f37021;
+      background: linear-gradient(145deg, #91421c, #482614)
+    }
+
+    .echo-pad.lit {
+      background: #d7f27f;
+      color: #09200f;
+      box-shadow: 0 0 20px rgba(215, 242, 127, .5)
+    }
+
+    .route-node {
+      border-radius: 8px;
+      font-family: Manrope, "Segoe UI", sans-serif;
+      color: var(--txt)
+    }
+
+    .route-node.connected {
+      color: #e7f7b7
+    }
+
+    .route-node.next {
+      box-shadow: 0 0 12px rgba(174, 230, 68, .2)
+    }
+
+    #mute {
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(174, 230, 68, .52);
+      border-radius: 9px;
+      background: rgba(4, 26, 15, .92);
+      color: #d7f27f;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, .22)
+    }
+
+    .card.hurt {
+      box-shadow: 0 0 0 1px var(--red), 0 8px 26px rgba(0, 0, 0, .32), inset 0 0 38px rgba(232, 93, 77, .16)
+    }
+
     @media(max-width:600px) {
-      .kolbi-logo { width: 142px; height: 36px }
-      .mode-screen { padding: 18px 14px 14px }
-      .mode-screen h1 { font-size: 40px }
-      .mode-grid { gap: 7px; margin: 3px 0 6px }
-      .mode-option { min-height: 126px; padding: 9px 8px }
-      .mode-icons { min-height: 30px; font-size: 21px }
-      .mode-option strong { font-size: 17px }
-      .mode-option small { font-size: 9px }
-      .mode-option em { font-size: 8px; letter-spacing: .04em }
-      .signal-screen { padding: 15px }
-      .signal-screen h2 { font-size: 26px }
+      .kolbi-logo {
+        width: 142px;
+        height: 36px
+      }
+
+      .mode-screen {
+        padding: 18px 14px 14px
+      }
+
+      .mode-screen h1 {
+        font-size: 40px
+      }
+
+      .mode-grid {
+        gap: 7px;
+        margin: 3px 0 6px
+      }
+
+      .mode-option {
+        min-height: 126px;
+        padding: 9px 8px
+      }
+
+      .mode-icons {
+        min-height: 30px;
+        font-size: 21px
+      }
+
+      .mode-option strong {
+        font-size: 17px
+      }
+
+      .mode-option small {
+        font-size: 9px
+      }
+
+      .mode-option em {
+        font-size: 8px;
+        letter-spacing: .04em
+      }
+
+      .signal-screen {
+        padding: 15px
+      }
+
+      .signal-screen h2 {
+        font-size: 26px
+      }
     }
+
     @media(max-width:360px) {
-      .mode-screen { padding: 12px 9px 10px }
-      .mode-grid { gap: 5px }
-      .mode-option { min-height: 116px; padding: 7px 6px }
-      .mode-option strong { font-size: 15px }
-      .mode-option small { font-size: 8px }
-      .mode-option em { font-size: 7px }
-      .kolbi-logo { width: 112px }
+      .mode-screen {
+        padding: 12px 9px 10px
+      }
+
+      .mode-grid {
+        gap: 5px
+      }
+
+      .mode-option {
+        min-height: 116px;
+        padding: 7px 6px
+      }
+
+      .mode-option strong {
+        font-size: 15px
+      }
+
+      .mode-option small {
+        font-size: 8px
+      }
+
+      .mode-option em {
+        font-size: 7px
+      }
+
+      .kolbi-logo {
+        width: 112px
+      }
     }
+
     @media(prefers-reduced-motion:reduce) {
-      *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important
+      }
     }
   </style>
 </head>
@@ -1681,8 +2153,10 @@
         <h1>Pulso de<br><em>señal.</em></h1>
         <p class="sub">Toca cuando el pulso cruce la zona verde. Cada conexión suma; cada fallo cuesta una vida.</p>
         <div class="leg">
-          <div>📶🎯⚡<p style="color:var(--cyan)">CONECTA +100</p></div>
-          <div>🪫📵<p style="color:var(--red)">FALLA −150</p></div>
+          <div>📶🎯⚡<p style="color:var(--cyan)">CONECTA +100</p>
+          </div>
+          <div>🪫📵<p style="color:var(--red)">FALLA −150</p>
+          </div>
         </div>
         <button class="btn" id="signal-go">Jugar · 25 segundos</button>
         <div class="rec">3 VIDAS · EL PULSO ACELERA POR NIVEL</div>
