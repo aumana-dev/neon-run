@@ -2106,31 +2106,19 @@
       <div class="scr on mode-screen" id="mode-select">
         <p class="section-label">BE-ONE × KÖLBI · LIVE ARENA</p>
         <h1>Elige tu<br><em>reto.</em></h1>
-        <p class="sub">Cuatro retos. Una misma arena.</p>
+        <p class="sub">Dos retos. Una misma arena.</p>
         <div class="mode-grid">
-          <button class="mode-option" id="choose-neon" type="button" aria-pressed="false">
+          <button class="mode-option" id="choose-run" type="button" aria-pressed="false">
             <span class="mode-icons" aria-hidden="true">🐸 👟 🎧</span>
-            <strong>Neon Run</strong>
+            <strong>Kölbi Run</strong>
             <small>Atrapa energía y esquiva obstáculos en movimiento.</small>
             <em>ATRAPAR OBJETOS →</em>
-          </button>
-          <button class="mode-option" id="choose-signal" type="button" aria-pressed="false">
-            <span class="mode-icons" aria-hidden="true">📶 ⚡ 🎯</span>
-            <strong>Pulso de señal</strong>
-            <small>Sincroniza tu toque con la señal para conectar.</small>
-            <em>PROBAR REFLEJOS →</em>
           </button>
           <button class="mode-option" id="choose-echo" type="button" aria-pressed="false">
             <span class="mode-icons" aria-hidden="true">🔊 🧠 🟢</span>
             <strong>Eco kölbi</strong>
             <small>Escucha y repite la secuencia de tonos y luces.</small>
             <em>REPETIR SECUENCIA →</em>
-          </button>
-          <button class="mode-option" id="choose-route" type="button" aria-pressed="false">
-            <span class="mode-icons" aria-hidden="true">📡 🔗 🗺️</span>
-            <strong>Ruta de cobertura</strong>
-            <small>Conecta los nodos en el orden indicado para completar la ruta.</small>
-            <em>CONECTAR NODOS →</em>
           </button>
         </div>
         <div class="rec">28 NOV · TERRAZAS LINDORA</div>
@@ -2149,36 +2137,13 @@
         <div class="rec" style="margin-top:6px">RÉCORD <b id="best">0</b></div>
         <button class="mode-switch" type="button" data-mode-menu>← Elegir otro juego</button>
       </div>
-      <div class="scr" id="signal-intro">
-        <h1>Pulso de<br><em>señal.</em></h1>
-        <p class="sub">Toca cuando el pulso cruce la zona verde. Cada conexión suma; cada fallo cuesta una vida.</p>
-        <div class="leg">
-          <div>📶🎯⚡<p style="color:var(--cyan)">CONECTA +100</p>
-          </div>
-          <div>🪫📵<p style="color:var(--red)">FALLA −150</p>
-          </div>
-        </div>
-        <button class="btn" id="signal-go">Jugar · 25 segundos</button>
-        <div class="rec">3 VIDAS · EL PULSO ACELERA POR NIVEL</div>
-        <button class="mode-switch" type="button" data-mode-menu>← Elegir otro juego</button>
-      </div>
-      <div class="scr signal-screen" id="signal-game">
-        <h2>Conecta el pulso</h2>
-        <p>Toca justo cuando la luz atraviese la zona verde.</p>
-        <div class="signal-track" aria-label="Pulso de señal: toca cuando el indicador esté en la zona verde">
-          <span class="signal-zone"></span>
-          <span class="signal-cursor" id="signal-cursor"></span>
-        </div>
-        <button class="signal-button" id="signal-tap" type="button">CONECTAR SEÑAL</button>
-        <div class="signal-feedback" id="signal-feedback" aria-live="polite"></div>
-      </div>
-      <div class="scr signal-screen" id="echo-intro">
+      <div class="scr mini-screen" id="echo-intro">
         <h2>Eco kölbi</h2>
         <p>Observa la secuencia de luces y repítela en el mismo orden. Cada ronda agrega un pulso.</p>
         <button class="btn" id="echo-go">Empezar secuencia</button>
         <button class="mode-switch" type="button" data-mode-menu>← Elegir otro juego</button>
       </div>
-      <div class="scr signal-screen" id="echo-game">
+      <div class="scr mini-screen" id="echo-game">
         <h2>Repite el eco</h2>
         <p id="echo-status" aria-live="polite">Mira la secuencia</p>
         <div class="echo-pads" aria-label="Panel de cuatro pulsos">
@@ -2188,18 +2153,6 @@
           <button class="echo-pad" type="button" data-pad="3" aria-label="Pulso coral">●</button>
         </div>
         <div class="signal-feedback" id="echo-feedback" aria-live="polite"></div>
-      </div>
-      <div class="scr signal-screen" id="route-intro">
-        <h2>Ruta de cobertura</h2>
-        <p>Conecta los nodos del color objetivo. Completa la ruta sin tocar un nodo equivocado.</p>
-        <button class="btn" id="route-go">Iniciar ruta</button>
-        <button class="mode-switch" type="button" data-mode-menu>← Elegir otro juego</button>
-      </div>
-      <div class="scr signal-screen" id="route-game">
-        <h2>Conecta la ruta</h2>
-        <p id="route-status" aria-live="polite">Sigue la señal</p>
-        <div class="route-map" aria-label="Nodos de cobertura"></div>
-        <div class="signal-feedback" id="route-feedback" aria-live="polite"></div>
       </div>
       <div class="scr" id="count">
         <div id="cnum">3</div>
@@ -2223,40 +2176,34 @@
   <script>
     const $ = s => document.querySelector(s), layer = $('#layer'), card = $('#card');
     const RUN = ['🐸', '👟', '🎧'], FORMAL = ['🪫', '📵', '🛋️'], T = 25;
-    let S, raf, last, spawnT, best = 0, gameMode = 'neon', signalPosition = 0, signalDirection = 1;
+    let S, raf, last, spawnT, best = 0, gameMode = 'run';
     let echoSequence = [], echoInput = [], echoRound = 0, echoLocked = true;
-    let routeSequence = [], routeColors = [], routeStep = 0, routeTarget = 0, routeLocked = true;
     const echoColors = ['#b7f436', '#36e0a4', '#d4ff58', '#ff765f'];
     try { best = +localStorage.getItem('nr_best') || 0 } catch (e) { }
     function setBest() { $('#best').textContent = best; $('#best2').textContent = best }
     setBest();
-    function show(id) { ['mode-select', 'start', 'signal-intro', 'signal-game', 'echo-intro', 'echo-game', 'route-intro', 'route-game', 'count', 'over'].forEach(k => $('#' + k).classList.toggle('on', k === id)) }
+    function show(id) { ['mode-select', 'start', 'echo-intro', 'echo-game', 'count', 'over'].forEach(k => $('#' + k).classList.toggle('on', k === id)) }
     function chooseMode(mode) {
       gameMode = mode;
       document.querySelectorAll('.mode-option').forEach(button => button.setAttribute('aria-pressed', String(button.id === 'choose-' + mode)));
-      show(mode === 'signal' ? 'signal-intro' : mode === 'echo' ? 'echo-intro' : mode === 'route' ? 'route-intro' : 'start');
+      show(mode === 'echo' ? 'echo-intro' : 'start');
     }
     const mult = () => S.streak >= 6 ? 3 : S.streak >= 3 ? 2 : 1;
     function hud() {
       $('#sc').textContent = S.score; $('#lv').textContent = S.level; $('#mu').textContent = mult();
-      $('#tm').textContent = Math.max(0, Math.ceil(S.t)) + ' s'; $('#bar').style.width = Math.max(0, S.t / T * 100) + '%';
+      $('#tm').textContent = S.mode === 'echo' ? '∞' : Math.max(0, Math.ceil(S.t)) + ' s'; $('#bar').style.width = S.mode === 'echo' ? '100%' : Math.max(0, S.t / T * 100) + '%';
       $('#lives').innerHTML = [0, 1, 2].map(i => '<span class="' + (i < S.lives ? '' : 'off') + '">♥</span>').join('');
     }
     function start() {
-      S = { score: 0, lives: 3, streak: 0, maxS: 0, hits: 0, errs: 0, t: T, level: 1, items: [], running: false, mode: gameMode };
-      signalPosition = 0; signalDirection = 1; $('#signal-cursor').style.left = '0%'; $('#signal-feedback').textContent = '';
+      S = { score: 0, lives: 3, streak: 0, maxS: 0, hits: 0, errs: 0, t: gameMode === 'echo' ? Infinity : T, level: 1, items: [], running: false, mode: gameMode };
       echoSequence = []; echoInput = []; echoRound = 0; echoLocked = true;
-      routeSequence = []; routeColors = []; routeStep = 0; routeTarget = Math.floor(Math.random() * 4); routeLocked = true;
-      document.querySelectorAll('.route-node').forEach(node => node.remove());
       layer.innerHTML = ''; hud(); show('count'); ac(); sfx.tick();
       let n = 3; $('#cnum').textContent = n;
       const iv = setInterval(() => { n--; if (n <= 0) { clearInterval(iv); show(null); sfx.go(); run() } else { $('#cnum').textContent = n; sfx.tick() } }, 800);
     }
     function run() {
       S.running = true;
-      if (S.mode === 'signal') show('signal-game');
       if (S.mode === 'echo') { show('echo-game'); echoNextRound() }
-      if (S.mode === 'route') { show('route-game'); routeNextRound() }
       last = performance.now(); spawnT = 0; beat = 0; bgLoop(); raf = requestAnimationFrame(loop);
     }
     function banner(t) { const b = $('#banner'); b.textContent = t; b.classList.remove('go'); void b.offsetWidth; b.classList.add('go') }
@@ -2275,24 +2222,6 @@
       else {
         S.score = Math.max(0, S.score - 150); S.lives--; S.errs++; S.streak = 0; sfx.bad(); pop('−150', cx, cy, 'bad');
         card.classList.add('hurt'); setTimeout(() => card.classList.remove('hurt'), 300); if (navigator.vibrate) navigator.vibrate(60);
-        if (S.lives <= 0) { hud(); end(); return }
-      }
-      hud();
-    }
-    function hitSignal() {
-      if (!S || !S.running || S.mode !== 'signal') return;
-      const zoneWidth = Math.max(8, 14 - (S.level - 1) * 2);
-      const connected = Math.abs(signalPosition - 50) <= zoneWidth / 2;
-      const feedback = $('#signal-feedback');
-      if (connected) {
-        const points = 100 * mult();
-        S.streak++; S.maxS = Math.max(S.maxS, S.streak); S.hits++; S.score += points;
-        feedback.textContent = '¡SEÑAL CONECTADA! +' + points; feedback.style.color = 'var(--lime)'; sfx.ok(S.streak);
-      } else {
-        S.score = Math.max(0, S.score - 150); S.lives--; S.errs++; S.streak = 0;
-        feedback.textContent = 'FUERA DE ZONA · −150'; feedback.style.color = 'var(--red)'; sfx.bad();
-        card.classList.add('hurt'); setTimeout(() => card.classList.remove('hurt'), 300);
-        if (navigator.vibrate) navigator.vibrate(60);
         if (S.lives <= 0) { hud(); end(); return }
       }
       hud();
@@ -2331,65 +2260,20 @@
         echoLocked = true; setTimeout(echoNextRound, 720);
       }
     }
-    function routeNextRound() {
-      if (!S?.running || S.mode !== 'route') return;
-      routeStep = 0; routeLocked = true; routeTarget = Math.floor(Math.random() * 4);
-      const count = Math.min(3 + S.level, 6), nodes = document.querySelector('.route-map'); nodes.replaceChildren(); routeSequence = [];
-      routeColors = Array.from({ length: 9 }, () => Math.floor(Math.random() * 4));
-      while (routeSequence.length < count) { const next = Math.floor(Math.random() * 9); if (!routeSequence.includes(next)) { routeSequence.push(next); routeColors[next] = routeTarget } }
-      routeColors = routeColors.map((color, index) => routeSequence.includes(index) ? routeTarget : color === routeTarget ? (routeTarget + 1 + Math.floor(Math.random() * 3)) % 4 : color);
-      $('#route-status').textContent = 'Conecta ' + ['verde', 'turquesa', 'lima', 'coral'][routeTarget] + ' · ' + count + ' nodos';
-      routeColors.forEach((color, index) => {
-        const button = document.createElement('button'); button.className = 'route-node'; button.type = 'button'; button.dataset.node = index;
-        button.textContent = ['●', '◆', '✦', '◉'][color]; button.style.color = echoColors[color]; button.style.borderColor = echoColors[color];
-        button.setAttribute('aria-label', 'Nodo ' + (index + 1) + ', ' + ['verde', 'turquesa', 'lima', 'coral'][color]); button.disabled = true;
-        button.addEventListener('click', () => tapRoute(index)); nodes.appendChild(button);
-      });
-      setTimeout(() => {
-        if (!S?.running || S.mode !== 'route') return;
-        routeLocked = false; nodes.querySelectorAll('.route-node').forEach(button => { button.disabled = false });
-        routeHighlight();
-      }, 420);
-    }
-    function routeHighlight() {
-      const expectedNode = routeSequence[routeStep];
-      document.querySelectorAll('.route-node').forEach((button, index) => button.classList.toggle('next', index === expectedNode));
-    }
-    function tapRoute(index) {
-      if (!S?.running || S.mode !== 'route' || routeLocked) return;
-      const button = document.querySelectorAll('.route-node')[index];
-      if (index !== routeSequence[routeStep]) {
-        S.score = Math.max(0, S.score - 150); S.lives--; S.errs++; S.streak = 0;
-        button.classList.add('wrong'); $('#route-feedback').textContent = 'Ruta interrumpida · −150'; $('#route-feedback').style.color = 'var(--red)';
-        sfx.bad(); card.classList.add('hurt'); setTimeout(() => card.classList.remove('hurt'), 300); hud();
-        if (S.lives <= 0) { end(); return }
-        routeLocked = true; setTimeout(routeNextRound, 750); return;
-      }
-      button.classList.add('connected'); button.classList.remove('next'); sfx.ok(routeStep + 1); routeStep++;
-      if (routeStep >= routeSequence.length) {
-        const points = 100 * mult(); S.streak++; S.maxS = Math.max(S.maxS, S.streak); S.hits++; S.score += points;
-        $('#route-feedback').textContent = 'Ruta conectada · +' + points; $('#route-feedback').style.color = 'var(--lime)'; hud(); routeLocked = true;
-        setTimeout(routeNextRound, 720); return;
-      }
-      routeHighlight();
-    }
     function loop(now) {
       if (!S.running) return;
-      const dt = Math.min(.05, (now - last) / 1000); last = now; S.t -= dt;
-      const el = T - S.t, lvl = el < 8 ? 1 : el < 17 ? 2 : 3;
+      const dt = Math.min(.05, (now - last) / 1000); last = now;
+      if (S.mode !== 'echo') S.t -= dt;
+      const elapsed = S.mode === 'echo' ? Math.max(0, echoRound - 1) * 3 : T - S.t;
+      const lvl = S.mode === 'echo' ? Math.min(3, 1 + Math.floor((echoRound - 1) / 3)) : elapsed < 8 ? 1 : elapsed < 17 ? 2 : 3;
       if (lvl !== S.level) { S.level = lvl; sfx.lvl(); banner(lvl === 2 ? 'NIVEL 2 · ACELERACIÓN' : 'NIVEL 3 · MÁXIMA ENERGÍA') }
       const W = layer.clientWidth, H = layer.clientHeight;
-      if (S.mode === 'signal') {
-        const signalSpeed = [0, 76, 94, 116][lvl];
-        signalPosition += signalDirection * signalSpeed * dt;
-        if (signalPosition >= 98) { signalPosition = 98; signalDirection = -1 }
-        if (signalPosition <= 2) { signalPosition = 2; signalDirection = 1 }
-        $('#signal-cursor').style.left = signalPosition + '%';
-        const zoneWidth = Math.max(8, 14 - (lvl - 1) * 2);
-        $('.signal-zone').style.width = zoneWidth + '%';
-        $('.signal-zone').style.left = (50 - zoneWidth / 2) + '%';
-      } else if (S.mode === 'neon') {
-        spawnT -= dt; if (spawnT <= 0) { spawn(W); spawnT = [0, .95, .72, .52][lvl] * (.8 + Math.random() * .4) }
+      if (S.mode === 'run') {
+        spawnT -= dt;
+        if (spawnT <= 0) {
+          for (let batch = 0; batch < lvl; batch++) spawn(W);
+          spawnT = [0, 1.05, .82, .68][lvl] * (.8 + Math.random() * .4);
+        }
         const sp = [0, .3, .43, .58][lvl] * H;
         for (const it of S.items) {
           it.y += sp * it.k * dt;
@@ -2399,14 +2283,14 @@
         S.items = S.items.filter(i => !i.dead);
       }
       hud();
-      if (S.t <= 0) { S.t = 0; hud(); end(); return }
+      if (S.mode !== 'echo' && S.t <= 0) { S.t = 0; hud(); end(); return }
       raf = requestAnimationFrame(loop);
     }
     function end() {
       S.running = false; cancelAnimationFrame(raf); clearTimeout(bgTimer); sfx.end(S.lives > 0);
       if (S.score > best) { best = S.score; try { localStorage.setItem('nr_best', best) } catch (e) { } }
       setBest();
-      $('#ov-t').textContent = S.lives <= 0 ? 'FIN DEL JUEGO · SIN VIDAS' : '¡TIEMPO!';
+      $('#ov-t').textContent = S.lives <= 0 ? (S.mode === 'echo' ? 'ECO TERMINADO · SIN VIDAS' : 'FIN DEL JUEGO · SIN VIDAS') : '¡TIEMPO!';
       $('#ov-s').textContent = S.score; $('#o1').textContent = S.hits; $('#o2').textContent = S.errs; $('#o3').textContent = S.maxS;
       setTimeout(() => show('over'), 350);
     }
@@ -2430,15 +2314,11 @@
       bgTimer = setTimeout(bgLoop, ms);
     }
     $('#mute').onclick = () => { ac(); muted = !muted; $('#mute').textContent = muted ? '🔇' : '🔊' };
-    $('#choose-neon').onclick = () => chooseMode('neon');
-    $('#choose-signal').onclick = () => chooseMode('signal');
+    $('#choose-run').onclick = () => chooseMode('run');
     $('#choose-echo').onclick = () => chooseMode('echo');
-    $('#choose-route').onclick = () => chooseMode('route');
     document.querySelectorAll('[data-pad]').forEach(pad => pad.addEventListener('click', () => tapEcho(Number(pad.dataset.pad))));
     document.querySelectorAll('[data-mode-menu]').forEach(button => button.addEventListener('click', () => show('mode-select')));
-    $('#go').onclick = start; $('#signal-go').onclick = start; $('#signal-tap').onclick = hitSignal;
-    $('#echo-go').onclick = start; $('#route-go').onclick = start; $('#again').onclick = start;
+    $('#go').onclick = start; $('#echo-go').onclick = start; $('#again').onclick = start;
   </script>
 </body>
-
 </html>
