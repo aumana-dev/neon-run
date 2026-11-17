@@ -1715,7 +1715,15 @@
 
     .lives span {
       color: var(--kolbi-orange);
-      text-shadow: 0 1px 9px rgba(243, 112, 33, .38)
+      text-shadow: 0 1px 9px rgba(243, 112, 33, .38);
+      transition: opacity .16s ease, transform .16s ease
+    }
+
+    .lives span.off {
+      color: #a8b2a7;
+      opacity: .2;
+      text-shadow: none;
+      transform: scale(.8)
     }
 
     .bar {
@@ -1751,6 +1759,10 @@
     .scr {
       background: rgba(3, 19, 11, .88);
       backdrop-filter: blur(4px)
+    }
+
+    #echo-game {
+      z-index: 1
     }
 
     .mode-screen {
