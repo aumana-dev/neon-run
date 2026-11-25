@@ -2302,13 +2302,17 @@
     .reflex-target.lit {
       transform: scale(.9);
       border-color: #ecffd0;
-      background: radial-gradient(circle at 38% 30%, #f5ffe7, #aee644 45%, #32c332 78%);
+      background-color: #32c332;
+      background-image: url("assets/frog.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
       box-shadow: 0 0 0 5px rgba(50, 195, 50, .2), 0 0 34px rgba(50, 195, 50, .85)
     }
 
     .reflex-arena[data-player="2"] .reflex-target.lit {
       border-color: #fff0d9;
-      background: radial-gradient(circle at 38% 30%, #fff8e9, #ffc276 45%, #f37021 78%);
+      background-color: #f37021;
       box-shadow: 0 0 0 5px rgba(243, 112, 33, .2), 0 0 34px rgba(243, 112, 33, .85)
     }
 
@@ -2585,10 +2589,11 @@
       $('#reflex-time').textContent = String(seconds).padStart(2, '0');
       $('#reflex-time').classList.toggle('urgent', seconds <= 10);
     }
-    function activateReflexTarget(player) {
+    function activateReflexTarget(player, previousIndex = -1) {
       if (!S?.running || S.mode !== 'reflex') return;
       const arena = document.querySelector('.reflex-arena[data-player="' + (player + 1) + '"]');
-      const index = Math.floor(Math.random() * 21);
+      let index = Math.floor(Math.random() * 21);
+      if (index === previousIndex) index = (index + 1 + Math.floor(Math.random() * 20)) % 21;
       const target = arena.querySelectorAll('.reflex-target')[index];
       S.targets[player] = index;
       target.classList.add('lit');
@@ -2614,7 +2619,7 @@
       $('#reflex-score-' + player).textContent = String(S.scores[player]).padStart(6, '0');
       $('#reflex-hits-' + player).textContent = S.hits[player];
       sfx.ok(S.streaks[player]);
-      setTimeout(() => activateReflexTarget(player), 120);
+      setTimeout(() => activateReflexTarget(player, index), 120);
     }
     function start(players = selectedPlayers) {
       selectedPlayers = players;
