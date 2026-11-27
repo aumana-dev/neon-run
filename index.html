@@ -2222,9 +2222,9 @@
 
     .play-choices {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: 1fr;
       gap: 12px;
-      width: min(100%, 430px);
+      width: min(100%, 300px);
       margin: 20px 0 14px
     }
 
@@ -2997,7 +2997,7 @@
           <button class="mode-option" id="choose-reflex" type="button" aria-pressed="false">
             <span class="mode-icons" aria-hidden="true">● ◉ ●</span>
             <strong>Kölbi Reflejos</strong>
-            <small>Alcanza la señal encendida. Juega solo o en duelo.</small>
+            <small>Alcanza la señal encendida y pon a prueba tus reflejos.</small>
             <em>REACCIÓN RÁPIDA →</em>
           </button>
           <button class="mode-option" id="choose-echo" type="button" aria-pressed="false">
@@ -3035,7 +3035,7 @@
         <p class="sub">Toca el círculo encendido antes de que cambie.</p>
         <div class="play-choices" id="play-choices">
           <button class="play-choice" id="solo-go" type="button"><strong>1</strong><span>UN JUGADOR</span></button>
-          <button class="play-choice duel-choice" id="duel-go" type="button"><strong>2</strong><span>RETO
+          <button class="play-choice duel-choice" id="duel-go" type="button" hidden><strong>2</strong><span>RETO
               DUELO</span></button>
         </div>
         <form class="players-form" id="players-form" hidden>
