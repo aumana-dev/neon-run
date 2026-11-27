@@ -8,3 +8,7 @@ Al entrar se puede elegir entre dos modos:
 - **Eco kölbi:** observa y repite una secuencia de tonos y luces que crece en cada ronda.
 
 Kölbi Reflejos cambia el objetivo al acertarlo y muestra el marcador en una tipografía arcade. Eco kölbi continúa hasta perder las vidas. El logo oficial local está en `assets/kolbi-logo-original.svg` y se usa en la cabecera y el escenario ilustrado `assets/activation-stage.svg`.
+
+Las imágenes originales de las caras y la rana se conservan en `assets/originales/`; el juego utiliza las versiones preparadas `assets/caras-kolbi-transparent.png` y `assets/frog.png`.
+
+Cada modo se inicia con un botón, sin solicitar el nombre ni registrar puntuaciones en un leaderboard. Cada juego conserva su propio récord en el navegador al terminar una partida. El antiguo récord compartido no se asigna a ninguno porque no identifica el juego. Las opciones e inicios están centrados para facilitar su uso en la pantalla táctil.
