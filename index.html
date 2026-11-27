@@ -1599,12 +1599,12 @@
     }
 
     body::before {
-      background: linear-gradient(180deg, rgba(4, 18, 10, .02), rgba(4, 18, 10, .2)), url("assets/activation-stage.svg") center 48%/cover no-repeat;
+      background: linear-gradient(125deg, transparent 0 18%, rgba(50, 195, 50, .2) 18% 19%, transparent 19% 73%, rgba(243, 112, 33, .18) 73% 74%, transparent 74%), repeating-linear-gradient(125deg, #172c28 0 90px, #1a302b 90px 180px);
       opacity: 1
     }
 
     body::after {
-      background: radial-gradient(ellipse at 12% 85%, rgba(243, 112, 33, .13), transparent 34%), radial-gradient(ellipse at 90% 15%, rgba(40, 184, 168, .17), transparent 38%), linear-gradient(90deg, rgba(2, 12, 7, .05), transparent 30%, transparent 70%, rgba(2, 12, 7, .05))
+      background: linear-gradient(90deg, #32c332 0 5px, transparent 5px calc(100% - 5px), #f37021 calc(100% - 5px))
     }
 
     .brandbar {
@@ -2330,10 +2330,26 @@
       inset: 0;
       gap: clamp(8px, 1.4vmin, 18px);
       padding: clamp(12px, 2vmin, 28px);
-      background-color: #04170c;
-      background-image: linear-gradient(rgba(50, 195, 50, .075) 1px, transparent 1px), linear-gradient(90deg, rgba(40, 184, 168, .06) 1px, transparent 1px), linear-gradient(160deg, #062512, #03140b 65%, #071d12);
-      background-size: 38px 38px, 38px 38px, auto;
+      background-color: #172725;
+      background-image: linear-gradient(120deg, transparent 0 10%, #32c332 10% 12%, #d2ed73 12% 12.5%, transparent 12.5% 78%, #f37021 78% 80%, #f7bc70 80% 80.5%, transparent 80.5%), repeating-linear-gradient(90deg, transparent 0 calc(33.333% - 1px), rgba(245, 247, 239, .06) calc(33.333% - 1px) 33.333%), linear-gradient(120deg, #24423a, #172725 48%, #253332);
+      background-position: center;
       backdrop-filter: none
+    }
+
+    #reflex-game::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image: conic-gradient(rgba(245, 247, 239, .7) 25%, transparent 0 50%, rgba(245, 247, 239, .7) 0 75%, transparent 0);
+      background-size: 24px 24px;
+      clip-path: polygon(0 0, 14% 0, 0 18%, 0 100%, 86% 100%, 100% 82%, 100% 100%, 0 100%);
+      opacity: .27
+    }
+
+    #reflex-game > * {
+      position: relative;
+      z-index: 1
     }
 
     .reflex-game-header {
@@ -2433,20 +2449,24 @@
     }
 
     .reflex-grid {
-      width: auto;
+      width: min(72%, 600px);
       height: min(76svh, 1100px);
       max-height: calc(100% - 100px);
-      aspect-ratio: 3 / 7;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       grid-template-rows: repeat(7, minmax(0, 1fr));
       gap: clamp(4px, .65vmin, 9px);
+      container-type: size;
       flex: 0 1 auto
     }
 
     .reflex-target {
-      width: 100%;
-      height: 100%;
+      width: min(100%, 8svh);
+      width: min(100%, 12cqh, 10svh);
+      height: auto;
+      max-width: 100%;
+      aspect-ratio: 1;
+      place-self: center;
       min-width: 0;
       min-height: 0;
       padding: 0;
@@ -2571,6 +2591,141 @@
       .reflex-score > span,
       .reflex-score small { display: none }
     }
+
+    #mode-select {
+      justify-content: flex-start;
+      overflow-y: auto;
+      padding: 20px 24px 24px
+    }
+
+    #mode-select .section-label {
+      margin: 0 0 8px
+    }
+
+    #mode-select h1 {
+      font-size: 38px;
+      line-height: .96
+    }
+
+    #mode-select .sub {
+      margin: 8px 0 12px
+    }
+
+    #mode-select .mode-grid {
+      max-width: 760px;
+      flex: 0 0 auto;
+      margin: 0 0 16px
+    }
+
+    #mode-select .mode-option {
+      min-height: 118px
+    }
+
+    .leaderboard-grid {
+      width: min(100%, 760px);
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      flex: 0 0 auto;
+      text-align: left
+    }
+
+    .leaderboard-grid .leaderboard {
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 12px 0 0;
+      border: 0;
+      border-top: 2px solid #aee644;
+      border-radius: 0;
+      background: none
+    }
+
+    .leaderboard-grid .leaderboard + .leaderboard {
+      border-color: #f37021
+    }
+
+    .leaderboard-heading {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 10px
+    }
+
+    .leaderboard-heading h2 {
+      color: #f5f7ef;
+      font-size: 22px;
+      line-height: 1;
+      letter-spacing: 0
+    }
+
+    .leaderboard-heading span {
+      color: #c9ef81;
+      font-size: 10px;
+      letter-spacing: 0
+    }
+
+    .leaderboard-grid .leaderboard + .leaderboard .leaderboard-heading span {
+      color: #ffc17f
+    }
+
+    .leaderboard-list {
+      max-height: none;
+      overflow: visible
+    }
+
+    .leaderboard-entry {
+      min-height: 30px;
+      grid-template-columns: 24px minmax(0, 1fr) auto;
+      gap: 8px;
+      font-size: 12px
+    }
+
+    .leaderboard-entry:first-child .leaderboard-name {
+      color: #fff;
+      font-weight: 800
+    }
+
+    .leaderboard-score {
+      font-size: 9px
+    }
+
+    .leaderboard-empty {
+      padding: 8px 0;
+      font-size: 11px
+    }
+
+    #mode-select > .rec {
+      flex: 0 0 auto;
+      margin-top: 18px
+    }
+
+    #echo-form {
+      margin: 0 0 10px
+    }
+
+    @media(max-width:480px) {
+      #mode-select {
+        padding: 18px 14px 22px
+      }
+
+      #mode-select h1 {
+        font-size: 32px
+      }
+
+      #mode-select .mode-option {
+        min-height: 112px
+      }
+
+      .leaderboard-grid {
+        grid-template-columns: 1fr;
+        gap: 14px
+      }
+
+      .leaderboard-heading h2 {
+        font-size: 20px
+      }
+    }
   </style>
 </head>
 
@@ -2626,6 +2781,18 @@
             <em>REPETIR SECUENCIA →</em>
           </button>
         </div>
+        <div class="leaderboard-grid">
+          <section class="leaderboard" aria-labelledby="leaderboard-title">
+            <div class="leaderboard-heading"><h2 id="leaderboard-title">Leaderboard</h2><span>KÖLBI REFLEJOS</span></div>
+            <ol class="leaderboard-list" id="leaderboard-list"></ol>
+            <p class="leaderboard-empty" id="leaderboard-empty">Aún no hay puntuaciones</p>
+          </section>
+          <section class="leaderboard" aria-labelledby="echo-leaderboard-title">
+            <div class="leaderboard-heading"><h2 id="echo-leaderboard-title">Leaderboard</h2><span>ECO KÖLBI</span></div>
+            <ol class="leaderboard-list" id="echo-leaderboard-list"></ol>
+            <p class="leaderboard-empty" id="echo-leaderboard-empty">Aún no hay puntuaciones</p>
+          </section>
+        </div>
         <div class="rec">28 NOV · TERRAZAS LINDORA</div>
       </div>
       <div class="scr" id="start">
@@ -2649,14 +2816,6 @@
           <button class="btn" type="submit" id="start-reflex">Empezar partida</button>
           <button class="mode-switch" type="button" id="change-players">← Cambiar número de jugadores</button>
         </form>
-        <section class="leaderboard" aria-labelledby="leaderboard-title">
-          <div class="leaderboard-heading">
-            <h2 id="leaderboard-title">Tabla de líderes</h2>
-            <span>REFLEJOS</span>
-          </div>
-          <ol class="leaderboard-list" id="leaderboard-list"></ol>
-          <p class="leaderboard-empty" id="leaderboard-empty">Aún no hay puntuaciones</p>
-        </section>
         <div class="rec">45 SEGUNDOS · 21 CÍRCULOS · OBJETIVO: +100 PUNTOS</div>
         <div class="rec" style="margin-top:6px">RÉCORD PERSONAL <b id="best">0</b></div>
         <button class="mode-switch" type="button" data-mode-menu>← Elegir otro juego</button>
@@ -2664,7 +2823,13 @@
       <div class="scr mini-screen" id="echo-intro">
         <h2>Eco kölbi</h2>
         <p>Observa la secuencia de luces y repítela en el mismo orden. Cada ronda agrega un pulso.</p>
-        <button class="btn" id="echo-go">Empezar secuencia</button>
+        <form class="players-form" id="echo-form">
+          <label class="player-name-field">NOMBRE DEL JUGADOR
+            <input id="echo-name" type="text" maxlength="16" autocomplete="nickname" placeholder="Escribe tu nombre" required>
+          </label>
+          <p class="leaderboard-empty" id="echo-name-error" aria-live="polite"></p>
+          <button class="btn" id="echo-go" type="submit">Empezar secuencia</button>
+        </form>
         <button class="mode-switch" type="button" data-mode-menu>← Elegir otro juego</button>
       </div>
       <div class="scr mini-screen" id="echo-game">
@@ -2714,19 +2879,23 @@
     let S, raf, last, spawnT, best = 0, gameMode = 'reflex', selectedPlayers = 1, selectedNames = [];
     let echoSequence = [], echoInput = [], echoRound = 0, echoLocked = true;
     const echoTones = [392, 440, 494, 587, 659, 784];
-    const LEADERBOARD_KEY = 'nr_reflex_leaderboard';
-    let leaderboard = [];
+    const LEADERBOARD_KEYS = { reflex: 'nr_reflex_leaderboard', echo: 'nr_echo_leaderboard' };
+    const leaderboards = { reflex: [], echo: [] };
+    let echoName = '';
     try { best = +localStorage.getItem('nr_best') || 0 } catch (e) { }
     function setBest() { $('#best').textContent = best; $('#best2').textContent = best }
-    try {
-      const savedScores = JSON.parse(localStorage.getItem(LEADERBOARD_KEY) || '[]');
-      if (Array.isArray(savedScores)) leaderboard = savedScores.filter(entry => entry && typeof entry.name === 'string' && entry.name.trim() && Number.isFinite(Number(entry.score))).map(entry => ({ name: entry.name.trim(), score: Math.max(0, Math.round(Number(entry.score))) }));
-    } catch (e) { }
-    function renderLeaderboard() {
-      const list = $('#leaderboard-list');
-      const entries = leaderboard.slice(0, 5);
+    Object.keys(leaderboards).forEach(mode => {
+      try {
+        const savedScores = JSON.parse(localStorage.getItem(LEADERBOARD_KEYS[mode]) || '[]');
+        if (Array.isArray(savedScores)) leaderboards[mode] = savedScores.filter(entry => entry && typeof entry.name === 'string' && entry.name.trim() && Number.isFinite(Number(entry.score))).map(entry => ({ name: entry.name.trim(), score: Math.max(0, Math.round(Number(entry.score))) }));
+      } catch (e) { }
+    });
+    function renderLeaderboard(mode) {
+      const prefix = mode === 'echo' ? 'echo-' : '';
+      const list = $('#' + prefix + 'leaderboard-list');
+      const entries = leaderboards[mode];
       list.replaceChildren();
-      $('#leaderboard-empty').hidden = entries.length > 0;
+      $('#' + prefix + 'leaderboard-empty').hidden = entries.length > 0;
       entries.forEach((entry, index) => {
         const row = document.createElement('li');
         row.className = 'leaderboard-entry';
@@ -2743,7 +2912,8 @@
         list.appendChild(row);
       });
     }
-    function recordLeaderboard(names, scores) {
+    function recordLeaderboard(names, scores, mode = 'reflex') {
+      const leaderboard = leaderboards[mode];
       names.forEach((name, index) => {
         const normalized = name.toLowerCase();
         const existing = leaderboard.find(entry => entry.name.toLowerCase() === normalized);
@@ -2751,12 +2921,13 @@
         else leaderboard.push({ name, score: scores[index] });
       });
       leaderboard.sort((left, right) => right.score - left.score || left.name.localeCompare(right.name));
-      leaderboard = leaderboard.slice(0, 100);
-      try { localStorage.setItem(LEADERBOARD_KEY, JSON.stringify(leaderboard)) } catch (e) { }
-      renderLeaderboard();
+      leaderboards[mode] = leaderboard;
+      try { localStorage.setItem(LEADERBOARD_KEYS[mode], JSON.stringify(leaderboards[mode])) } catch (e) { }
+      renderLeaderboard(mode);
     }
     setBest();
-    renderLeaderboard();
+    renderLeaderboard('reflex');
+    renderLeaderboard('echo');
     function show(id) {
       ['mode-select', 'start', 'echo-intro', 'echo-game', 'reflex-game', 'count', 'over'].forEach(k => $('#' + k).classList.toggle('on', k === id));
       card.classList.toggle('is-reflex', gameMode === 'reflex' && !['mode-select', 'echo-intro', 'echo-game'].includes(id));
@@ -3023,10 +3194,13 @@
         return;
       }
       sfx.end(S.lives > 0);
+      if (S.mode === 'echo') recordLeaderboard([echoName], [S.score], 'echo');
       const labels = $('#stats').querySelectorAll('span');
-      labels[0].textContent = 'Atrapados';
+      labels[0].textContent = S.mode === 'echo' ? 'Aciertos' : 'Atrapados';
       labels[1].textContent = 'Errores';
       labels[2].textContent = 'Mejor racha';
+      $('#ov-s').classList.remove('duel-result');
+      $('#ov-caption').textContent = 'puntos de energía';
       if (S.score > best) { best = S.score; try { localStorage.setItem('nr_best', best) } catch (e) { } }
       setBest();
       $('#ov-t').textContent = S.lives <= 0 ? (S.mode === 'echo' ? 'ECO TERMINADO · SIN VIDAS' : 'FIN DEL JUEGO · SIN VIDAS') : '¡TIEMPO!';
@@ -3058,6 +3232,17 @@
     $('#solo-go').onclick = () => choosePlayers(1);
     $('#duel-go').onclick = () => choosePlayers(2);
     $('#change-players').onclick = resetPlayerSetup;
+    $('#echo-form').addEventListener('submit', event => {
+      event.preventDefault();
+      const name = $('#echo-name').value.trim().replace(/\s+/g, ' ');
+      if (!name) {
+        $('#echo-name-error').textContent = 'Escribe tu nombre.';
+        return;
+      }
+      $('#echo-name-error').textContent = '';
+      echoName = name;
+      start();
+    });
     $('#players-form').addEventListener('submit', event => {
       event.preventDefault();
       const names = [$('#player-name-1').value, $('#player-name-2').value].slice(0, selectedPlayers).map(name => name.trim().replace(/\s+/g, ' '));
@@ -3083,7 +3268,7 @@
       });
     });
     document.querySelectorAll('[data-mode-menu]').forEach(button => button.addEventListener('click', () => show('mode-select')));
-    $('#echo-go').onclick = start; $('#again').onclick = start;
+    $('#again').onclick = () => start();
   </script>
 </body>
 </html>
