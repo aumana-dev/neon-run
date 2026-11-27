@@ -12,3 +12,5 @@ Kölbi Reflejos cambia el objetivo al acertarlo y muestra el marcador en una tip
 Las imágenes originales de las caras y la rana se conservan en `assets/originales/`; el juego utiliza las versiones preparadas `assets/caras-kolbi-transparent.png` y `assets/frog.png`.
 
 Cada modo se inicia con un botón, sin solicitar el nombre ni registrar puntuaciones en un leaderboard. Cada juego conserva su propio récord en el navegador al terminar una partida. El antiguo récord compartido no se asigna a ninguno porque no identifica el juego. Las opciones e inicios están centrados para facilitar su uso en la pantalla táctil.
+
+La estructura de la página está en `index.html`, los estilos en `styles.css` y la lógica de los juegos en `game.js`. Los tres archivos deben permanecer juntos para que funcionen las rutas de los recursos.
