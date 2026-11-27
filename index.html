@@ -1972,6 +1972,99 @@
       box-shadow: 0 0 20px rgba(215, 242, 127, .5)
     }
 
+    #echo-game {
+      background: repeating-linear-gradient(115deg, transparent 0 90px, rgba(226, 248, 227, .035) 90px 92px, transparent 92px 180px), linear-gradient(150deg, #102d26, #0c2022 60%, #23332b);
+      backdrop-filter: none
+    }
+
+    #echo-game h2 {
+      color: #f5f7ef;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, .45)
+    }
+
+    #echo-game #echo-status {
+      color: #bceecf;
+      font-weight: 800
+    }
+
+    #echo-back,
+    #reflex-back {
+      position: absolute;
+      left: 16px;
+      bottom: 16px;
+      width: 44px;
+      height: 44px;
+      min-height: 44px;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(188, 238, 207, .45);
+      border-radius: 8px;
+      background: rgba(3, 19, 11, .65);
+      color: #e7f7e9;
+      font-size: 24px;
+      line-height: 1;
+      touch-action: manipulation
+    }
+
+    .echo-pads {
+      width: min(86%, 420px, 45svh);
+      gap: 12px
+    }
+
+    .echo-pad {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 8px;
+      border-width: 2px;
+      color: rgba(255, 255, 255, .8);
+      font: 800 11px Manrope, "Segoe UI", sans-serif;
+      line-height: 1;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08), 0 5px 12px rgba(0, 0, 0, .25)
+    }
+
+    .echo-pad::before {
+      content: "";
+      position: absolute;
+      inset: 8%;
+      background-image: url("assets/caras-kolbi-transparent.png");
+      background-size: 225% 294.4%;
+      background-repeat: no-repeat;
+      background-position: 8.2% 22.8%;
+      filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .25));
+      transition: transform .12s, filter .12s
+    }
+
+    .echo-pad:nth-child(2)::before,
+    .echo-pad:nth-child(6)::before {
+      background-position: 91.7% 22.8%
+    }
+
+    .echo-pad:nth-child(3)::before {
+      background-position: 8.2% 77.5%
+    }
+
+    .echo-pad:nth-child(4)::before {
+      background-position: 91.7% 77.5%
+    }
+
+    .echo-pad.lit,
+    .echo-pad:active {
+      border-color: #fff;
+      background: #d7f27f;
+      color: #09200f;
+      box-shadow: 0 0 0 4px rgba(215, 242, 127, .3), 0 0 30px rgba(215, 242, 127, .8)
+    }
+
+    .echo-pad.lit::before,
+    .echo-pad:active::before {
+      transform: scale(1.08);
+      filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .2))
+    }
+
     .route-node {
       border-radius: 8px;
       font-family: Manrope, "Segoe UI", sans-serif;
@@ -2116,14 +2209,14 @@
       flex: 1
     }
 
-    .card.is-reflex > .top,
-    .card.is-reflex > .hud,
-    .card.is-reflex > #layer,
-    .card.is-reflex > #banner {
+    .card.is-reflex>.top,
+    .card.is-reflex>.hud,
+    .card.is-reflex>#layer,
+    .card.is-reflex>#banner {
       display: none
     }
 
-    .card.is-menu > .hud {
+    .card.is-menu>.hud {
       display: none
     }
 
@@ -2347,9 +2440,14 @@
       opacity: .27
     }
 
-    #reflex-game > * {
+    #reflex-game>* {
       position: relative;
       z-index: 1
+    }
+
+    #reflex-game>#reflex-back {
+      position: absolute;
+      z-index: 2
     }
 
     .reflex-game-header {
@@ -2379,7 +2477,7 @@
     .reflex-instruction,
     .reflex-game-foot,
     .reflex-player-label,
-    .reflex-score > span,
+    .reflex-score>span,
     .reflex-score small {
       color: rgba(245, 247, 239, .72);
       font: 700 clamp(8px, 1vmin, 11px) Manrope, "Segoe UI", sans-serif;
@@ -2435,7 +2533,7 @@
       gap: clamp(5px, .7vmin, 10px)
     }
 
-    .reflex-arenas.duel .reflex-arena + .reflex-arena {
+    .reflex-arenas.duel .reflex-arena+.reflex-arena {
       border-left: 1px solid rgba(245, 247, 239, .15)
     }
 
@@ -2502,7 +2600,9 @@
     }
 
     @keyframes reflex-miss {
-      50% { transform: translateX(5px) }
+      50% {
+        transform: translateX(5px)
+      }
     }
 
     .reflex-score {
@@ -2542,6 +2642,7 @@
       display: flex;
       justify-content: space-between;
       gap: 10px;
+      padding-left: 52px;
       padding-right: 52px;
       flex: 0 0 auto;
       font-size: clamp(7px, .85vmin, 9px)
@@ -2582,14 +2683,37 @@
     }
 
     @media(max-width:380px) {
-      .play-choices { gap: 6px }
-      .play-choice { gap: 7px; min-height: 84px; font-size: 10px }
-      .player-fields { grid-template-columns: 1fr }
-      .leaderboard { padding: 9px 10px }
-      .leaderboard-entry { min-height: 27px; font-size: 10px }
-      .reflex-grid { gap: 3px }
-      .reflex-score > span,
-      .reflex-score small { display: none }
+      .play-choices {
+        gap: 6px
+      }
+
+      .play-choice {
+        gap: 7px;
+        min-height: 84px;
+        font-size: 10px
+      }
+
+      .player-fields {
+        grid-template-columns: 1fr
+      }
+
+      .leaderboard {
+        padding: 9px 10px
+      }
+
+      .leaderboard-entry {
+        min-height: 27px;
+        font-size: 10px
+      }
+
+      .reflex-grid {
+        gap: 3px
+      }
+
+      .reflex-score>span,
+      .reflex-score small {
+        display: none
+      }
     }
 
     #mode-select {
@@ -2623,79 +2747,175 @@
 
     .leaderboard-grid {
       width: min(100%, 760px);
+      min-height: 0;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-      flex: 0 0 auto;
+      gap: 24px;
+      flex: 1 1 0;
       text-align: left
     }
 
     .leaderboard-grid .leaderboard {
+      --rank-accent: #d3ef75;
+      --rank-dim: rgba(174, 230, 68, .2);
       width: 100%;
       min-width: 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
       margin: 0;
-      padding: 12px 0 0;
+      padding: 0;
       border: 0;
-      border-top: 2px solid #aee644;
       border-radius: 0;
       background: none
     }
 
-    .leaderboard-grid .leaderboard + .leaderboard {
-      border-color: #f37021
+    .leaderboard-grid .leaderboard+.leaderboard {
+      --rank-accent: #ffb765;
+      --rank-dim: rgba(243, 112, 33, .2)
     }
 
     .leaderboard-heading {
+      position: relative;
+      flex: 0 0 auto;
       align-items: flex-start;
       flex-direction: column;
-      gap: 4px;
-      margin-bottom: 10px
+      gap: 6px;
+      min-height: 76px;
+      margin-bottom: 0;
+      padding: 12px 14px;
+      border-left: 4px solid var(--rank-accent);
+      background: linear-gradient(115deg, var(--rank-dim), rgba(4, 25, 16, .7) 68%);
+      overflow: hidden
+    }
+
+    .leaderboard-heading::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 68px;
+      height: 100%;
+      background: repeating-linear-gradient(125deg, transparent 0 10px, var(--rank-dim) 10px 15px, transparent 15px 25px);
+      pointer-events: none
     }
 
     .leaderboard-heading h2 {
       color: #f5f7ef;
-      font-size: 22px;
+      font-size: 28px;
       line-height: 1;
       letter-spacing: 0
     }
 
     .leaderboard-heading span {
-      color: #c9ef81;
+      color: var(--rank-accent);
       font-size: 10px;
       letter-spacing: 0
     }
 
-    .leaderboard-grid .leaderboard + .leaderboard .leaderboard-heading span {
-      color: #ffc17f
+    .leaderboard-columns {
+      display: grid;
+      flex: 0 0 auto;
+      grid-template-columns: 44px minmax(0, 1fr) auto;
+      gap: 10px;
+      padding: 10px 10px 6px;
+      color: #9fb5a7;
+      font: 800 9px Manrope, "Segoe UI", sans-serif;
+      text-align: left
     }
 
-    .leaderboard-list {
+    .leaderboard-grid .leaderboard-list {
+      flex: 1 1 auto;
+      min-height: 0;
       max-height: none;
-      overflow: visible
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      scrollbar-color: var(--rank-accent) rgba(245, 247, 239, .08)
+    }
+
+    .leaderboard-grid .leaderboard-list:empty {
+      display: none
     }
 
     .leaderboard-entry {
+      min-height: 46px;
+      grid-template-columns: 44px minmax(0, 1fr) auto;
+      gap: 10px;
+      padding: 4px 10px;
+      border-bottom: 1px solid rgba(245, 247, 239, .08);
+      font-size: 13px
+    }
+
+    .leaderboard-entry:first-child {
+      min-height: 58px;
+      background: linear-gradient(100deg, var(--rank-dim), rgba(245, 247, 239, .035));
+      border-bottom: 1px solid var(--rank-dim)
+    }
+
+    .leaderboard-entry:nth-child(2),
+    .leaderboard-entry:nth-child(3) {
+      background: rgba(245, 247, 239, .025)
+    }
+
+    .leaderboard-rank {
+      min-width: 0;
       min-height: 30px;
-      grid-template-columns: 24px minmax(0, 1fr) auto;
-      gap: 8px;
-      font-size: 12px
+      display: grid;
+      place-items: center;
+      color: #b6c4b8;
+      font-size: 10px;
+      text-align: center
+    }
+
+    .leaderboard-entry:first-child .leaderboard-rank {
+      color: #16251b;
+      background: var(--rank-accent);
+      border-radius: 4px;
+      box-shadow: 0 3px 12px var(--rank-dim)
+    }
+
+    .leaderboard-entry:nth-child(2) .leaderboard-rank {
+      color: #e0e6e1;
+      background: rgba(207, 220, 213, .13);
+      border-radius: 4px
+    }
+
+    .leaderboard-entry:nth-child(3) .leaderboard-rank {
+      color: #f4bf88;
+      background: rgba(243, 163, 91, .13);
+      border-radius: 4px
     }
 
     .leaderboard-entry:first-child .leaderboard-name {
       color: #fff;
+      font-size: 15px;
       font-weight: 800
     }
 
     .leaderboard-score {
-      font-size: 9px
+      color: var(--rank-accent);
+      font-size: 11px;
+      white-space: nowrap
     }
 
-    .leaderboard-empty {
-      padding: 8px 0;
-      font-size: 11px
+    .leaderboard-entry:first-child .leaderboard-score {
+      text-shadow: 0 0 12px var(--rank-dim)
     }
 
-    #mode-select > .rec {
+    .leaderboard-grid .leaderboard-empty {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      padding: 10px 12px;
+      border-left: 2px solid rgba(245, 247, 239, .2);
+      background: rgba(245, 247, 239, .035);
+      color: #b6c4b8;
+      font-size: 12px
+    }
+
+    #mode-select>.rec {
       flex: 0 0 auto;
       margin-top: 18px
     }
@@ -2719,11 +2939,17 @@
 
       .leaderboard-grid {
         grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, minmax(0, 1fr));
         gap: 14px
       }
 
       .leaderboard-heading h2 {
-        font-size: 20px
+        font-size: 22px
+      }
+
+      .leaderboard-entry {
+        min-height: 38px;
+        font-size: 12px
       }
     }
   </style>
@@ -2741,7 +2967,7 @@
     <div class="card is-menu" id="card">
       <div class="top">
         <div class="logo"><i></i>KÖLBI LIVE ARENA</div>
-        <div class="tag">KÖLBI REFLEJOS<small>BE ONE · RETO TÁCTIL</small></div>
+        <div class="tag"><span id="game-tag">KÖLBI REFLEJOS</span><small>BE ONE · RETO TÁCTIL</small></div>
       </div>
       <div class="hud">
         <div class="row">
@@ -2783,13 +3009,21 @@
         </div>
         <div class="leaderboard-grid">
           <section class="leaderboard" aria-labelledby="leaderboard-title">
-            <div class="leaderboard-heading"><h2 id="leaderboard-title">Leaderboard</h2><span>KÖLBI REFLEJOS</span></div>
-            <ol class="leaderboard-list" id="leaderboard-list"></ol>
+            <div class="leaderboard-heading">
+              <h2 id="leaderboard-title">Leaderboard</h2><span>KÖLBI REFLEJOS</span>
+            </div>
+            <div class="leaderboard-columns" aria-hidden="true"><span>POS</span><span>JUGADOR</span><span>PUNTOS</span>
+            </div>
+            <ol class="leaderboard-list" id="leaderboard-list" tabindex="0" aria-label="Puntajes de Kölbi Reflejos"></ol>
             <p class="leaderboard-empty" id="leaderboard-empty">Aún no hay puntuaciones</p>
           </section>
           <section class="leaderboard" aria-labelledby="echo-leaderboard-title">
-            <div class="leaderboard-heading"><h2 id="echo-leaderboard-title">Leaderboard</h2><span>ECO KÖLBI</span></div>
-            <ol class="leaderboard-list" id="echo-leaderboard-list"></ol>
+            <div class="leaderboard-heading">
+              <h2 id="echo-leaderboard-title">Leaderboard</h2><span>ECO KÖLBI</span>
+            </div>
+            <div class="leaderboard-columns" aria-hidden="true"><span>POS</span><span>JUGADOR</span><span>PUNTOS</span>
+            </div>
+            <ol class="leaderboard-list" id="echo-leaderboard-list" tabindex="0" aria-label="Puntajes de Eco kölbi"></ol>
             <p class="leaderboard-empty" id="echo-leaderboard-empty">Aún no hay puntuaciones</p>
           </section>
         </div>
@@ -2801,15 +3035,18 @@
         <p class="sub">Toca el círculo encendido antes de que cambie.</p>
         <div class="play-choices" id="play-choices">
           <button class="play-choice" id="solo-go" type="button"><strong>1</strong><span>UN JUGADOR</span></button>
-          <button class="play-choice duel-choice" id="duel-go" type="button"><strong>2</strong><span>RETO DUELO</span></button>
+          <button class="play-choice duel-choice" id="duel-go" type="button"><strong>2</strong><span>RETO
+              DUELO</span></button>
         </div>
         <form class="players-form" id="players-form" hidden>
           <div class="player-fields">
             <label class="player-name-field">NOMBRE JUGADOR 1
-              <input id="player-name-1" name="player-name-1" type="text" maxlength="16" autocomplete="nickname" placeholder="Escribe tu nombre" required>
+              <input id="player-name-1" name="player-name-1" type="text" maxlength="16" autocomplete="nickname"
+                placeholder="Escribe tu nombre" required>
             </label>
             <label class="player-name-field second-player" id="player-two-field" hidden>NOMBRE JUGADOR 2
-              <input id="player-name-2" name="player-name-2" type="text" maxlength="16" autocomplete="off" placeholder="Escribe tu nombre" required>
+              <input id="player-name-2" name="player-name-2" type="text" maxlength="16" autocomplete="off"
+                placeholder="Escribe tu nombre" required>
             </label>
           </div>
           <p class="leaderboard-empty" id="player-name-error" aria-live="polite"></p>
@@ -2825,7 +3062,8 @@
         <p>Observa la secuencia de luces y repítela en el mismo orden. Cada ronda agrega un pulso.</p>
         <form class="players-form" id="echo-form">
           <label class="player-name-field">NOMBRE DEL JUGADOR
-            <input id="echo-name" type="text" maxlength="16" autocomplete="nickname" placeholder="Escribe tu nombre" required>
+            <input id="echo-name" type="text" maxlength="16" autocomplete="nickname" placeholder="Escribe tu nombre"
+              required>
           </label>
           <p class="leaderboard-empty" id="echo-name-error" aria-live="polite"></p>
           <button class="btn" id="echo-go" type="submit">Empezar secuencia</button>
@@ -2836,14 +3074,16 @@
         <h2>Repite el eco</h2>
         <p id="echo-status" aria-live="polite">Mira la secuencia</p>
         <div class="echo-pads" aria-label="Panel de seis pulsos">
-          <button class="echo-pad" type="button" data-pad="0" aria-label="Pulso verde">●</button>
-          <button class="echo-pad" type="button" data-pad="1" aria-label="Pulso turquesa">●</button>
-          <button class="echo-pad" type="button" data-pad="2" aria-label="Pulso lima">●</button>
-          <button class="echo-pad" type="button" data-pad="3" aria-label="Pulso coral">●</button>
-          <button class="echo-pad" type="button" data-pad="4" aria-label="Pulso naranja">●</button>
-          <button class="echo-pad" type="button" data-pad="5" aria-label="Pulso azul">●</button>
+          <button class="echo-pad" type="button" data-pad="0" aria-label="Pulso 1 verde"></button>
+          <button class="echo-pad" type="button" data-pad="1" aria-label="Pulso 2 turquesa"></button>
+          <button class="echo-pad" type="button" data-pad="2" aria-label="Pulso 3 lima"></button>
+          <button class="echo-pad" type="button" data-pad="3" aria-label="Pulso 4 naranja"></button>
+          <button class="echo-pad" type="button" data-pad="4" aria-label="Pulso 5 coral"></button>
+          <button class="echo-pad" type="button" data-pad="5" aria-label="Pulso 6 azul"></button>
         </div>
         <div class="signal-feedback" id="echo-feedback" aria-live="polite"></div>
+        <button class="mode-switch" type="button" id="echo-back" aria-label="Elegir otro juego"
+          title="Elegir otro juego">←</button>
       </div>
       <div class="scr" id="reflex-game">
         <div class="reflex-game-header">
@@ -2852,7 +3092,10 @@
           <div class="reflex-instruction">TOCA EL CÍRCULO<br>ENCENDIDO</div>
         </div>
         <div class="reflex-arenas" id="reflex-arenas"></div>
-        <div class="reflex-game-foot"><span>UN TOQUE CORRECTO = 100 PUNTOS</span><span>NUEVA SEÑAL DESPUÉS DE CADA ACIERTO</span></div>
+        <div class="reflex-game-foot"><span>UN TOQUE CORRECTO = 100 PUNTOS</span><span>NUEVA SEÑAL DESPUÉS DE CADA
+            ACIERTO</span></div>
+        <button class="mode-switch" type="button" id="reflex-back" aria-label="Elegir otro juego"
+          title="Elegir otro juego">←</button>
       </div>
       <div class="scr" id="count">
         <div id="cnum">3</div>
@@ -2935,6 +3178,7 @@
     }
     function chooseMode(mode) {
       gameMode = mode;
+      $('#game-tag').textContent = mode === 'echo' ? 'ECO KÖLBI' : 'KÖLBI REFLEJOS';
       if (mode === 'reflex') resetPlayerSetup();
       document.querySelectorAll('.mode-option').forEach(button => button.setAttribute('aria-pressed', String(button.id === 'choose-' + mode)));
       show(mode === 'echo' ? 'echo-intro' : 'start');
@@ -3037,6 +3281,9 @@
       setTimeout(() => activateReflexTarget(player, index), 120);
     }
     function start(players = selectedPlayers, names = selectedNames) {
+      if (S) S.running = false;
+      cancelAnimationFrame(raf);
+      clearTimeout(bgTimer);
       selectedPlayers = players;
       if (gameMode === 'reflex') {
         selectedNames = names;
@@ -3052,6 +3299,8 @@
         S = { score: 0, lives: 3, streak: 0, maxS: 0, hits: 0, errs: 0, t: gameMode === 'echo' ? Infinity : T, level: 1, items: [], running: false, mode: gameMode };
       }
       echoSequence = []; echoInput = []; echoRound = 0; echoLocked = true;
+      $('#echo-feedback').textContent = '';
+      document.querySelectorAll('.echo-pad.lit').forEach(pad => pad.classList.remove('lit'));
       layer.innerHTML = ''; hud(); show('count'); ac(); sfx.tick();
       let n = 3; $('#cnum').textContent = n;
       const iv = setInterval(() => { n--; if (n <= 0) { clearInterval(iv); show(null); sfx.go(); run() } else { $('#cnum').textContent = n; sfx.tick() } }, 800);
@@ -3063,6 +3312,7 @@
         updateReflexClock();
         for (let player = 0; player < S.playerCount; player++) activateReflexTarget(player);
         last = performance.now();
+        beat = 0; bgLoop();
         raf = requestAnimationFrame(loop);
         return;
       }
@@ -3091,11 +3341,12 @@
     }
     function echoNextRound() {
       if (!S?.running || S.mode !== 'echo') return;
+      const session = S;
       echoRound++; echoSequence.push(Math.floor(Math.random() * 6)); echoInput = []; echoLocked = true;
       $('#echo-status').textContent = 'Ronda ' + echoRound + ' · Observa';
       let step = 0;
       const playStep = () => {
-        if (!S?.running || S.mode !== 'echo') return;
+        if (S !== session || !session.running) return;
         if (step >= echoSequence.length) { echoLocked = false; $('#echo-status').textContent = 'Tu turno · ' + echoRound + ' pulsos'; return }
         lightEchoPad(echoSequence[step], 360).then(() => { step++; setTimeout(playStep, 180) });
       };
@@ -3108,6 +3359,7 @@
     }
     function tapEcho(index) {
       if (!S?.running || S.mode !== 'echo' || echoLocked) return;
+      const session = S;
       echoInput.push(index); lightEchoPad(index, 100);
       const position = echoInput.length - 1;
       if (echoInput[position] !== echoSequence[position]) {
@@ -3115,12 +3367,12 @@
         $('#echo-feedback').textContent = 'Eco incorrecto · −150'; $('#echo-feedback').style.color = 'var(--red)';
         sfx.bad(); card.classList.add('hurt'); setTimeout(() => card.classList.remove('hurt'), 300); hud();
         if (S.lives <= 0) { end(); return }
-        echoSequence = []; echoRound = 0; echoInput = []; echoLocked = true; setTimeout(echoNextRound, 700); return;
+        echoSequence = []; echoRound = 0; echoInput = []; echoLocked = true; setTimeout(() => { if (S === session) echoNextRound() }, 700); return;
       }
       if (echoInput.length === echoSequence.length) {
         const points = 100 * mult(); S.streak++; S.maxS = Math.max(S.maxS, S.streak); S.hits++; S.score += points;
         $('#echo-feedback').textContent = 'Secuencia conectada · +' + points; $('#echo-feedback').style.color = 'var(--lime)'; sfx.ok(S.streak); hud();
-        echoLocked = true; setTimeout(echoNextRound, 720);
+        echoLocked = true; setTimeout(() => { if (S === session) echoNextRound() }, 720);
       }
     }
     function loop(now) {
@@ -3135,7 +3387,7 @@
       }
       if (S.mode !== 'echo') S.t -= dt;
       const elapsed = S.mode === 'echo' ? Math.max(0, echoRound - 1) * 3 : T - S.t;
-      const lvl = S.mode === 'echo' ? Math.min(3, 1 + Math.floor((echoRound - 1) / 3)) : elapsed < 8 ? 1 : elapsed < 17 ? 2 : 3;
+      const lvl = S.mode === 'echo' ? Math.min(3, 1 + Math.floor(Math.max(0, echoRound - 1) / 3)) : elapsed < 8 ? 1 : elapsed < 17 ? 2 : 3;
       if (lvl !== S.level) { S.level = lvl; sfx.lvl(); banner(lvl === 2 ? 'NIVEL 2 · ACELERACIÓN' : 'NIVEL 3 · MÁXIMA ENERGÍA') }
       const W = layer.clientWidth, H = layer.clientHeight;
       if (S.mode === 'run') {
@@ -3157,6 +3409,7 @@
       raf = requestAnimationFrame(loop);
     }
     function end() {
+      const finishedSession = S;
       S.running = false; cancelAnimationFrame(raf); clearTimeout(bgTimer);
       if (S.mode === 'reflex') {
         const first = S.scores[0], second = S.scores[1] || 0;
@@ -3190,7 +3443,7 @@
         $('#ov-s').classList.toggle('duel-result', S.playerCount === 2);
         setBest();
         sfx.end(S.playerCount === 1 || first >= second);
-        setTimeout(() => show('over'), 350);
+        setTimeout(() => { if (S === finishedSession) show('over') }, 350);
         return;
       }
       sfx.end(S.lives > 0);
@@ -3205,7 +3458,7 @@
       setBest();
       $('#ov-t').textContent = S.lives <= 0 ? (S.mode === 'echo' ? 'ECO TERMINADO · SIN VIDAS' : 'FIN DEL JUEGO · SIN VIDAS') : '¡TIEMPO!';
       $('#ov-s').textContent = S.score; $('#o1').textContent = S.hits; $('#o2').textContent = S.errs; $('#o3').textContent = S.maxS;
-      setTimeout(() => show('over'), 350);
+      setTimeout(() => { if (S === finishedSession) show('over') }, 350);
     }
     let AC, master, muted = false, beat = 0, bgTimer;
     function ac() { if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); master = AC.createGain(); master.gain.value = .5; master.connect(AC.destination) } catch (e) { } } if (AC && AC.state === 'suspended') AC.resume() }
@@ -3227,6 +3480,14 @@
       bgTimer = setTimeout(bgLoop, ms);
     }
     $('#mute').onclick = () => { ac(); muted = !muted; $('#mute').textContent = muted ? '🔇' : '🔊' };
+    document.querySelectorAll('#echo-back, #reflex-back').forEach(button => button.addEventListener('click', () => {
+      if (S) S.running = false;
+      S = null;
+      cancelAnimationFrame(raf);
+      clearTimeout(bgTimer);
+      document.querySelectorAll('.echo-pad.lit').forEach(pad => pad.classList.remove('lit'));
+      show('mode-select');
+    }));
     $('#choose-reflex').onclick = () => chooseMode('reflex');
     $('#choose-echo').onclick = () => chooseMode('echo');
     $('#solo-go').onclick = () => choosePlayers(1);
@@ -3271,4 +3532,5 @@
     $('#again').onclick = () => start();
   </script>
 </body>
+
 </html>
