@@ -90,6 +90,7 @@
         const label = document.createElement('div');
         label.className = 'reflex-player-label';
         label.textContent = names[player];
+        label.setAttribute('aria-live', 'polite');
         const grid = document.createElement('div');
         grid.className = 'reflex-grid';
         grid.setAttribute('aria-label', 'Tablero de 21 objetivos');
@@ -120,20 +121,59 @@
       $('#reflex-time').textContent = String(seconds).padStart(2, '0');
       $('#reflex-time').classList.toggle('urgent', seconds <= 10);
     }
+    function reflexIndex(excluded) {
+      const available = Array.from({ length: 21 }, (_, index) => index).filter(index => !excluded.includes(index));
+      return available[Math.floor(Math.random() * available.length)];
+    }
     function activateReflexTarget(player, previousIndex = -1) {
       if (!S?.running || S.mode !== 'reflex') return;
       const arena = document.querySelector('.reflex-arena[data-player="' + (player + 1) + '"]');
-      let index = Math.floor(Math.random() * 21);
-      if (index === previousIndex) index = (index + 1 + Math.floor(Math.random() * 20)) % 21;
+      const index = reflexIndex([previousIndex, S.hazards[player]]);
       const target = arena.querySelectorAll('.reflex-target')[index];
       S.targets[player] = index;
       target.classList.add('lit');
       tone(player === 0 ? 740 : 620, .09, 'sine', .12);
     }
+    function removeReflexHazard(player, arena) {
+      const index = S.hazards[player];
+      if (index < 0) return;
+      const target = arena.querySelectorAll('.reflex-target')[index];
+      target.classList.remove('hazard');
+      target.setAttribute('aria-label', 'Círculo ' + (index + 1));
+      S.hazards[player] = -1;
+      S.hazardNext[player] = S.t - (1.5 + Math.random() * 1.5);
+    }
+    function updateReflexHazards() {
+      for (let player = 0; player < S.playerCount; player++) {
+        if (S.reflexLevels[player] < 2) continue;
+        const arena = document.querySelector('.reflex-arena[data-player="' + (player + 1) + '"]');
+        const label = arena.querySelector('.reflex-player-label');
+        if (label.classList.contains('level-notice') && S.t <= S.noticeUntil[player]) {
+          label.textContent = S.names[player];
+          label.classList.remove('level-notice');
+        }
+        if (S.t > S.hazardNext[player]) continue;
+        if (S.hazards[player] >= 0) {
+          removeReflexHazard(player, arena);
+        } else {
+          const index = reflexIndex([S.targets[player]]);
+          const target = arena.querySelectorAll('.reflex-target')[index];
+          S.hazards[player] = index;
+          S.hazardNext[player] = S.t - 2.5;
+          target.classList.add('hazard');
+          target.setAttribute('aria-label', 'Círculo ' + (index + 1) + ', obstáculo: no tocar');
+        }
+      }
+    }
     function hitReflexTarget(player, index) {
       if (!S?.running || S.mode !== 'reflex') return;
       const arena = document.querySelector('.reflex-arena[data-player="' + (player + 1) + '"]');
       if (S.targets[player] !== index) {
+        if (S.hazards[player] === index) {
+          S.scores[player] = Math.max(0, S.scores[player] - 150);
+          $('#reflex-score-' + player).textContent = String(S.scores[player]).padStart(5, '0');
+          removeReflexHazard(player, arena);
+        }
         S.misses[player]++;
         S.streaks[player] = 0;
         arena.classList.add('miss');
@@ -149,7 +189,17 @@
       S.maxStreaks[player] = Math.max(S.maxStreaks[player], S.streaks[player]);
       $('#reflex-score-' + player).textContent = String(S.scores[player]).padStart(5, '0');
       sfx.ok(S.streaks[player]);
-      setTimeout(() => activateReflexTarget(player, index), 120);
+      if (S.reflexLevels[player] === 1 && S.scores[player] >= 1000) {
+        S.reflexLevels[player] = 2;
+        S.hazardNext[player] = S.t - 1.5;
+        S.noticeUntil[player] = S.t - 2.5;
+        const label = arena.querySelector('.reflex-player-label');
+        label.textContent = 'NIVEL 2 · EVITA LA X';
+        label.classList.add('level-notice');
+        sfx.lvl();
+      }
+      const session = S;
+      setTimeout(() => { if (S === session) activateReflexTarget(player, index) }, 120);
     }
     function start(players = selectedPlayers) {
       if (S) S.running = false;
@@ -163,6 +213,8 @@
           t: 45, level: 1, items: [], running: false, mode: 'reflex', playerCount: players,
           names: Array.from({ length: players }, (_, index) => 'JUGADOR ' + (index + 1)),
           scores: Array(players).fill(0), targets: Array(players).fill(-1),
+          reflexLevels: Array(players).fill(1), hazards: Array(players).fill(-1),
+          hazardNext: Array(players).fill(0), noticeUntil: Array(players).fill(0),
           hits: Array(players).fill(0), misses: Array(players).fill(0), streaks: Array(players).fill(0), maxStreaks: Array(players).fill(0)
         };
         renderReflexBoards(players, S.names);
@@ -278,6 +330,7 @@
         S.t = Math.max(0, S.t - dt);
         updateReflexClock();
         if (S.t <= 0) { end(); return }
+        updateReflexHazards();
         raf = requestAnimationFrame(loop);
         return;
       }

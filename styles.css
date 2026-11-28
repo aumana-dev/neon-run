@@ -2479,6 +2479,12 @@
       flex: 0 0 auto
     }
 
+    .reflex-player-label.level-notice {
+      color: #ffb264;
+      font-size: clamp(14px, 2vmin, 20px);
+      text-shadow: 0 0 12px rgba(243, 112, 33, .6)
+    }
+
     .reflex-arena[data-player="2"] .reflex-player-label {
       color: var(--kolbi-orange)
     }
@@ -2524,6 +2530,20 @@
       background-repeat: no-repeat;
       background-size: contain;
       box-shadow: 0 0 0 5px rgba(50, 195, 50, .2), 0 0 34px rgba(50, 195, 50, .85)
+    }
+
+    .reflex-target.hazard {
+      border-color: #ffbbb0;
+      background: radial-gradient(circle, #f24539, #9d1c1c);
+      box-shadow: 0 0 0 4px rgba(242, 69, 57, .2), 0 0 24px rgba(242, 69, 57, .7)
+    }
+
+    .reflex-target.hazard::after {
+      content: "X";
+      color: #fff;
+      font: 800 clamp(20px, 6cqh, 48px) Manrope, "Segoe UI", sans-serif;
+      line-height: 1;
+      text-shadow: 0 1px 5px rgba(0, 0, 0, .8)
     }
 
     .reflex-arena[data-player="2"] .reflex-target.lit {
@@ -2687,6 +2707,16 @@
       background-image: linear-gradient(90deg, rgba(2, 18, 17, .96), rgba(2, 18, 17, .82) 48%, rgba(2, 18, 17, .38)), url("assets/reto-eco.svg")
     }
 
+    #mode-select #choose-reflex strong {
+      color: #b9f477;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, .9), 0 0 16px rgba(104, 221, 78, .35)
+    }
+
+    #mode-select #choose-echo strong {
+      color: #8be9dc;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, .9), 0 0 16px rgba(40, 184, 168, .4)
+    }
+
     #mode-select .mode-option:hover,
     #mode-select .mode-option:focus-visible {
       background-size: cover;
@@ -2714,11 +2744,12 @@
     #mode-select .mode-option small {
       align-self: flex-start;
       text-align: left;
-      transform: translateY(clamp(-20px, -2vmin, -10px))
+      transform: translateY(clamp(-28px, -2.8vmin, -13px))
     }
 
     #mode-select .mode-option em {
       margin-top: 12px;
+      color: var(--kolbi-orange);
       font-size: clamp(10px, 1.4vmin, 14px)
     }
 
@@ -2743,7 +2774,9 @@
     }
 
     #mode-select .mode-option strong {
-      font-size: clamp(15px, 2.25vmin, 22px)
+      font-size: clamp(20px, 3.3vmin, 33px);
+      letter-spacing: .035em;
+      text-transform: uppercase
     }
 
     #start .rec,

@@ -9,6 +9,8 @@ Al entrar se puede elegir entre dos modos:
 
 Kölbi Reflejos cambia el objetivo al acertarlo y muestra el marcador en una tipografía arcade. Eco kölbi comparte el estilo de Reflejos, muestra los puntos y no tiene límite de tiempo. Termina al primer error sin restar puntos y prepara las imágenes y el sonido antes de la cuenta regresiva. El logo oficial local está en `assets/kolbi-logo-original.svg` y se usa en la cabecera y el escenario ilustrado `assets/activation-stage.svg`.
 
+En Reflejos, al alcanzar 1.000 puntos comienza el nivel 2 y aparece un aviso. A partir de entonces aparecen ocasionalmente círculos rojos con una X: tocarlos resta 150 puntos sin bajar de cero, cuenta como fallo y rompe la racha. El nivel 2 se mantiene aunque disminuya el puntaje.
+
 Las imágenes originales de las caras y la rana se conservan en `assets/originales/`; el juego utiliza las versiones preparadas `assets/caras-kolbi-transparent.png` y `assets/frog.png`.
 
 Para retocar las caras, edita `assets/caras-kolbi-transparent.png` en un editor que admita transparencia, conservando el tamaño y las posiciones de las caras. El orden de los cuadros se controla con `background-position` en `styles.css`.
