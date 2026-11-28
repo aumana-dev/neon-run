@@ -3,6 +3,7 @@
     const RUN = ['🐸', '👟', '🎧'], FORMAL = ['🪫', '📵', '🛋️'], T = 25;
     let S, raf, last, spawnT, gameMode = 'reflex', selectedPlayers = 1;
     let echoSequence = [], echoInput = [], echoRound = 0, echoLocked = true;
+    let echoImage, echoCountTimer;
     const echoTones = [392, 440, 494, 587, 659, 784];
     const bestKeys = { reflex: 'nr_best_reflex', echo: 'nr_best_echo' };
     const best = { reflex: 0, echo: 0 };
@@ -43,7 +44,33 @@
     function hud() {
       $('#sc').textContent = S.score; $('#lv').textContent = S.level; $('#mu').textContent = mult();
       $('#tm').textContent = S.mode === 'echo' ? '∞' : Math.max(0, Math.ceil(S.t)) + ' s'; $('#bar').style.width = S.mode === 'echo' ? '100%' : Math.max(0, S.t / T * 100) + '%';
+      $('#lives').hidden = S.mode === 'echo';
       $('#lives').innerHTML = [0, 1, 2].map(i => '<span class="' + (i < S.lives ? '' : 'off') + '">♥</span>').join('');
+    }
+    function prepareEchoImage() {
+      if (echoImage) return Promise.resolve();
+      const image = new Image();
+      const loaded = new Promise((resolve, reject) => {
+        image.onload = resolve;
+        image.onerror = () => reject(new Error('No se pudo cargar la imagen de Eco kölbi'));
+      });
+      image.src = 'assets/caras-kolbi-transparent.png';
+      return loaded.then(() => typeof image.decode === 'function' ? image.decode() : undefined).then(() => { echoImage = image });
+    }
+    function startEchoCountdown(session) {
+      let n = 3;
+      const next = () => requestAnimationFrame(() => {
+        if (S !== session) return;
+        if (n > 0) {
+          $('#cnum').textContent = n--;
+          $('#cnum').hidden = false;
+          sfx.tick();
+          echoCountTimer = setTimeout(next, 800);
+        } else {
+          show(null); sfx.go(); run();
+        }
+      });
+      next();
     }
     function renderReflexBoards(playerCount, names) {
       const arenas = $('#reflex-arenas');
@@ -122,6 +149,7 @@
       if (S) S.running = false;
       cancelAnimationFrame(raf);
       clearTimeout(bgTimer);
+      clearTimeout(echoCountTimer);
       selectedPlayers = players;
       if (gameMode === 'reflex') {
         S = {
@@ -133,12 +161,37 @@
         };
         renderReflexBoards(players, S.names);
       } else {
-        S = { score: 0, lives: 3, streak: 0, maxS: 0, hits: 0, errs: 0, t: gameMode === 'echo' ? Infinity : T, level: 1, items: [], running: false, mode: gameMode };
+        S = { score: 0, lives: gameMode === 'echo' ? 1 : 3, streak: 0, maxS: 0, hits: 0, errs: 0, t: gameMode === 'echo' ? Infinity : T, level: 1, items: [], running: false, mode: gameMode };
       }
       echoSequence = []; echoInput = []; echoRound = 0; echoLocked = true;
       $('#echo-feedback').textContent = '';
       document.querySelectorAll('.echo-pad.lit').forEach(pad => pad.classList.remove('lit'));
-      layer.innerHTML = ''; hud(); show('count'); ac(); sfx.tick();
+      layer.innerHTML = ''; hud(); show('count');
+      $('#count-retry').hidden = true;
+      $('#count-back').hidden = S.mode !== 'echo';
+      if (S.mode === 'echo') {
+        const session = S;
+        $('#cnum').hidden = true;
+        $('#count-status').textContent = 'Preparando imágenes y sonido…';
+        const audioReady = muted ? Promise.resolve() : ac();
+        Promise.all([prepareEchoImage(), audioReady]).then(() => {
+          if (S !== session || muted) return;
+          return ac();
+        }).then(() => {
+          if (S !== session) return;
+          $('#count-status').textContent = 'Prepara tu memoria';
+          startEchoCountdown(session);
+        }).catch(error => {
+          if (S !== session) return;
+          console.error('No se pudo preparar Eco kölbi', error);
+          $('#count-status').textContent = 'No se pudo cargar la partida. Revisa las imágenes o el sonido e intenta de nuevo.';
+          $('#count-retry').hidden = false;
+        });
+        return;
+      }
+      $('#cnum').hidden = false;
+      $('#count-status').textContent = 'Prepara tus reflejos';
+      ac().catch(error => console.error('No se pudo iniciar el sonido', error)); sfx.tick();
       let n = 3; $('#cnum').textContent = n;
       const iv = setInterval(() => { n--; if (n <= 0) { clearInterval(iv); show(null); sfx.go(); run() } else { $('#cnum').textContent = n; sfx.tick() } }, 800);
     }
@@ -203,8 +256,7 @@
         S.score = Math.max(0, S.score - 150); S.lives--; S.errs++; S.streak = 0;
         $('#echo-feedback').textContent = 'Eco incorrecto · −150'; $('#echo-feedback').style.color = 'var(--red)';
         sfx.bad(); card.classList.add('hurt'); setTimeout(() => card.classList.remove('hurt'), 300); hud();
-        if (S.lives <= 0) { end(); return }
-        echoSequence = []; echoRound = 0; echoInput = []; echoLocked = true; setTimeout(() => { if (S === session) echoNextRound() }, 700); return;
+        end(); return;
       }
       if (echoInput.length === echoSequence.length) {
         const points = 100 * mult(); S.streak++; S.maxS = Math.max(S.maxS, S.streak); S.hits++; S.score += points;
@@ -288,12 +340,20 @@
       $('#ov-caption').textContent = 'puntos de energía';
       if (S.mode === 'echo') updateBest('echo', S.score);
       setBest();
-      $('#ov-t').textContent = S.lives <= 0 ? (S.mode === 'echo' ? 'ECO TERMINADO · SIN VIDAS' : 'FIN DEL JUEGO · SIN VIDAS') : '¡TIEMPO!';
+      $('#ov-t').textContent = S.lives <= 0 ? (S.mode === 'echo' ? 'ECO TERMINADO' : 'FIN DEL JUEGO · SIN VIDAS') : '¡TIEMPO!';
       $('#ov-s').textContent = S.score; $('#o1').textContent = S.hits; $('#o2').textContent = S.errs; $('#o3').textContent = S.maxS;
       setTimeout(() => { if (S === finishedSession) show('over') }, 350);
     }
     let AC, master, muted = false, beat = 0, bgTimer;
-    function ac() { if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); master = AC.createGain(); master.gain.value = .5; master.connect(AC.destination) } catch (e) { } } if (AC && AC.state === 'suspended') AC.resume() }
+    function ac() {
+      if (!AC) {
+        try { AC = new (window.AudioContext || window.webkitAudioContext)(); master = AC.createGain(); master.gain.value = .5; master.connect(AC.destination) }
+        catch (error) { return Promise.reject(error) }
+      }
+      if (AC.state === 'suspended') return AC.resume();
+      if (AC.state !== 'running') return Promise.reject(new Error('El audio no está disponible'));
+      return Promise.resolve();
+    }
     function tone(f, d, type, v, t0, f2) { if (!AC || muted) return; const t = AC.currentTime + (t0 || 0), o = AC.createOscillator(), g = AC.createGain(); o.type = type || 'sine'; o.frequency.setValueAtTime(f, t); if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + d); g.gain.setValueAtTime(v || .2, t); g.gain.exponentialRampToValueAtTime(.001, t + d); o.connect(g); g.connect(master); o.start(t); o.stop(t + d + .02) }
     const sfx = {
       ok: s => { const f = 520 * Math.pow(1.0595, Math.min(s, 12) * 2); tone(f, .12, 'triangle', .28); tone(f * 1.5, .16, 'sine', .15, .05) },
@@ -311,7 +371,7 @@
       if (b % 4 === 3 || b % 8 === 6) tone([440, 523.3, 659.3, 784][b % 4], .12, 'triangle', .06);
       bgTimer = setTimeout(bgLoop, ms);
     }
-    $('#mute').onclick = () => { ac(); muted = !muted; $('#mute').textContent = muted ? '🔇' : '🔊' };
+    $('#mute').onclick = () => { ac().catch(error => console.error('No se pudo iniciar el sonido', error)); muted = !muted; $('#mute').textContent = muted ? '🔇' : '🔊' };
     document.querySelectorAll('#echo-back, #reflex-back').forEach(button => button.addEventListener('click', () => {
       if (S) S.running = false;
       S = null;
@@ -324,6 +384,12 @@
     $('#choose-echo').onclick = () => chooseMode('echo');
     $('#start-reflex').onclick = () => start(1);
     $('#echo-go').onclick = () => start(1);
+    $('#count-retry').onclick = () => start();
+    $('#count-back').onclick = () => {
+      S = null;
+      clearTimeout(echoCountTimer);
+      show('mode-select');
+    };
     document.querySelectorAll('[data-pad]').forEach(pad => {
       pad.addEventListener('pointerdown', e => {
         if (!e.isPrimary) return;

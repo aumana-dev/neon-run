@@ -82,7 +82,7 @@
         <h1>Eco<br><em>kölbi.</em></h1>
         <p class="sub">Observa la secuencia de luces y repítela en el mismo orden. Cada ronda agrega un pulso.</p>
         <button class="btn start-button" id="echo-go" type="button">Empezar partida</button>
-        <div class="rec">6 PULSOS · 3 VIDAS · SECUENCIA CRECIENTE</div>
+        <div class="rec">6 PULSOS · UN ERROR TERMINA LA PARTIDA</div>
         <div class="rec" style="margin-top:6px">RÉCORD <b id="echo-best">0</b></div>
         <button class="mode-switch" type="button" data-mode-menu>← Elegir otro juego</button>
       </div>
@@ -115,7 +115,9 @@
       </div>
       <div class="scr" id="count">
         <div id="cnum">3</div>
-        <p class="sub">Prepara tus reflejos</p>
+        <p class="sub" id="count-status" aria-live="polite">Prepara tus reflejos</p>
+        <button class="btn start-button" type="button" id="count-retry" hidden>Volver a intentar</button>
+        <button class="mode-switch" type="button" id="count-back" hidden>← Elegir otro juego</button>
       </div>
       <div class="scr" id="over">
         <div id="ov-t"></div>
