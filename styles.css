@@ -2171,7 +2171,7 @@
     .wrap {
       width: min(100%, 96svh);
       max-width: none;
-      height: calc(84svh - 20px);
+      height: calc(84svh - 20px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
       min-height: 0;
       margin: 0 auto;
       display: flex;
@@ -2486,7 +2486,7 @@
     .reflex-grid {
       width: min(72%, 600px);
       height: min(76svh, 1100px);
-      max-height: calc(100% - 100px);
+      max-height: calc(100% - 70px);
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       grid-template-rows: repeat(7, minmax(0, 1fr));
@@ -2497,7 +2497,7 @@
 
     .reflex-target {
       width: min(100%, 8svh);
-      width: min(100%, 12cqh, 10svh);
+      width: min(100%, 12.5cqh, 10svh);
       height: auto;
       max-width: 100%;
       aspect-ratio: 1;
