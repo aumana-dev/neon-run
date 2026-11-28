@@ -29,8 +29,12 @@
     setBest();
     function show(id) {
       ['mode-select', 'start', 'echo-intro', 'echo-game', 'reflex-game', 'count', 'over'].forEach(k => $('#' + k).classList.toggle('on', k === id));
+      $('#mute').hidden = id !== 'mode-select';
       card.classList.toggle('is-reflex', gameMode === 'reflex' && !['mode-select', 'echo-intro', 'echo-game'].includes(id));
       card.classList.toggle('is-echo-intro', id === 'echo-intro');
+      card.classList.toggle('is-echo-game', id === 'echo-game');
+      card.classList.toggle('is-countdown', id === 'count');
+      card.classList.toggle('is-over', id === 'over');
       card.classList.toggle('is-menu', ['mode-select', 'echo-intro'].includes(id));
     }
     function chooseMode(mode) {
@@ -43,6 +47,9 @@
     const mult = () => S.streak >= 6 ? 3 : S.streak >= 3 ? 2 : 1;
     function hud() {
       $('#sc').textContent = S.score; $('#lv').textContent = S.level; $('#mu').textContent = mult();
+      if (S.mode === 'echo') {
+        $('#echo-score').textContent = String(S.score).padStart(5, '0');
+      }
       $('#tm').textContent = S.mode === 'echo' ? '∞' : Math.max(0, Math.ceil(S.t)) + ' s'; $('#bar').style.width = S.mode === 'echo' ? '100%' : Math.max(0, S.t / T * 100) + '%';
       $('#lives').hidden = S.mode === 'echo';
       $('#lives').innerHTML = [0, 1, 2].map(i => '<span class="' + (i < S.lives ? '' : 'off') + '">♥</span>').join('');
@@ -103,7 +110,7 @@
         }
         const score = document.createElement('div');
         score.className = 'reflex-score';
-        score.innerHTML = '<span>PUNTOS</span><strong id="reflex-score-' + player + '">000000</strong><small>ACIERTOS<b id="reflex-hits-' + player + '">0</b></small>';
+        score.innerHTML = '<span>PUNTOS</span><strong id="reflex-score-' + player + '">00000</strong>';
         arena.append(label, grid, score);
         arenas.appendChild(arena);
       }
@@ -140,8 +147,7 @@
       S.hits[player]++;
       S.streaks[player]++;
       S.maxStreaks[player] = Math.max(S.maxStreaks[player], S.streaks[player]);
-      $('#reflex-score-' + player).textContent = String(S.scores[player]).padStart(6, '0');
-      $('#reflex-hits-' + player).textContent = S.hits[player];
+      $('#reflex-score-' + player).textContent = String(S.scores[player]).padStart(5, '0');
       sfx.ok(S.streaks[player]);
       setTimeout(() => activateReflexTarget(player, index), 120);
     }
@@ -180,6 +186,7 @@
         }).then(() => {
           if (S !== session) return;
           $('#count-status').textContent = 'Prepara tu memoria';
+          $('#count-back').hidden = true;
           startEchoCountdown(session);
         }).catch(error => {
           if (S !== session) return;
@@ -240,7 +247,7 @@
         if (step >= echoSequence.length) { echoLocked = false; $('#echo-status').textContent = 'Tu turno · ' + echoRound + ' pulsos'; return }
         lightEchoPad(echoSequence[step], 360).then(() => { step++; setTimeout(playStep, 180) });
       };
-      setTimeout(playStep, 420);
+      setTimeout(playStep, echoRound === 1 ? 1420 : 420);
     }
     function lightEchoPad(index, duration = 180) {
       const pad = document.querySelector('[data-pad="' + index + '"]');
@@ -253,8 +260,8 @@
       echoInput.push(index); lightEchoPad(index, 100);
       const position = echoInput.length - 1;
       if (echoInput[position] !== echoSequence[position]) {
-        S.score = Math.max(0, S.score - 150); S.lives--; S.errs++; S.streak = 0;
-        $('#echo-feedback').textContent = 'Eco incorrecto · −150'; $('#echo-feedback').style.color = 'var(--red)';
+        S.lives--; S.errs++; S.streak = 0;
+        $('#echo-feedback').textContent = 'Eco incorrecto'; $('#echo-feedback').style.color = 'var(--red)';
         sfx.bad(); card.classList.add('hurt'); setTimeout(() => card.classList.remove('hurt'), 300); hud();
         end(); return;
       }
@@ -300,12 +307,13 @@
     function end() {
       const finishedSession = S;
       S.running = false; cancelAnimationFrame(raf); clearTimeout(bgTimer);
+      $('#stats').hidden = S.mode === 'echo';
       if (S.mode === 'reflex') {
         const first = S.scores[0], second = S.scores[1] || 0;
         const labels = $('#stats').querySelectorAll('span');
         if (S.playerCount === 2) {
           $('#ov-t').textContent = first === second ? 'EMPATE' : 'GANA ' + S.names[first > second ? 0 : 1];
-          $('#ov-s').textContent = String(first).padStart(6, '0') + ' / ' + String(second).padStart(6, '0');
+          $('#ov-s').textContent = String(first).padStart(5, '0') + ' / ' + String(second).padStart(5, '0');
           $('#ov-caption').textContent = 'PUNTOS · ' + S.names[0] + ' / ' + S.names[1];
           $('#o1').textContent = first;
           $('#o2').textContent = second;
@@ -315,7 +323,7 @@
           labels[2].textContent = 'Aciertos';
         } else {
           $('#ov-t').textContent = '¡TIEMPO!';
-          $('#ov-s').textContent = String(first).padStart(6, '0');
+          $('#ov-s').textContent = String(first).padStart(5, '0');
           $('#ov-caption').textContent = 'PUNTOS TOTALES';
           $('#o1').textContent = S.hits[0];
           $('#o2').textContent = S.misses[0];

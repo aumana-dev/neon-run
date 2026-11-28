@@ -654,7 +654,7 @@
     }
 
     #cnum {
-      font-size: 120px;
+      font-size: 108px;
       font-weight: 800;
       color: #fff;
       text-shadow: 0 2px 18px rgba(40, 184, 168, .55);
@@ -682,7 +682,7 @@
     }
 
     #ov-s {
-      font-size: 84px;
+      font-size: 76px;
       font-weight: 800;
       line-height: 1.1;
       text-shadow: 0 2px 18px rgba(40, 184, 168, .55)
@@ -697,7 +697,7 @@
 
     .stats b {
       display: block;
-      font-size: 28px
+      font-size: 25px
     }
 
     .stats span {
@@ -1959,16 +1959,6 @@
       box-shadow: 0 0 20px rgba(215, 242, 127, .5)
     }
 
-    #echo-game {
-      background: repeating-linear-gradient(115deg, transparent 0 90px, rgba(226, 248, 227, .035) 90px 92px, transparent 92px 180px), linear-gradient(150deg, #102d26, #0c2022 60%, #23332b);
-      backdrop-filter: none
-    }
-
-    #echo-game h2 {
-      color: #f5f7ef;
-      text-shadow: 0 2px 12px rgba(0, 0, 0, .45)
-    }
-
     #echo-game #echo-status {
       color: #bceecf;
       font-weight: 800
@@ -2020,7 +2010,7 @@
       background-image: url("assets/caras-kolbi-transparent.png");
       background-size: 225% 294.4%;
       background-repeat: no-repeat;
-      background-position: 8.2% 22.8%;
+      background-position: 91.7% 77.5%;
       filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .25));
       transition: transform .12s, filter .12s
     }
@@ -2035,7 +2025,7 @@
     }
 
     .echo-pad:nth-child(4)::before {
-      background-position: 91.7% 77.5%
+      background-position: 8.2% 22.8%
     }
 
     .echo-pad.lit,
@@ -2174,19 +2164,58 @@
 
     body {
       min-height: 100svh;
-      padding: 10px
+      padding: 10px;
+      justify-content: flex-start
     }
 
     .wrap {
-      width: min(100%, 120svh);
+      width: min(100%, 96svh);
       max-width: none;
-      min-height: calc(100svh - 20px);
+      height: calc(84svh - 20px);
+      min-height: 0;
+      margin: 0 auto;
       display: flex;
       flex-direction: column
     }
 
     .brandbar {
       flex: 0 0 auto
+    }
+
+    .beone.lg b {
+      font-size: clamp(38px, 4.6vmin, 52px)
+    }
+
+    .beone small,
+    .event-label small {
+      font-size: clamp(10px, 1.25vmin, 15px)
+    }
+
+    .event-label {
+      font-size: clamp(15px, 1.8vmin, 20px)
+    }
+
+    @media(max-width:480px) {
+      .brand-lockup {
+        gap: 4px
+      }
+
+      .beone.lg b {
+        font-size: 36px
+      }
+
+      .beone small,
+      .event-label small {
+        font-size: 9px
+      }
+
+      .event-label {
+        font-size: 13px
+      }
+
+      .kolbi-logo {
+        width: clamp(70px, 23vw, 105px)
+      }
     }
 
     .card {
@@ -2200,6 +2229,21 @@
     .card.is-reflex>.hud,
     .card.is-reflex>#layer,
     .card.is-reflex>#banner,
+    .card.is-echo-game>.top,
+    .card.is-echo-game>.hud,
+    .card.is-echo-game>#layer,
+    .card.is-echo-game>#banner,
+    .card.is-countdown>.top,
+    .card.is-countdown>.hud,
+    .card.is-countdown>#layer,
+    .card.is-countdown>#banner,
+    .card.is-over>.top,
+    .card.is-over>.hud,
+    .card.is-over>#layer,
+    .card.is-over>#banner,
+    .card.is-menu>.top,
+    .card.is-menu>#layer,
+    .card.is-menu>#banner,
     .card.is-echo-intro>.top,
     .card.is-echo-intro>#layer,
     .card.is-echo-intro>#banner {
@@ -2238,18 +2282,52 @@
       touch-action: manipulation
     }
 
-    #reflex-game {
+    #over {
+      justify-content: flex-start;
+      overflow-y: auto;
+      padding: 24px
+    }
+
+    #over>* {
+      flex-shrink: 0
+    }
+
+    #over> :first-child {
+      margin-top: auto
+    }
+
+    #over> :last-child {
+      margin-bottom: auto
+    }
+
+    #over .stats {
+      width: min(100%, 520px);
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      align-self: center;
+      text-align: center
+    }
+
+    #again {
+      width: min(100%, 320px);
+      min-height: 64px;
+      touch-action: manipulation
+    }
+
+    #reflex-game,
+    #echo-game {
       z-index: 6;
       inset: 0;
       gap: clamp(8px, 1.4vmin, 18px);
       padding: clamp(12px, 2vmin, 28px);
       background-color: #172725;
-      background-image: linear-gradient(120deg, transparent 0 10%, #32c332 10% 12%, #d2ed73 12% 12.5%, transparent 12.5% 78%, #f37021 78% 80%, #f7bc70 80% 80.5%, transparent 80.5%), linear-gradient(120deg, #24423a, #172725 48%, #253332);
+      background-image: linear-gradient(var(--arena-angle, 120deg), transparent 0 10%, #32c332 10% 12%, #d2ed73 12% 12.5%, transparent 12.5% 78%, #f37021 78% 80%, #f7bc70 80% 80.5%, transparent 80.5%), linear-gradient(var(--arena-angle, 120deg), #24423a, #172725 48%, #253332);
       background-position: center;
       backdrop-filter: none
     }
 
-    #reflex-game::before {
+    #reflex-game::before,
+    #echo-game::before {
       content: "";
       position: absolute;
       inset: 0;
@@ -2260,14 +2338,49 @@
       opacity: .27
     }
 
-    #reflex-game>* {
+    #reflex-game::after,
+    #echo-game::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: rgba(0, 0, 0, .78)
+    }
+
+    #reflex-game>*,
+    #echo-game>* {
       position: relative;
       z-index: 1
     }
 
-    #reflex-game>#reflex-back {
+    #reflex-game>#reflex-back,
+    #echo-game>#echo-back {
       position: absolute;
       z-index: 2
+    }
+
+    #echo-game {
+      --arena-angle: 240deg;
+      justify-content: flex-start
+    }
+
+    #echo-game::before {
+      transform: scaleX(-1)
+    }
+
+    #echo-game::after {
+      background: rgba(0, 0, 0, .68)
+    }
+
+    .echo-play-area {
+      width: 100%;
+      min-height: 0;
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center
     }
 
     .reflex-game-header {
@@ -2288,7 +2401,7 @@
 
     .reflex-game-title strong {
       color: var(--kolbi-green);
-      font: 800 clamp(18px, 3vmin, 34px) "Barlow Condensed", sans-serif;
+      font: 800 clamp(16px, 2.7vmin, 31px) "Barlow Condensed", sans-serif;
       letter-spacing: .06em
     }
 
@@ -2297,10 +2410,9 @@
     .reflex-instruction,
     .reflex-game-foot,
     .reflex-player-label,
-    .reflex-score>span,
-    .reflex-score small {
+    .reflex-score>span {
       color: rgba(245, 247, 239, .72);
-      font: 700 clamp(10px, 1.6vmin, 16px) Manrope, "Segoe UI", sans-serif;
+      font: 700 clamp(9px, 1.45vmin, 14px) Manrope, "Segoe UI", sans-serif;
       letter-spacing: .12em
     }
 
@@ -2311,8 +2423,13 @@
 
     .reflex-timer strong {
       color: #e8ffd7;
-      font: 400 clamp(24px, 4.5vmin, 46px) "Press Start 2P", "Courier New", monospace;
+      font: 400 clamp(22px, 4vmin, 42px) "Press Start 2P", "Courier New", monospace;
       text-shadow: 0 0 16px rgba(50, 195, 50, .55)
+    }
+
+    #echo-game .reflex-timer strong {
+      font: 700 clamp(29px, 4.5vmin, 49px) Manrope, "Segoe UI", sans-serif;
+      line-height: 1
     }
 
     .reflex-timer strong.urgent {
@@ -2321,9 +2438,9 @@
     }
 
     .reflex-instruction {
-      justify-self: end;
+      justify-self: center;
       color: var(--kolbi-orange);
-      text-align: right;
+      text-align: center;
       line-height: 1.6
     }
 
@@ -2427,34 +2544,28 @@
 
     .reflex-score {
       min-height: 58px;
-      display: flex;
+      width: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
       align-items: center;
-      justify-content: center;
       gap: clamp(7px, 1vmin, 14px);
       flex: 0 0 auto
     }
 
+    .reflex-score>span {
+      justify-self: end
+    }
+
     .reflex-score strong {
+      grid-column: 2;
       color: #d7f27f;
-      font: 400 clamp(18px, 3vmin, 32px) "Press Start 2P", "Courier New", monospace;
+      font: 400 clamp(16px, 2.7vmin, 29px) "Press Start 2P", "Courier New", monospace;
       text-shadow: 0 0 14px rgba(50, 195, 50, .38)
     }
 
     .reflex-arena[data-player="2"] .reflex-score strong {
       color: #ffd2a3;
       text-shadow: 0 0 14px rgba(243, 112, 33, .38)
-    }
-
-    .reflex-score small {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      font-size: clamp(10px, 1.4vmin, 14px)
-    }
-
-    .reflex-score small b {
-      color: var(--txt);
-      font: 700 14px "Press Start 2P", "Courier New", monospace
     }
 
     .reflex-game-foot {
@@ -2465,17 +2576,21 @@
       padding-left: 52px;
       padding-right: 52px;
       flex: 0 0 auto;
-      font-size: clamp(10px, 1.4vmin, 14px)
+      font-size: clamp(9px, 1.25vmin, 13px)
     }
 
     .duel-result {
-      font-size: clamp(12px, 2.2vmin, 24px) !important
+      font-size: clamp(11px, 2vmin, 22px) !important
     }
 
     @media(max-width:600px) {
       .reflex-game-header {
         grid-template-columns: 1fr auto;
         gap: 6px
+      }
+
+      #echo-game .reflex-game-header {
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr)
       }
 
       .reflex-instruction {
@@ -2504,37 +2619,49 @@
 
     @media(max-width:380px) {
 
-
-
-
-
       .reflex-grid {
         gap: 3px
       }
 
-      .reflex-score>span,
-      .reflex-score small {
+      #reflex-game .reflex-score>span {
         display: none
+      }
+
+      #echo-game .reflex-score {
+        row-gap: 0
+      }
+
+      #echo-game .reflex-score>span {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: center
+      }
+
+      #echo-game .reflex-score strong {
+        grid-row: 2
       }
     }
 
     #mode-select {
       justify-content: flex-start;
       overflow-y: auto;
-      padding: 20px 24px 24px
+      padding: 20px 24px 24px;
+      background: rgba(3, 19, 11, .88)
     }
 
     #mode-select .section-label {
-      margin: auto 0 8px
+      margin: auto 0 8px;
+      font-size: clamp(9px, 1.3vmin, 13px)
     }
 
     #mode-select h1 {
-      font-size: clamp(38px, 5.5vmin, 54px);
+      font-size: clamp(31px, 4.5vmin, 44px);
       line-height: .96
     }
 
     #mode-select .sub {
-      margin: 8px 0 12px
+      margin: 8px 0 12px;
+      font-size: clamp(13px, 1.65vmin, 16px)
     }
 
     #mode-select .mode-grid {
@@ -2544,42 +2671,91 @@
     }
 
     #mode-select .mode-option {
-      min-height: clamp(140px, 22svh, 220px);
-      padding: clamp(12px, 2vmin, 24px)
+      min-height: clamp(170px, 26svh, 250px);
+      padding: clamp(14px, 2.2vmin, 26px);
+      justify-content: flex-end;
+      background-size: cover;
+      background-position: right center;
+      overflow: hidden
+    }
+
+    #choose-reflex {
+      background-image: linear-gradient(90deg, rgba(2, 18, 11, .96), rgba(2, 18, 11, .82) 48%, rgba(2, 18, 11, .38)), url("assets/reto-reflejos.svg")
+    }
+
+    #choose-echo {
+      background-image: linear-gradient(90deg, rgba(2, 18, 17, .96), rgba(2, 18, 17, .82) 48%, rgba(2, 18, 17, .38)), url("assets/reto-eco.svg")
+    }
+
+    #mode-select .mode-option:hover,
+    #mode-select .mode-option:focus-visible {
+      background-size: cover;
+      background-position: right center
+    }
+
+    #mode-select .mode-option:focus-visible {
+      outline: 2px solid #d5ef88;
+      outline-offset: 2px
+    }
+
+    #mode-select .mode-option strong,
+    #mode-select .mode-option small,
+    #mode-select .mode-option em {
+      text-shadow: 0 2px 6px rgba(0, 0, 0, .9)
+    }
+
+    #mode-select .mode-option small {
+      max-width: 28ch;
+      color: #edf7ee;
+      font-size: clamp(10px, 1.4vmin, 14px)
+    }
+
+    #mode-select .mode-option strong,
+    #mode-select .mode-option small {
+      align-self: flex-start;
+      text-align: left;
+      transform: translateY(clamp(-20px, -2vmin, -10px))
+    }
+
+    #mode-select .mode-option em {
+      margin-top: 12px;
+      font-size: clamp(10px, 1.4vmin, 14px)
     }
 
     #mode-select>.rec {
       flex: 0 0 auto;
-      margin: 18px 0 auto
+      margin: 18px 0 auto;
+      font-size: clamp(10px, 1.4vmin, 14px)
     }
 
     .section-label {
-      font-size: clamp(11px, 1.6vmin, 15px)
+      font-size: clamp(10px, 1.45vmin, 14px)
     }
 
-    #mode-select .sub,
+    #start h1,
+    #echo-intro h1 {
+      font-size: clamp(31px, 8vw, 52px)
+    }
+
     #start .sub,
     #echo-intro .sub {
-      font-size: clamp(15px, 2vmin, 19px)
+      font-size: clamp(14px, 1.8vmin, 17px)
     }
 
     #mode-select .mode-option strong {
-      font-size: clamp(18px, 2.8vmin, 26px)
+      font-size: clamp(15px, 2.25vmin, 22px)
     }
 
-    #mode-select .mode-option small,
-    #mode-select .mode-option em,
-    #mode-select .rec,
     #start .rec,
     #echo-intro .rec,
     #over .rec,
     .mode-switch {
-      font-size: clamp(12px, 1.7vmin, 16px)
+      font-size: clamp(11px, 1.55vmin, 15px)
     }
 
     .start-button,
     #over .btn {
-      font-size: clamp(16px, 2.3vmin, 21px)
+      font-size: clamp(15px, 2.1vmin, 19px)
     }
 
     .lb,
@@ -2588,13 +2764,28 @@
     .signal-feedback,
     #ov-t,
     .stats span {
-      font-size: clamp(12px, 1.7vmin, 16px)
+      font-size: clamp(11px, 1.55vmin, 15px)
     }
 
-    #echo-game h2 {
-      font-size: clamp(26px, 4vmin, 40px)
+    #count-status,
+    #over .sub {
+      font-size: clamp(13px, 1.45vmin, 15px)
     }
 
+    @media(min-width:481px) {
+      .wrap:has(#mode-select.on) .beone.lg b {
+        font-size: clamp(35px, 4.2vmin, 48px)
+      }
+
+      .wrap:has(#mode-select.on) .beone small,
+      .wrap:has(#mode-select.on) .event-label small {
+        font-size: clamp(9px, 1.15vmin, 14px)
+      }
+
+      .wrap:has(#mode-select.on) .event-label {
+        font-size: clamp(14px, 1.65vmin, 19px)
+      }
+    }
 
     @media(max-width:480px) {
       #mode-select {
@@ -2602,12 +2793,12 @@
       }
 
       #mode-select h1 {
-        font-size: 32px
+        font-size: 29px
       }
 
       #mode-select .mode-option {
-        min-height: 112px;
-        padding: 9px 8px
+        min-height: 160px;
+        padding: 12px 10px
       }
 
 

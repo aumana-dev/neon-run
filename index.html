@@ -18,7 +18,7 @@
   <div class="wrap">
     <div class="brandbar">
       <div class="brand-lockup">
-        <div class="beone lg"><b>BE<span class="o"></span>NE</b><small>KÖLBI REFLEJOS</small></div><span class="brand-x"
+        <div class="beone lg"><b>BE<span class="o"></span>NE</b><small>IMMERSIVE RUN</small></div><span class="brand-x"
           aria-hidden="true">×</span><img class="kolbi-logo" src="assets/kolbi-logo-original.svg" alt="kölbi">
       </div>
       <div class="event-label">28 NOV<small>TERRAZAS LINDORA</small></div>
@@ -50,17 +50,15 @@
       <button id="mute" aria-label="Sonido">🔊</button>
       <div class="scr on mode-screen" id="mode-select">
         <p class="section-label">BE-ONE × KÖLBI · LIVE ARENA</p>
-        <h1>Elige tu<br><em>reto.</em></h1>
+        <h1>Elige tu<br><em>reto</em></h1>
         <p class="sub">Dos retos. Una misma arena.</p>
         <div class="mode-grid">
           <button class="mode-option" id="choose-reflex" type="button" aria-pressed="false">
-            <span class="mode-icons" aria-hidden="true">● ◉ ●</span>
             <strong>Kölbi Reflejos</strong>
             <small>Alcanza la señal encendida y pon a prueba tus reflejos.</small>
             <em>REACCIÓN RÁPIDA →</em>
           </button>
           <button class="mode-option" id="choose-echo" type="button" aria-pressed="false">
-            <span class="mode-icons" aria-hidden="true">🔊 🧠 🟢</span>
             <strong>Eco kölbi</strong>
             <small>Escucha y repite la secuencia de tonos y luces.</small>
             <em>REPETIR SECUENCIA →</em>
@@ -70,7 +68,7 @@
       </div>
       <div class="scr" id="start">
         <p class="section-label">KÖLBI · RETO DE REFLEJOS</p>
-        <h1>Encuentra<br><em>la señal.</em></h1>
+        <h1>Encuentra<br><em>la señal</em></h1>
         <p class="sub">Toca el círculo encendido antes de que cambie.</p>
         <button class="btn start-button" type="button" id="start-reflex">Empezar partida</button>
         <div class="rec">45 SEGUNDOS · 21 CÍRCULOS · OBJETIVO: +100 PUNTOS</div>
@@ -79,7 +77,7 @@
       </div>
       <div class="scr mini-screen" id="echo-intro">
         <p class="section-label">KÖLBI · RETO DE MEMORIA</p>
-        <h1>Eco<br><em>kölbi.</em></h1>
+        <h1>Eco<br><em>kölbi</em></h1>
         <p class="sub">Observa la secuencia de luces y repítela en el mismo orden. Cada ronda agrega un pulso.</p>
         <button class="btn start-button" id="echo-go" type="button">Empezar partida</button>
         <div class="rec">6 PULSOS · UN ERROR TERMINA LA PARTIDA</div>
@@ -87,17 +85,24 @@
         <button class="mode-switch" type="button" data-mode-menu>← Elegir otro juego</button>
       </div>
       <div class="scr mini-screen" id="echo-game">
-        <h2>Repite el eco</h2>
-        <p id="echo-status" aria-live="polite">Mira la secuencia</p>
-        <div class="echo-pads" aria-label="Panel de seis pulsos">
-          <button class="echo-pad" type="button" data-pad="0" aria-label="Pulso 1 verde"></button>
-          <button class="echo-pad" type="button" data-pad="1" aria-label="Pulso 2 turquesa"></button>
-          <button class="echo-pad" type="button" data-pad="2" aria-label="Pulso 3 lima"></button>
-          <button class="echo-pad" type="button" data-pad="3" aria-label="Pulso 4 naranja"></button>
-          <button class="echo-pad" type="button" data-pad="4" aria-label="Pulso 5 coral"></button>
-          <button class="echo-pad" type="button" data-pad="5" aria-label="Pulso 6 azul"></button>
+        <div class="reflex-game-header">
+          <div class="reflex-game-title"><strong>ECO KÖLBI</strong><span>RETO DE MEMORIA</span></div>
+          <div class="reflex-timer"><span>TIEMPO</span><strong aria-label="Sin límite">∞</strong></div>
+          <div class="reflex-instruction">OBSERVA Y REPITE<br>LA SECUENCIA</div>
         </div>
-        <div class="signal-feedback" id="echo-feedback" aria-live="polite"></div>
+        <div class="echo-play-area">
+          <p id="echo-status" aria-live="polite">Mira la secuencia</p>
+          <div class="echo-pads" aria-label="Panel de seis pulsos">
+            <button class="echo-pad" type="button" data-pad="0" aria-label="Pulso 1 verde"></button>
+            <button class="echo-pad" type="button" data-pad="1" aria-label="Pulso 2 turquesa"></button>
+            <button class="echo-pad" type="button" data-pad="2" aria-label="Pulso 3 lima"></button>
+            <button class="echo-pad" type="button" data-pad="3" aria-label="Pulso 4 naranja"></button>
+            <button class="echo-pad" type="button" data-pad="4" aria-label="Pulso 5 coral"></button>
+            <button class="echo-pad" type="button" data-pad="5" aria-label="Pulso 6 azul"></button>
+          </div>
+          <div class="signal-feedback" id="echo-feedback" aria-live="polite"></div>
+        </div>
+        <div class="reflex-score"><span>PUNTOS</span><strong id="echo-score">00000</strong></div>
         <button class="mode-switch" type="button" id="echo-back" aria-label="Elegir otro juego"
           title="Elegir otro juego">←</button>
       </div>
